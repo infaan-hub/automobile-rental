@@ -1,0 +1,7 @@
+Backend/db.sqlite3
+Backend/**/__pycache__/
+Backend/**/*.pyc
+myvenv/
+node_modules/
+Frontend/dist/
+Frontend/.env
