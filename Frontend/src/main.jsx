@@ -1,358 +1,286 @@
-import React, { useEffect, useState, startTransition } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://automobile-rental.onrender.com/api";
 
-async function apiRequest(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-    ...options,
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(formatApiError(data));
-  }
-  return data;
-}
+const fallbackVehicles = [
+  {
+    id: "bmw-i4",
+    name: "BMW i4",
+    brand: "BMW",
+    model: "i4",
+    bodyTypeLabel: "Sedan",
+    dailyRate: 78,
+    imageUrl: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "audi-a7",
+    name: "Audi A7",
+    brand: "Audi",
+    model: "A7",
+    bodyTypeLabel: "Luxury",
+    dailyRate: 89,
+    imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "mercedes-gle",
+    name: "Mercedes-Benz GLE",
+    brand: "Mercedes-Benz",
+    model: "GLE",
+    bodyTypeLabel: "SUV",
+    dailyRate: 94,
+    imageUrl: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    id: "porsche-911",
+    name: "Porsche 911",
+    brand: "Porsche",
+    model: "911",
+    bodyTypeLabel: "Sport",
+    dailyRate: 120,
+    imageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+  },
+];
 
-function formatApiError(data) {
-  if (!data?.errors) return data?.error || "Something went wrong.";
-  if (Array.isArray(data.errors)) return data.errors.join(" ");
-  return Object.entries(data.errors)
-    .map(([field, message]) => `${field}: ${Array.isArray(message) ? message.join(" ") : message}`)
-    .join(" ");
-}
+const categories = [
+  {
+    title: "Mercedes Benz",
+    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80",
+    tone: "mist",
+  },
+  {
+    title: "Audi",
+    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80",
+    tone: "light",
+  },
+  {
+    title: "BMW",
+    image: "https://images.unsplash.com/photo-1556189250-72ba954cfc2b?auto=format&fit=crop&w=800&q=80",
+    tone: "dark",
+  },
+  {
+    title: "Porsche",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+    tone: "silver",
+  },
+];
 
 function money(value) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(Number(value || 0));
-}
-
-function today() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function tomorrow() {
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
-  return date.toISOString().slice(0, 10);
+  return `$${Number(value || 0).toFixed(0)}/day`;
 }
 
 function App() {
-  const [vehicles, setVehicles] = useState([]);
-  const [bookings, setBookings] = useState([]);
-  const [stats, setStats] = useState(null);
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [filters, setFilters] = useState({ search: "", bodyType: "all" });
-  const [loading, setLoading] = useState(true);
-  const [notice, setNotice] = useState("");
-  const [error, setError] = useState("");
-
-  async function loadData(nextFilters = filters) {
-    setLoading(true);
-    setError("");
-    try {
-      const params = new URLSearchParams();
-      if (nextFilters.search) params.set("search", nextFilters.search);
-      if (nextFilters.bodyType !== "all") params.set("bodyType", nextFilters.bodyType);
-
-      const [vehicleData, bookingData, dashboardData] = await Promise.all([
-        apiRequest(`/vehicles/?${params.toString()}`),
-        apiRequest("/bookings/"),
-        apiRequest("/dashboard/"),
-      ]);
-      setVehicles(vehicleData.vehicles);
-      setBookings(bookingData.bookings);
-      setStats(dashboardData.stats);
-      setSelectedVehicle((current) => current || vehicleData.vehicles[0] || null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const [vehicles, setVehicles] = useState(fallbackVehicles);
 
   useEffect(() => {
-    loadData();
+    async function loadVehicles() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/vehicles/`);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (data.vehicles?.length) {
+          setVehicles(data.vehicles.slice(0, 4));
+        }
+      } catch {
+        setVehicles(fallbackVehicles);
+      }
+    }
+
+    loadVehicles();
   }, []);
 
-  function updateFilters(nextFilters) {
-    startTransition(() => {
-      setFilters(nextFilters);
-      loadData(nextFilters);
-    });
-  }
-
-  async function createBooking(formData) {
-    setNotice("");
-    setError("");
-    try {
-      const data = await apiRequest("/bookings/", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
-      setNotice(`Booking #${data.booking.id} created for ${data.booking.customerName}.`);
-      await loadData();
-    } catch (err) {
-      setError(err.message);
-    }
-  }
-
-  async function updateBookingStatus(id, status) {
-    setNotice("");
-    setError("");
-    try {
-      await apiRequest(`/bookings/${id}/`, {
-        method: "PATCH",
-        body: JSON.stringify({ status }),
-      });
-      setNotice(`Booking #${id} updated to ${status}.`);
-      await loadData();
-    } catch (err) {
-      setError(err.message);
-    }
-  }
+  const trendVehicles = useMemo(() => {
+    const cars = vehicles.length ? vehicles : fallbackVehicles;
+    return cars.slice(0, 4);
+  }, [vehicles]);
 
   return (
-    <main>
-      <Hero stats={stats} />
-
-      <section className="workspace">
-        <aside className="fleet-panel">
-          <div className="panel-heading">
-            <span>Live Fleet</span>
-            <strong>{loading ? "Loading..." : `${vehicles.length} vehicles`}</strong>
-          </div>
-          <Filters filters={filters} onChange={updateFilters} />
-          <VehicleList vehicles={vehicles} selectedVehicle={selectedVehicle} onSelect={setSelectedVehicle} />
-        </aside>
-
-        <section className="booking-panel">
-          {error && <div className="alert error">{error}</div>}
-          {notice && <div className="alert success">{notice}</div>}
-          <BookingForm vehicle={selectedVehicle} onSubmit={createBooking} />
-          <BookingBoard bookings={bookings} onStatusChange={updateBookingStatus} />
-        </section>
-      </section>
+    <main className="home-page" id="home">
+      <Hero />
+      <SearchBar />
+      <CategorySection />
+      <TrendSection vehicles={trendVehicles} />
+      <FeatureStrip />
+      <PromoSection />
+      <Footer />
     </main>
   );
 }
 
-function Hero({ stats }) {
+function Hero() {
   return (
-    <header className="hero">
-      <nav>
-        <div className="brand-mark">AR</div>
-        <span>Automobile Rental</span>
+    <header className="hero-shell">
+      <nav className="top-nav">
+        <a className="logo" href="/home" aria-label="Premium rental home">
+          <span>r</span>rw
+        </a>
+        <div className="nav-links">
+          <a href="/home">Home</a>
+          <a href="#category">Vehicles</a>
+          <a href="#trend">Help</a>
+          <a href="#footer">Blog</a>
+          <a href="#footer">Contact</a>
+        </div>
+        <label className="nav-search">
+          <input aria-label="Search vehicle" placeholder="Search" />
+          <span>Go</span>
+        </label>
       </nav>
-      <div className="hero-grid">
-        <div>
-          <p className="eyebrow">Django API + React booking desk</p>
-          <h1>Rent, reserve, and manage vehicles from one connected system.</h1>
-          <p className="hero-copy">
-            Browse the fleet, capture customer bookings, prevent overlapping rentals, and manage booking statuses
-            through localhost APIs.
-          </p>
+
+      <section className="hero-stage">
+        <img
+          className="hero-car"
+          src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1600&q=90"
+          alt="White premium car in a modern showroom"
+        />
+        <div className="hero-title">
+          <h1>Premium car rental</h1>
         </div>
-        <div className="stats-card">
-          <Stat label="Vehicles" value={stats?.totalVehicles ?? "-"} />
-          <Stat label="Available" value={stats?.availableVehicles ?? "-"} />
-          <Stat label="Active Bookings" value={stats?.activeBookings ?? "-"} />
-          <Stat label="Revenue" value={stats ? money(stats.revenue) : "-"} />
-        </div>
-      </div>
+        <p className="hero-note">
+          We rent cars from executive city rides to weekend sports models. Choose the class, dates, and driver service
+          you need in minutes.
+        </p>
+      </section>
     </header>
   );
 }
 
-function Stat({ label, value }) {
+function SearchBar() {
   return (
-    <div>
-      <span>{label}</span>
-      <strong>{value}</strong>
-    </div>
-  );
-}
-
-function Filters({ filters, onChange }) {
-  return (
-    <div className="filters">
-      <input
-        type="search"
-        placeholder="Search by brand, model, location..."
-        value={filters.search}
-        onChange={(event) => onChange({ ...filters, search: event.target.value })}
-      />
-      <select
-        value={filters.bodyType}
-        onChange={(event) => onChange({ ...filters, bodyType: event.target.value })}
-      >
-        <option value="all">All body types</option>
-        <option value="sedan">Sedan</option>
-        <option value="suv">SUV</option>
-        <option value="van">Van</option>
-        <option value="pickup">Pickup</option>
-        <option value="luxury">Luxury</option>
-      </select>
-    </div>
-  );
-}
-
-function VehicleList({ vehicles, selectedVehicle, onSelect }) {
-  if (!vehicles.length) {
-    return <p className="empty">No vehicles match the current filters.</p>;
-  }
-
-  return (
-    <div className="vehicle-list">
-      {vehicles.map((vehicle) => (
-        <button
-          className={`vehicle-card ${selectedVehicle?.id === vehicle.id ? "active" : ""}`}
-          key={vehicle.id}
-          type="button"
-          onClick={() => onSelect(vehicle)}
-        >
-          <img src={vehicle.imageUrl} alt={vehicle.name} />
-          <span>{vehicle.bodyTypeLabel}</span>
-          <strong>{vehicle.name}</strong>
-          <small>
-            {vehicle.brand} {vehicle.model} · {vehicle.seats} seats · {vehicle.location}
-          </small>
-          <b>{money(vehicle.dailyRate)} / day</b>
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function BookingForm({ vehicle, onSubmit }) {
-  const [form, setForm] = useState({
-    customerName: "",
-    customerEmail: "",
-    customerPhone: "",
-    pickupDate: today(),
-    returnDate: tomorrow(),
-    pickupLocation: "Main Branch",
-    notes: "",
-  });
-
-  function update(field, value) {
-    setForm((current) => ({ ...current, [field]: value }));
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    if (!vehicle) return;
-    onSubmit({ ...form, vehicleId: vehicle.id });
-  }
-
-  return (
-    <form className="booking-form" onSubmit={handleSubmit}>
-      <div className="form-heading">
-        <div>
-          <span>Selected Vehicle</span>
-          <h2>{vehicle ? vehicle.name : "Choose a vehicle"}</h2>
-        </div>
-        {vehicle && <strong>{money(vehicle.dailyRate)} / day</strong>}
-      </div>
-
-      {vehicle && <p className="vehicle-description">{vehicle.description}</p>}
-
-      <div className="form-grid">
-        <label>
-          Customer name
-          <input value={form.customerName} onChange={(event) => update("customerName", event.target.value)} required />
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            value={form.customerEmail}
-            onChange={(event) => update("customerEmail", event.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Phone
-          <input value={form.customerPhone} onChange={(event) => update("customerPhone", event.target.value)} required />
-        </label>
-        <label>
-          Pickup location
-          <input
-            value={form.pickupLocation}
-            onChange={(event) => update("pickupLocation", event.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Pickup date
-          <input
-            type="date"
-            min={today()}
-            value={form.pickupDate}
-            onChange={(event) => update("pickupDate", event.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Return date
-          <input
-            type="date"
-            min={form.pickupDate}
-            value={form.returnDate}
-            onChange={(event) => update("returnDate", event.target.value)}
-            required
-          />
-        </label>
-      </div>
-
+    <form className="booking-search" aria-label="Vehicle search">
       <label>
-        Notes
-        <textarea value={form.notes} onChange={(event) => update("notes", event.target.value)} />
+        <span>Pick up location</span>
+        <input defaultValue="Dar es Salaam, main branch" />
       </label>
-
-      <button className="primary-action" type="submit" disabled={!vehicle}>
-        Create Booking
-      </button>
+      <label>
+        <span>Return location</span>
+        <input defaultValue="Same location" />
+      </label>
+      <label>
+        <span>Pickup date</span>
+        <input type="date" />
+      </label>
+      <label>
+        <span>Return date</span>
+        <input type="date" />
+      </label>
+      <button type="button">Search</button>
     </form>
   );
 }
 
-function BookingBoard({ bookings, onStatusChange }) {
+function CategorySection() {
   return (
-    <section className="booking-board">
-      <div className="section-title">
-        <span>Operations</span>
-        <h2>Recent bookings</h2>
+    <section className="section-wrap" id="category">
+      <h2>Car Category</h2>
+      <div className="category-grid">
+        {categories.map((category) => (
+          <article className={`category-card ${category.tone}`} key={category.title}>
+            <h3>{category.title}</h3>
+            <img src={category.image} alt={`${category.title} rental category`} />
+            <button aria-label={`View ${category.title}`}>+</button>
+          </article>
+        ))}
       </div>
-      {!bookings.length && <p className="empty">Bookings will appear here after customers reserve vehicles.</p>}
-      {bookings.map((booking) => (
-        <article className="booking-row" key={booking.id}>
+    </section>
+  );
+}
+
+function TrendSection({ vehicles }) {
+  return (
+    <section className="trend-section" id="trend">
+      <div className="section-heading">
+        <h2>Trend vehicles</h2>
+        <a href="#category">View all</a>
+      </div>
+      <div className="trend-grid">
+        {vehicles.map((vehicle) => (
+          <article className="trend-card" key={vehicle.id}>
+            <h3>{vehicle.name}</h3>
+            <img src={vehicle.imageUrl} alt={vehicle.name} />
+            <div>
+              <span>{money(vehicle.dailyRate)}</span>
+              <button>Book now</button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function FeatureStrip() {
+  const items = [
+    ["Service", "24/7 luxury support"],
+    ["Smart reservations", "Fast booking confirmation"],
+    ["Trusted quality", "Clean, inspected vehicles"],
+    ["Secure payment", "Protected rental checkout"],
+  ];
+
+  return (
+    <section className="feature-strip">
+      {items.map(([title, copy]) => (
+        <article key={title}>
+          <span />
           <div>
-            <strong>#{booking.id} {booking.customerName}</strong>
-            <span>
-              {booking.vehicle.name} · {booking.pickupDate} to {booking.returnDate}
-            </span>
-            <small>{booking.customerEmail} · {booking.customerPhone}</small>
-          </div>
-          <div className="booking-actions">
-            <b>{money(booking.totalCost)}</b>
-            <select value={booking.status} onChange={(event) => onStatusChange(booking.id, event.target.value)}>
-              <option value="pending">Pending</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="completed">Completed</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+            <h3>{title}</h3>
+            <p>{copy}</p>
           </div>
         </article>
       ))}
     </section>
+  );
+}
+
+function PromoSection() {
+  return (
+    <section className="promo-section">
+      <div>
+        <h2>Book Tesla with a big discount</h2>
+        <button>Book now</button>
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=1500&q=90"
+        alt="Black Tesla with falcon doors"
+      />
+      <aside>
+        <strong>50%</strong>
+        <span>Weekly hire Tesla cars</span>
+      </aside>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer" id="footer">
+      <div>
+        <a className="logo" href="/home">
+          <span>r</span>rw
+        </a>
+        <label className="footer-subscribe">
+          Subscribe to the newsletter
+          <input placeholder="Email address" />
+        </label>
+      </div>
+      <FooterColumn title="Top cities" items={["New York", "London", "Dubai", "Los Angeles"]} />
+      <FooterColumn title="Explore" items={["Vehicles", "Airport transfer", "Executive cars", "Private drivers"]} />
+      <FooterColumn title="Loyalty clubs" items={["Membership card", "Long rentals", "Travel pass", "Business plans"]} />
+    </footer>
+  );
+}
+
+function FooterColumn({ title, items }) {
+  return (
+    <div className="footer-column">
+      <h3>{title}</h3>
+      {items.map((item) => (
+        <a href="/home" key={item}>
+          {item}
+        </a>
+      ))}
+    </div>
   );
 }
 
