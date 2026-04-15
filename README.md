@@ -69,10 +69,10 @@ The frontend runs at:
 http://127.0.0.1:5173
 ```
 
-The default API base URL is `http://127.0.0.1:8000/api`. To override it, create `Frontend/.env`:
+The deployed API base URL is `https://automobile-rental.onrender.com/api`. For local development, you can use `http://127.0.0.1:8000/api`. To override it, create `Frontend/.env`:
 
 ```text
-VITE_API_BASE_URL=http://127.0.0.1:8000/api
+VITE_API_BASE_URL=https://automobile-rental.onrender.com/api
 ```
 
 ## Admin
@@ -102,6 +102,7 @@ Recommended Render environment variables:
 ```text
 SECRET_KEY=your-secure-secret-key
 DEBUG=False
+DATABASE_URL=postgresql://neondb_owner:npg_dOjzkHv19Xix@ep-aged-mode-a492izde-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 ALLOWED_HOSTS=.onrender.com,127.0.0.1,localhost
 CORS_ALLOWED_ORIGINS=https://your-frontend-domain.onrender.com,http://localhost:5173,http://127.0.0.1:5173
 ```
