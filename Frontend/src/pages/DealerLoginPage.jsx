@@ -33,7 +33,10 @@ export default function DealerLoginPage() {
         <Notice error={error} />
         <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
         <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <button className="solid-button" type="submit">Login dealer</button>
+        <div className="auth-action-row">
+          <button className="auth-pill-button auth-pill-primary" type="submit">Engine</button>
+          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/home")}>Home</button>
+        </div>
       </form>
     </AuthShell>
   );

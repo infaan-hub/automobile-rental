@@ -38,7 +38,10 @@ export default function AdminRegisterPage() {
           <Field label="First name" value={form.firstName} onChange={(value) => setForm({ ...form, firstName: value })} />
           <Field label="Last name" value={form.lastName} onChange={(value) => setForm({ ...form, lastName: value })} />
         </div>
-        <button className="solid-button" type="submit">Register admin</button>
+        <div className="auth-action-row">
+          <button className="auth-pill-button auth-pill-primary" type="submit">Register</button>
+          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/admin/login")}>Engine</button>
+        </div>
       </form>
     </AuthShell>
   );
