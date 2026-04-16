@@ -69,6 +69,15 @@ The frontend runs at:
 http://127.0.0.1:5173
 ```
 
+Frontend routes:
+
+- `/home`
+- `/admin/register`
+- `/admin/login`
+- `/admin/dashboard`
+- `/car-dealer/login`
+- `/car-dealer/dashboard`
+
 The deployed API base URL is `https://automobile-rental.onrender.com/api`. For local development, you can use `http://127.0.0.1:8000/api`. To override it, create `Frontend/.env`:
 
 ```text
