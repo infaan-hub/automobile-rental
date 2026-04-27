@@ -362,6 +362,12 @@ button {
   color: #c9d2e3;
 }
 
+.theme-dark .panel-card .field-shell {
+  border-color: rgba(148, 163, 184, 0.24);
+  background: #162334;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
 .theme-dark .panel-card .field > .sr-only {
   color: #b7c3d6;
 }
@@ -1273,8 +1279,14 @@ button {
   gap: 6px;
   min-height: 42px;
   padding: 0 14px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.96);
+}
+
+.panel-card .field-shell {
+  background: #f8fafc;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
 }
 
 .field-shell b {
