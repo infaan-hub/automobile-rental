@@ -9,9 +9,9 @@ export default function HomePage() {
   useEffect(() => {
     async function loadVehicles() {
       try {
-        const data = await apiRequest("/vehicles/?trending=true");
+        const data = await apiRequest("/vehicles/");
         if (data.vehicles?.length) {
-          setVehicles(data.vehicles.slice(0, 4));
+          setVehicles(data.vehicles);
         }
       } catch {
         setVehicles(fallbackVehicles);
@@ -23,7 +23,7 @@ export default function HomePage() {
 
   const trendVehicles = useMemo(() => {
     const cars = vehicles.length ? vehicles : fallbackVehicles;
-    return cars.slice(0, 4);
+    return cars.slice(0, 16);
   }, [vehicles]);
 
   return (
