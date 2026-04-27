@@ -124,10 +124,6 @@ export default function DealerDashboardPage() {
         badge="Car dealer dashboard"
         title={`Welcome ${data.user.firstName || data.user.username}`}
         text="Add vehicle inventory, create car and scooter categories, mark trend vehicles, and manage bookings."
-        onLogout={() => {
-          localStorage.removeItem(DEALER_TOKEN_KEY);
-          navigate("/car-dealer/login");
-        }}
       />
       <Notice error={error} message={message} />
       <div className="panel-stats">

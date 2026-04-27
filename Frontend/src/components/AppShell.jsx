@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { ADMIN_TOKEN_KEY, DEALER_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
 
 const NAV_SETS = {
@@ -77,6 +78,7 @@ export default function AppShell({ path, children }) {
   const [theme, setTheme] = useState(() => window.localStorage.getItem("automobile-rental-theme") || "light");
   const config = useMemo(() => getShellConfig(path), [path]);
   const currentLocation = `${window.location.pathname}${window.location.hash}`;
+  const isDark = theme === "dark";
 
   useEffect(() => {
     setSidebarOpen(false);
@@ -91,7 +93,24 @@ export default function AppShell({ path, children }) {
     setSidebarOpen(false);
   }
 
-  const isDark = theme === "dark";
+  function toggleTheme() {
+    setTheme(isDark ? "light" : "dark");
+  }
+
+  function logout() {
+    if (path === "/admin/dashboard") {
+      window.localStorage.removeItem(ADMIN_TOKEN_KEY);
+      goTo("/admin/login");
+      return;
+    }
+
+    if (path === "/car-dealer/dashboard") {
+      window.localStorage.removeItem(DEALER_TOKEN_KEY);
+      goTo("/car-dealer/login");
+    }
+  }
+
+  const showLogout = path === "/admin/dashboard" || path === "/car-dealer/dashboard";
 
   return (
     <div className={`app-shell theme-${theme} ${sidebarOpen ? "sidebar-open" : ""}`}>
@@ -111,17 +130,17 @@ export default function AppShell({ path, children }) {
           <button className="logo app-logo" type="button" onClick={() => goTo("/home")}>
             <span>r</span>rw
           </button>
-        </div>
-        <div className="app-header-right">
           <button
-            className="theme-toggle"
+            className="theme-toggle header-theme-toggle"
             type="button"
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            onClick={() => setTheme(isDark ? "light" : "dark")}
+            onClick={toggleTheme}
           >
-            <span className={`theme-icon ${!isDark ? "active" : ""}`}>☀</span>
-            <span className={`theme-icon ${isDark ? "active" : ""}`}>☾</span>
+            <span className={`theme-icon ${!isDark ? "active" : ""}`}>{"\u2600"}</span>
+            <span className={`theme-icon ${isDark ? "active" : ""}`}>{"\u263E"}</span>
           </button>
+        </div>
+        <div className="app-header-right">
           <div className="app-header-copy">
             <small>{config.eyebrow}</small>
             <strong>{config.title}</strong>
@@ -145,10 +164,10 @@ export default function AppShell({ path, children }) {
           className="theme-toggle sidebar-theme-toggle"
           type="button"
           aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          onClick={() => setTheme(isDark ? "light" : "dark")}
+          onClick={toggleTheme}
         >
-          <span className={`theme-icon ${!isDark ? "active" : ""}`}>☀</span>
-          <span className={`theme-icon ${isDark ? "active" : ""}`}>☾</span>
+          <span className={`theme-icon ${!isDark ? "active" : ""}`}>{"\u2600"}</span>
+          <span className={`theme-icon ${isDark ? "active" : ""}`}>{"\u263E"}</span>
         </button>
         <nav className="app-sidebar-nav" aria-label="Main navigation">
           {config.navItems.map((item) => {
@@ -166,6 +185,11 @@ export default function AppShell({ path, children }) {
             );
           })}
         </nav>
+        {showLogout ? (
+          <button className="app-nav-link app-nav-action" type="button" onClick={logout}>
+            Logout
+          </button>
+        ) : null}
       </aside>
 
       <main className="app-content">{children}</main>

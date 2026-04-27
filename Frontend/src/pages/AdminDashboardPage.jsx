@@ -74,11 +74,6 @@ export default function AdminDashboardPage() {
         badge="Admin dashboard"
         title={`Welcome ${data.user.firstName || data.user.username}`}
         text="Add car dealers with schedule windows, inspect all users and customers, and review bookings."
-        onLogout={() => {
-          localStorage.removeItem(ADMIN_TOKEN_KEY);
-          navigate("/admin/login");
-        }}
-        showDealerLink
       />
       <Notice error={error} message={message} />
       <div className="panel-stats">
