@@ -642,8 +642,8 @@ button {
 .auth-card {
   position: relative;
   z-index: 2;
-  width: min(420px, 92vw);
-  border-radius: 34px;
+  width: min(380px, 90vw);
+  border-radius: 28px;
   padding: 1px;
   background: linear-gradient(180deg, rgba(255, 110, 104, 0.95), rgba(255, 110, 104, 0.28));
   box-shadow: 0 36px 90px rgba(0, 0, 0, 0.45);
@@ -660,10 +660,10 @@ button {
 .auth-card-inner {
   position: relative;
   display: grid;
-  gap: 16px;
-  min-height: 540px;
-  padding: 34px 22px 28px;
-  border-radius: 33px;
+  gap: 14px;
+  min-height: 474px;
+  padding: 24px 18px 22px;
+  border-radius: 27px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(20, 15, 16, 0.34)),
     rgba(41, 26, 24, 0.26);
@@ -672,20 +672,20 @@ button {
 
 .auth-copy {
   display: grid;
-  gap: 10px;
-  margin-top: 114px;
+  gap: 8px;
+  margin-top: 76px;
   text-align: center;
 }
 
 .auth-copy strong {
   color: white;
-  font-size: 1rem;
+  font-size: 0.94rem;
   font-weight: 800;
 }
 
 .auth-card form {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
 
 .auth-card .panel-alert {
@@ -696,16 +696,16 @@ button {
 .auth-action-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   margin-top: 2px;
 }
 
 .auth-pill-button {
-  min-width: 110px;
+  min-width: 96px;
   border: 0;
   border-radius: 999px;
-  padding: 11px 18px;
-  font-size: 0.82rem;
+  padding: 10px 16px;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
@@ -852,18 +852,18 @@ button {
 
 .field-shell {
   display: grid;
-  grid-template-columns: 26px 1fr;
+  grid-template-columns: 22px 1fr;
   align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 0 16px;
+  gap: 6px;
+  min-height: 42px;
+  padding: 0 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.96);
 }
 
 .field-shell b {
   color: #1a1a1a;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   text-align: center;
 }
 
@@ -883,7 +883,7 @@ button {
   padding: 0;
   outline: 0;
   background: transparent;
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: #14161d;
 }
@@ -1098,15 +1098,15 @@ button {
   }
 
   .auth-card {
-    width: min(390px, 94vw);
+    width: min(360px, 94vw);
   }
 
   .auth-card-inner {
-    min-height: 520px;
-    padding-inline: 16px;
+    min-height: 448px;
+    padding-inline: 14px;
   }
 
   .auth-copy {
-    margin-top: 96px;
+    margin-top: 58px;
   }
 }

@@ -309,8 +309,19 @@ def admin_login(request):
     except ValidationError as error:
         return validation_error_response(error)
 
-    user = authenticate(username=payload.get("username", ""), password=payload.get("password", ""))
-    if not user or not user.is_superuser:
+    username = (payload.get("username") or "").strip()
+    password = payload.get("password", "")
+    email = (payload.get("email") or "").strip()
+
+    if email and not username:
+        username = User.objects.filter(email__iexact=email).values_list("username", flat=True).first() or ""
+
+    user = authenticate(username=username, password=password)
+    if not user:
+        return error_response("Invalid admin credentials.", status=401)
+
+    profile = get_or_create_profile(user)
+    if not user.is_superuser and profile.role != "admin":
         return error_response("Invalid admin credentials.", status=401)
 
     token = create_token(user)
