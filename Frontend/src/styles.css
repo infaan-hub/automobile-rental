@@ -1213,6 +1213,10 @@ button {
   gap: 20px;
 }
 
+.compact-stack {
+  gap: 14px;
+}
+
 .panel-card {
   padding: 24px;
 }

@@ -112,11 +112,11 @@ export default function AdminDashboardPage() {
           <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
           <Field label="Email" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
           <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-          <div className="double-grid">
+          <div className="stack-grid compact-stack">
             <Field label="First name" value={form.firstName} onChange={(value) => setForm({ ...form, firstName: value })} />
             <Field label="Last name" value={form.lastName} onChange={(value) => setForm({ ...form, lastName: value })} />
           </div>
-          <div className="double-grid">
+          <div className="stack-grid compact-stack">
             <Field label="Login start" type="datetime-local" value={form.loginStartAt} onChange={(value) => setForm({ ...form, loginStartAt: value })} />
             <Field label="Login end" type="datetime-local" value={form.loginEndAt} onChange={(value) => setForm({ ...form, loginEndAt: value })} />
           </div>
