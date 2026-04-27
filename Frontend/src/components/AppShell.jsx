@@ -130,15 +130,6 @@ export default function AppShell({ path, children }) {
           <button className="logo app-logo" type="button" onClick={() => goTo("/home")}>
             <span>r</span>rw
           </button>
-          <button
-            className="theme-toggle header-theme-toggle"
-            type="button"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            onClick={toggleTheme}
-          >
-            <span className={`theme-icon ${!isDark ? "active" : ""}`}>{"\u2600"}</span>
-            <span className={`theme-icon ${isDark ? "active" : ""}`}>{"\u263E"}</span>
-          </button>
         </div>
         <div className="app-header-right">
           <div className="app-header-copy">

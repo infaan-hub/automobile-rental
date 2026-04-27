@@ -139,10 +139,6 @@ button {
   background: #11141a;
 }
 
-.header-theme-toggle {
-  flex: 0 0 auto;
-}
-
 .sidebar-theme-toggle {
   justify-self: start;
 }
