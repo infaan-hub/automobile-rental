@@ -362,6 +362,16 @@ button {
   color: #c9d2e3;
 }
 
+.theme-dark .panel-card .field > .sr-only {
+  color: #b7c3d6;
+}
+
+.theme-dark .field input::placeholder,
+.theme-dark .field textarea::placeholder {
+  color: #8fa0b8;
+  opacity: 1;
+}
+
 .theme-dark .feature-strip,
 .theme-dark .hero-shell,
 .theme-dark .promo-section {
@@ -1228,6 +1238,22 @@ button {
   gap: 8px;
 }
 
+.panel-card .field > .sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  color: #4b5565;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1276,6 +1302,12 @@ button {
   font-size: 0.8rem;
   font-weight: 700;
   color: #14161d;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #7a8595;
+  opacity: 1;
 }
 
 .field textarea {
