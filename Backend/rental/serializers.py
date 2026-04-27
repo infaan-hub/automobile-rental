@@ -38,6 +38,7 @@ def car_category_to_dict(category):
         "id": category.id,
         "name": category.name,
         "description": category.description,
+        "imageUrl": category.image_url,
         "createdBy": category.created_by.username,
     }
 
@@ -47,6 +48,7 @@ def scooter_category_to_dict(category):
         "id": category.id,
         "name": category.name,
         "description": category.description,
+        "imageUrl": category.image_url,
         "createdBy": category.created_by.username,
     }
 

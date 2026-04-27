@@ -36,6 +36,7 @@ class AuthToken(models.Model):
 class CarCategory(models.Model):
     name = models.CharField(max_length=120, unique=True)
     description = models.TextField(blank=True)
+    image_url = models.TextField(blank=True)
     created_by = models.ForeignKey(User, related_name="car_categories", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -49,6 +50,7 @@ class CarCategory(models.Model):
 class ScooterCategory(models.Model):
     name = models.CharField(max_length=120, unique=True)
     description = models.TextField(blank=True)
+    image_url = models.TextField(blank=True)
     created_by = models.ForeignKey(User, related_name="scooter_categories", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

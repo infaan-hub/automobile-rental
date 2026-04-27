@@ -378,6 +378,18 @@ button {
   opacity: 1;
 }
 
+.theme-dark .file-input {
+  color: #dbe4f0;
+  border-color: rgba(148, 163, 184, 0.28);
+  background: #162334;
+}
+
+.theme-dark .form-image-preview,
+.theme-dark .row-image-preview {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: #162334;
+}
+
 .theme-dark .feature-strip,
 .theme-dark .hero-shell,
 .theme-dark .promo-section {
@@ -1326,9 +1338,39 @@ button {
   opacity: 1;
 }
 
+.file-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px dashed rgba(148, 163, 184, 0.5);
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
 .field textarea {
   min-height: 92px;
   resize: vertical;
+}
+
+.form-image-preview,
+.row-image-preview {
+  display: block;
+  object-fit: cover;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background: #eef2f7;
+}
+
+.form-image-preview {
+  width: 100%;
+  max-width: 220px;
+  height: 140px;
+  border-radius: 16px;
+}
+
+.row-image-preview {
+  width: 84px;
+  height: 60px;
+  margin-bottom: 10px;
+  border-radius: 12px;
 }
 
 .auth-card .field-shell {

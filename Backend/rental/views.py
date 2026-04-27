@@ -122,6 +122,27 @@ def parse_bool(value, default=False):
     return default
 
 
+def validate_image_value(value, field):
+    if not value:
+        return ""
+    if not isinstance(value, str):
+        raise ValidationError({field: "Image must be a string value."})
+    trimmed = value.strip()
+    if not trimmed:
+        return ""
+    if trimmed.startswith("data:image/"):
+        if ";base64," not in trimmed:
+            raise ValidationError({field: "Image data must use base64 encoding."})
+        _, encoded = trimmed.split(";base64,", 1)
+        estimated_size = (len(encoded) * 3) // 4
+        if estimated_size > 1024 * 1024:
+            raise ValidationError({field: "Image must be smaller than 1 MB."})
+        return trimmed
+    if trimmed.startswith("http://") or trimmed.startswith("https://"):
+        return trimmed
+    raise ValidationError({field: "Use an image URL or upload an image smaller than 1 MB."})
+
+
 def build_vehicle_payload(payload, user, vehicle=None):
     required = ["name", "brand", "model", "year", "bodyType", "dailyRate"]
     if vehicle is None:
@@ -162,7 +183,7 @@ def build_vehicle_payload(payload, user, vehicle=None):
         "fuel_type": payload.get("fuelType", vehicle.fuel_type if vehicle else "Electric").strip(),
         "location": payload.get("location", vehicle.location if vehicle else "Main Branch").strip(),
         "daily_rate": payload.get("dailyRate", vehicle.daily_rate if vehicle else "0"),
-        "image_url": payload.get("imageUrl", vehicle.image_url if vehicle else "").strip(),
+        "image_url": validate_image_value(payload.get("imageUrl", vehicle.image_url if vehicle else ""), "imageUrl"),
         "description": payload.get("description", vehicle.description if vehicle else "").strip(),
         "is_available": parse_bool(payload.get("isAvailable", vehicle.is_available if vehicle else True), True),
         "is_trending": parse_bool(payload.get("isTrending", vehicle.is_trending if vehicle else False), False),
@@ -512,6 +533,7 @@ def dealer_car_categories(request):
     category = CarCategory.objects.create(
         name=payload["name"].strip(),
         description=payload.get("description", "").strip(),
+        image_url=validate_image_value(payload.get("imageUrl", ""), "imageUrl"),
         created_by=user,
     )
     return JsonResponse({"carCategory": car_category_to_dict(category)}, status=201)
@@ -539,6 +561,7 @@ def dealer_car_category_detail(request, category_id):
 
     category.name = payload.get("name", category.name).strip()
     category.description = payload.get("description", category.description).strip()
+    category.image_url = validate_image_value(payload.get("imageUrl", category.image_url), "imageUrl")
     category.save()
     return JsonResponse({"carCategory": car_category_to_dict(category)})
 
@@ -564,6 +587,7 @@ def dealer_scooter_categories(request):
     category = ScooterCategory.objects.create(
         name=payload["name"].strip(),
         description=payload.get("description", "").strip(),
+        image_url=validate_image_value(payload.get("imageUrl", ""), "imageUrl"),
         created_by=user,
     )
     return JsonResponse({"scooterCategory": scooter_category_to_dict(category)}, status=201)
@@ -591,6 +615,7 @@ def dealer_scooter_category_detail(request, category_id):
 
     category.name = payload.get("name", category.name).strip()
     category.description = payload.get("description", category.description).strip()
+    category.image_url = validate_image_value(payload.get("imageUrl", category.image_url), "imageUrl")
     category.save()
     return JsonResponse({"scooterCategory": scooter_category_to_dict(category)})
 
