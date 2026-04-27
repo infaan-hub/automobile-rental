@@ -7,6 +7,12 @@ from django.core.exceptions import ValidationError
 from .models import Booking, CarCategory, ScooterCategory, UserProfile, Vehicle
 
 
+def format_datetime_local(value):
+    if not value:
+        return ""
+    return value.strftime("%Y-%m-%dT%H:%M")
+
+
 def user_profile_to_dict(user):
     profile, _ = UserProfile.objects.get_or_create(
         user=user,
@@ -20,6 +26,8 @@ def user_profile_to_dict(user):
         "lastName": user.last_name,
         "isSuperuser": user.is_superuser,
         "role": profile.role,
+        "loginStartAt": format_datetime_local(profile.login_start_at),
+        "loginEndAt": format_datetime_local(profile.login_end_at),
         "loginStartTime": profile.login_start_time.isoformat() if profile.login_start_time else "",
         "loginEndTime": profile.login_end_time.isoformat() if profile.login_end_time else "",
     }

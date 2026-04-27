@@ -1,6 +1,6 @@
 import json
 import secrets
-from datetime import time
+from datetime import datetime, time
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
@@ -74,6 +74,10 @@ def require_role(request, roles):
 
 
 def within_login_window(profile):
+    if profile.login_start_at and profile.login_end_at:
+        current_dt = timezone.localtime().replace(second=0, microsecond=0)
+        return profile.login_start_at <= current_dt <= profile.login_end_at
+
     if not profile.login_start_time or not profile.login_end_time:
         return True
 
@@ -93,6 +97,19 @@ def parse_time_value(value, field):
         return time(hour=int(hour), minute=int(minute))
     except (ValueError, AttributeError):
         raise ValidationError({field: "Use HH:MM format."})
+
+
+def parse_datetime_value(value, field):
+    if not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value)
+    except (ValueError, TypeError):
+        raise ValidationError({field: "Use YYYY-MM-DDTHH:MM format."})
+
+    if timezone.is_naive(parsed):
+        parsed = timezone.make_aware(parsed, timezone.get_current_timezone())
+    return parsed.replace(second=0, microsecond=0)
 
 
 def parse_bool(value, default=False):
@@ -394,8 +411,14 @@ def admin_users(request):
     profile = get_or_create_profile(new_user)
     profile.role = "dealer"
     try:
+        profile.login_start_at = parse_datetime_value(payload.get("loginStartAt"), "loginStartAt")
+        profile.login_end_at = parse_datetime_value(payload.get("loginEndAt"), "loginEndAt")
         profile.login_start_time = parse_time_value(payload.get("loginStartTime"), "loginStartTime")
         profile.login_end_time = parse_time_value(payload.get("loginEndTime"), "loginEndTime")
+        if bool(profile.login_start_at) != bool(profile.login_end_at):
+            raise ValidationError({"loginWindow": "Provide both login start and login end date-time values."})
+        if profile.login_start_at and profile.login_end_at and profile.login_end_at <= profile.login_start_at:
+            raise ValidationError({"loginEndAt": "Login end date-time must be after login start date-time."})
     except ValidationError as error:
         new_user.delete()
         return validation_error_response(error)

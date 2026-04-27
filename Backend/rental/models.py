@@ -14,6 +14,8 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="customer")
+    login_start_at = models.DateTimeField(blank=True, null=True)
+    login_end_at = models.DateTimeField(blank=True, null=True)
     login_start_time = models.TimeField(blank=True, null=True)
     login_end_time = models.TimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

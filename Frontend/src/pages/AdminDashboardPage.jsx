@@ -6,8 +6,31 @@ import { apiRequest } from "../lib/api";
 import { ADMIN_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
 
+function defaultWindow() {
+  const start = new Date();
+  start.setMinutes(0, 0, 0);
+  start.setHours(start.getHours() + 1);
+  const end = new Date(start);
+  end.setHours(end.getHours() + 10);
+
+  const format = (value) => {
+    const year = value.getFullYear();
+    const month = String(value.getMonth() + 1).padStart(2, "0");
+    const day = String(value.getDate()).padStart(2, "0");
+    const hours = String(value.getHours()).padStart(2, "0");
+    const minutes = String(value.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  return {
+    loginStartAt: format(start),
+    loginEndAt: format(end),
+  };
+}
+
 export default function AdminDashboardPage() {
   const token = localStorage.getItem(ADMIN_TOKEN_KEY) || "";
+  const initialWindow = defaultWindow();
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -17,8 +40,8 @@ export default function AdminDashboardPage() {
     password: "",
     firstName: "",
     lastName: "",
-    loginStartTime: "08:00",
-    loginEndTime: "18:00",
+    loginStartAt: initialWindow.loginStartAt,
+    loginEndAt: initialWindow.loginEndAt,
   });
 
   async function load() {
@@ -45,8 +68,7 @@ export default function AdminDashboardPage() {
         password: "",
         firstName: "",
         lastName: "",
-        loginStartTime: "08:00",
-        loginEndTime: "18:00",
+        ...defaultWindow(),
       });
       load();
     } catch (err) {
@@ -95,8 +117,8 @@ export default function AdminDashboardPage() {
             <Field label="Last name" value={form.lastName} onChange={(value) => setForm({ ...form, lastName: value })} />
           </div>
           <div className="double-grid">
-            <Field label="Login start" type="time" value={form.loginStartTime} onChange={(value) => setForm({ ...form, loginStartTime: value })} />
-            <Field label="Login end" type="time" value={form.loginEndTime} onChange={(value) => setForm({ ...form, loginEndTime: value })} />
+            <Field label="Login start" type="datetime-local" value={form.loginStartAt} onChange={(value) => setForm({ ...form, loginStartAt: value })} />
+            <Field label="Login end" type="datetime-local" value={form.loginEndAt} onChange={(value) => setForm({ ...form, loginEndAt: value })} />
           </div>
           <button className="solid-button" type="submit">Create dealer</button>
         </form>
@@ -108,7 +130,7 @@ export default function AdminDashboardPage() {
                 <div>
                   <strong>{user.username}</strong>
                   <p>{user.email || "No email"}</p>
-                  <small>{user.role}{user.loginStartTime ? ` | ${user.loginStartTime}-${user.loginEndTime}` : ""}</small>
+                  <small>{user.role}{user.loginStartAt ? ` | ${user.loginStartAt} - ${user.loginEndAt}` : user.loginStartTime ? ` | ${user.loginStartTime}-${user.loginEndTime}` : ""}</small>
                 </div>
                 <button className="ghost-button danger" type="button" onClick={() => deleteUser(user.id)}>Delete</button>
               </article>
