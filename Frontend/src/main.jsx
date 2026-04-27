@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import AppShell from "./components/AppShell";
 import "./styles.css";
 import { getPath, navigate } from "./lib/navigation";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
@@ -19,12 +20,14 @@ function App() {
     return () => window.removeEventListener("popstate", handleRoute);
   }, []);
 
-  if (path === "/admin/register") return <AdminRegisterPage />;
-  if (path === "/admin/login") return <AdminLoginPage />;
-  if (path === "/admin/dashboard") return <AdminDashboardPage />;
-  if (path === "/car-dealer/login") return <DealerLoginPage />;
-  if (path === "/car-dealer/dashboard") return <DealerDashboardPage />;
-  return <HomePage />;
+  let page = <HomePage />;
+  if (path === "/admin/register") page = <AdminRegisterPage />;
+  if (path === "/admin/login") page = <AdminLoginPage />;
+  if (path === "/admin/dashboard") page = <AdminDashboardPage />;
+  if (path === "/car-dealer/login") page = <DealerLoginPage />;
+  if (path === "/car-dealer/dashboard") page = <DealerDashboardPage />;
+
+  return <AppShell path={path}>{page}</AppShell>;
 }
 
 createRoot(document.getElementById("root")).render(<App />);

@@ -6,23 +6,6 @@ import { navigate } from "../lib/navigation";
 export function Hero() {
   return (
     <header className="hero-shell">
-      <nav className="top-nav">
-        <button className="logo nav-button" type="button" onClick={() => navigate("/home")} aria-label="Premium rental home">
-          <span>r</span>rw
-        </button>
-        <div className="nav-links">
-          <button type="button" onClick={() => navigate("/home")}>Home</button>
-          <button type="button" onClick={() => navigate("/admin/register")}>Admin</button>
-          <button type="button" onClick={() => navigate("/car-dealer/login")}>Car dealer</button>
-          <button type="button" onClick={() => navigate("/home#trend")}>Trend</button>
-          <button type="button" onClick={() => navigate("/home#footer")}>Contact</button>
-        </div>
-        <label className="nav-search">
-          <input aria-label="Search vehicle" placeholder="Search" />
-          <span>Go</span>
-        </label>
-      </nav>
-
       <section className="hero-stage">
         <img
           className="hero-car"
