@@ -89,6 +89,7 @@ def booking_to_dict(booking):
         "pickupDate": booking.pickup_date.isoformat(),
         "returnDate": booking.return_date.isoformat(),
         "pickupLocation": booking.pickup_location,
+        "returnLocation": booking.return_location or booking.pickup_location,
         "notes": booking.notes,
         "status": booking.status,
         "totalCost": float(booking.total_cost),
@@ -122,7 +123,7 @@ def ensure_customer_user(name, email):
     return user
 
 
-def validate_booking_payload(payload):
+def validate_booking_payload(payload, customer_user=None):
     required = [
         "vehicleId",
         "customerName",
@@ -159,16 +160,18 @@ def validate_booking_payload(payload):
         raise ValidationError({"vehicleId": "Vehicle is already booked for those dates."})
 
     days = (return_date - pickup_date).days
-    customer_user = ensure_customer_user(payload["customerName"], payload["customerEmail"].strip())
+    resolved_customer = customer_user or ensure_customer_user(payload["customerName"], payload["customerEmail"].strip())
+    return_location = (payload.get("returnLocation") or payload["pickupLocation"]).strip()
     return {
         "vehicle": vehicle,
-        "customer_user": customer_user,
+        "customer_user": resolved_customer,
         "customer_name": payload["customerName"].strip(),
         "customer_email": payload["customerEmail"].strip(),
         "customer_phone": payload["customerPhone"].strip(),
         "pickup_date": pickup_date,
         "return_date": return_date,
         "pickup_location": payload["pickupLocation"].strip(),
+        "return_location": return_location,
         "notes": payload.get("notes", "").strip(),
         "total_cost": Decimal(days) * vehicle.daily_rate,
     }

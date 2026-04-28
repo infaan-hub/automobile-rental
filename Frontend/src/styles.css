@@ -28,6 +28,838 @@ body {
   background: var(--white);
 }
 
+.customer-google-row {
+  display: grid;
+  place-items: center;
+  margin-top: 10px;
+}
+
+.google-auth-mount,
+.google-placeholder-button {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.google-placeholder-button {
+  min-height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(113, 129, 156, 0.28);
+  background: rgba(255, 255, 255, 0.7);
+  color: #5d6780;
+  font: inherit;
+}
+
+.trend-image-button,
+.vehicle-image-button {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.customer-dashboard-page,
+.vehicle-view-page,
+.rent-page,
+.agreement-page,
+.payment-page {
+  padding: 32px clamp(18px, 4vw, 44px) 48px;
+}
+
+.customer-dashboard-hero,
+.vehicle-view-shell,
+.agreement-card,
+.payment-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(154, 169, 192, 0.24);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+.customer-dashboard-hero {
+  border-radius: 28px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.customer-dashboard-hero small,
+.agreement-head small,
+.payment-summary small,
+.vehicle-view-copy small {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #4f7cff;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.customer-dashboard-hero h1,
+.vehicle-view-copy h1,
+.agreement-head h1,
+.payment-summary h1,
+.rent-title-block h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.04;
+}
+
+.customer-dashboard-hero p,
+.vehicle-view-copy p,
+.agreement-head p,
+.payment-summary p {
+  margin: 10px 0 0;
+  color: #63708a;
+}
+
+.customer-booking-badge {
+  min-width: 200px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #4f7cff, #2f65f7);
+  color: #ffffff;
+}
+
+.customer-booking-badge strong {
+  display: block;
+  font-size: 2rem;
+}
+
+.customer-vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.customer-vehicle-card {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(154, 169, 192, 0.22);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+}
+
+.customer-vehicle-card img,
+.vehicle-view-media img,
+.payment-summary img,
+.agreement-head img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.customer-vehicle-card img {
+  aspect-ratio: 16 / 10;
+  border-radius: 22px;
+  background: #eef3fb;
+}
+
+.customer-vehicle-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.customer-vehicle-copy h3 {
+  margin: 6px 0 8px;
+  font-size: 1.22rem;
+}
+
+.customer-vehicle-copy p,
+.customer-vehicle-copy small {
+  margin: 0;
+  color: #64708a;
+}
+
+.customer-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.customer-bookings-section {
+  margin-top: 28px;
+}
+
+.customer-booking-price {
+  font-weight: 700;
+  color: #1f4de0;
+}
+
+.vehicle-view-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  border-radius: 30px;
+}
+
+.vehicle-view-media img {
+  aspect-ratio: 4 / 3;
+  border-radius: 24px;
+  background: #edf2fb;
+}
+
+.vehicle-view-copy {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.vehicle-view-copy > strong {
+  font-size: 1.75rem;
+  color: #1f4de0;
+}
+
+.vehicle-spec-grid,
+.payment-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.vehicle-spec-card,
+.payment-breakdown div {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: #f5f8fd;
+  border: 1px solid rgba(154, 169, 192, 0.2);
+}
+
+.vehicle-spec-card span,
+.payment-breakdown span {
+  display: block;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #74819a;
+  margin-bottom: 8px;
+}
+
+.vehicle-view-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.rent-page {
+  display: grid;
+  place-items: center;
+}
+
+.rent-phone-shell {
+  width: min(100%, 390px);
+  padding: 18px 18px 22px;
+  border-radius: 44px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 4px solid #111111;
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.18);
+}
+
+.rent-top-bar,
+.rent-footer-bar,
+.agreement-head,
+.payment-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.rent-top-bar button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 0;
+  background: #f6f7fb;
+  font-size: 1.45rem;
+}
+
+.rent-title-block {
+  margin-top: 16px;
+}
+
+.rent-title-block span,
+.rent-footer-bar span {
+  color: #738099;
+}
+
+.rent-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.rent-meta-row strong,
+.rent-meta-row span {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #101827;
+}
+
+.rent-meta-row small {
+  color: #8a95ab;
+  text-align: right;
+}
+
+.rent-hero-image img {
+  width: 100%;
+  max-height: 210px;
+  object-fit: contain;
+}
+
+.rent-image-shadow {
+  width: 72%;
+  height: 16px;
+  margin: -2px auto 0;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(10, 15, 26, 0.18) 0%, rgba(10, 15, 26, 0.02) 75%);
+}
+
+.rent-panel {
+  margin-top: 18px;
+}
+
+.rent-panel h2 {
+  margin: 0 0 12px;
+  font-size: 1.18rem;
+}
+
+.rent-spec-grid,
+.rent-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.rent-spec-grid article,
+.rent-plan-card,
+.agreement-static-field,
+.rent-location-card,
+.agreement-label input,
+.agreement-label textarea,
+.payment-grid input,
+.payment-grid select {
+  border-radius: 18px;
+  border: 1px solid rgba(156, 171, 191, 0.22);
+  background: #ffffff;
+}
+
+.rent-spec-grid article,
+.rent-plan-card {
+  padding: 12px;
+}
+
+.rent-spec-grid span,
+.rent-plan-card small,
+.agreement-label span,
+.payment-grid span {
+  display: block;
+  color: #74819a;
+  font-size: 0.76rem;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rent-plan-card.active {
+  border-color: #2f65f7;
+  box-shadow: inset 0 0 0 1px #2f65f7;
+}
+
+.rent-plan-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.rent-location-card {
+  padding: 14px 16px;
+  color: #4e5a72;
+}
+
+.rent-footer-bar {
+  margin-top: 22px;
+}
+
+.rent-footer-bar .solid-button {
+  min-width: 150px;
+}
+
+.agreement-card,
+.payment-card {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 30px;
+}
+
+.agreement-head img,
+.payment-summary img {
+  width: 170px;
+  border-radius: 22px;
+  aspect-ratio: 4 / 3;
+}
+
+.agreement-card,
+.payment-card,
+.payment-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.agreement-label,
+.payment-grid label {
+  display: grid;
+  gap: 10px;
+}
+
+.agreement-label input,
+.agreement-label textarea,
+.payment-grid input,
+.payment-grid select {
+  width: 100%;
+  padding: 14px 16px;
+  font: inherit;
+  color: inherit;
+}
+
+.agreement-static-field {
+  padding: 14px 16px;
+  color: #4f5c73;
+}
+
+.agreement-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.agreement-submit,
+.payment-submit {
+  width: 100%;
+}
+
+.payment-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.billing-card {
+  max-width: 980px;
+  background: linear-gradient(180deg, #f6fbff 0%, #ffffff 100%);
+}
+
+.billing-hero {
+  text-align: center;
+}
+
+.billing-hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
+  line-height: 1;
+}
+
+.billing-hero p {
+  margin: 14px 0 0;
+  color: #56708b;
+  font-size: 1.12rem;
+}
+
+.payment-step-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 20px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(232, 237, 243, 0.96), rgba(244, 246, 249, 0.96));
+}
+
+.payment-step {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86rem;
+  color: #4d6280;
+}
+
+.payment-step strong {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(154, 169, 192, 0.34);
+  color: #8896aa;
+}
+
+.payment-step.active strong {
+  background: #d8fff8;
+  color: #1aa9a6;
+  border-color: rgba(54, 219, 198, 0.42);
+}
+
+.billing-section {
+  padding: 28px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 247, 250, 0.98));
+  border: 1px solid rgba(154, 169, 192, 0.18);
+}
+
+.billing-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1b2c42;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.booking-info-card h2,
+.payment-gateway-heading h2 {
+  margin: 22px 0 10px;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.booking-info-card p,
+.payment-gateway-heading p,
+.payment-selected-gateway,
+.payment-gateway-heading small {
+  color: #56708b;
+}
+
+.billing-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.billing-form-grid label,
+.payment-detail-shell label {
+  display: grid;
+  gap: 10px;
+}
+
+.billing-form-grid input,
+.payment-detail-shell input {
+  min-height: 66px;
+  padding: 0 24px;
+  border-radius: 28px;
+  border: 1px solid rgba(175, 187, 204, 0.42);
+  background: #ffffff;
+  font: inherit;
+  color: #1a2a3c;
+}
+
+.payment-gateway-section {
+  display: grid;
+  gap: 20px;
+}
+
+.payment-gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.gateway-card {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 28px;
+  border: 1px solid rgba(175, 187, 204, 0.42);
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.gateway-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.gateway-card.active {
+  border-color: #37d9c6;
+  box-shadow: 0 0 0 2px rgba(55, 217, 198, 0.22);
+}
+
+.gateway-card-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gateway-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid rgba(175, 187, 204, 0.8);
+  background: #ffffff;
+}
+
+.gateway-radio.active {
+  background: #37d9c6;
+  border-color: #37d9c6;
+}
+
+.payment-detail-shell {
+  display: grid;
+  gap: 20px;
+}
+
+.payment-selected-gateway {
+  min-height: 66px;
+  padding: 0 24px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(175, 187, 204, 0.36);
+  background: #ffffff;
+  font-size: 1.08rem;
+}
+
+.split-card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.split-card-grid .wide-field {
+  grid-column: 1 / -1;
+}
+
+.payment-amount-table {
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(175, 187, 204, 0.32);
+  background: #ffffff;
+}
+
+.payment-amount-table div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.payment-amount-table div + div {
+  border-top: 1px solid rgba(175, 187, 204, 0.24);
+}
+
+.payment-amount-table span {
+  color: #3d5875;
+  font-size: 1.06rem;
+}
+
+.payment-amount-table strong {
+  font-size: 1.08rem;
+}
+
+.confirm-payment-button {
+  min-height: 68px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #37d9c6, #2acdc0);
+  font-size: 1.18rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-payment-block,
+.footer-qr-block {
+  margin-top: 24px;
+}
+
+.footer-payment-block h3,
+.footer-qr-block h3 {
+  margin: 0 0 14px;
+}
+
+.footer-gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.footer-gateway-card {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-gateway-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.footer-gateway-card span {
+  font-size: 0.82rem;
+  color: rgba(230, 236, 248, 0.82);
+}
+
+.footer-qr-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 116px;
+  gap: 16px;
+  align-items: center;
+}
+
+.footer-qr-block p {
+  margin: 0 0 8px;
+  color: rgba(230, 236, 248, 0.72);
+}
+
+.footer-qr-block img {
+  width: 116px;
+  height: 116px;
+  padding: 8px;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.theme-dark .customer-dashboard-hero,
+.theme-dark .vehicle-view-shell,
+.theme-dark .agreement-card,
+.theme-dark .payment-card,
+.theme-dark .customer-vehicle-card,
+.theme-dark .rent-phone-shell {
+  background: rgba(15, 23, 42, 0.92);
+  border-color: rgba(113, 129, 156, 0.22);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+}
+
+.theme-dark .customer-dashboard-hero p,
+.theme-dark .customer-vehicle-copy p,
+.theme-dark .customer-vehicle-copy small,
+.theme-dark .vehicle-view-copy p,
+.theme-dark .agreement-head p,
+.theme-dark .payment-summary p,
+.theme-dark .rent-title-block span,
+.theme-dark .rent-footer-bar span,
+.theme-dark .rent-location-card,
+.theme-dark .agreement-static-field,
+.theme-dark .vehicle-spec-card span,
+.theme-dark .payment-breakdown span,
+.theme-dark .rent-spec-grid span,
+.theme-dark .rent-plan-card small,
+.theme-dark .agreement-label span,
+.theme-dark .payment-grid span,
+.theme-dark .billing-hero p,
+.theme-dark .booking-info-card p,
+.theme-dark .payment-gateway-heading p,
+.theme-dark .payment-selected-gateway,
+.theme-dark .rent-meta-row small,
+.theme-dark .payment-amount-table span {
+  color: #98a7c0;
+}
+
+.theme-dark .vehicle-spec-card,
+.theme-dark .payment-breakdown div,
+.theme-dark .rent-spec-grid article,
+.theme-dark .rent-plan-card,
+.theme-dark .agreement-static-field,
+.theme-dark .rent-location-card,
+.theme-dark .agreement-label input,
+.theme-dark .agreement-label textarea,
+.theme-dark .payment-grid input,
+.theme-dark .payment-grid select,
+.theme-dark .billing-form-grid input,
+.theme-dark .payment-detail-shell input,
+.theme-dark .gateway-card,
+.theme-dark .payment-selected-gateway,
+.theme-dark .payment-amount-table,
+.theme-dark .payment-amount-table div,
+.theme-dark .payment-step strong,
+.theme-dark .billing-section,
+.theme-dark .google-placeholder-button {
+  background: rgba(15, 23, 42, 0.7);
+  border-color: rgba(113, 129, 156, 0.25);
+  color: #eef3ff;
+}
+
+.theme-dark .payment-step-strip {
+  background: linear-gradient(180deg, rgba(20, 31, 49, 0.96), rgba(13, 21, 34, 0.96));
+}
+
+.theme-dark .payment-step.active strong {
+  background: rgba(55, 217, 198, 0.14);
+}
+
+.theme-dark .rent-meta-row strong,
+.theme-dark .rent-meta-row span,
+.theme-dark .billing-hero h1,
+.theme-dark .booking-info-card h2,
+.theme-dark .payment-gateway-heading h2 {
+  color: #f7fbff;
+}
+
+@media (max-width: 960px) {
+  .customer-dashboard-hero,
+  .vehicle-view-shell,
+  .agreement-head,
+  .payment-summary,
+  .payment-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-dashboard-hero,
+  .agreement-head,
+  .payment-summary {
+    display: grid;
+  }
+}
+
+@media (max-width: 760px) {
+  .vehicle-spec-grid,
+  .payment-breakdown,
+  .payment-grid,
+  .rent-spec-grid,
+  .customer-card-actions,
+  .billing-form-grid,
+  .split-card-grid,
+  .payment-gateway-grid,
+  .footer-gateway-grid,
+  .footer-qr-block {
+    grid-template-columns: 1fr;
+  }
+
+  .rent-plan-grid,
+  .double-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-step-strip {
+    padding: 16px 12px;
+  }
+
+  .billing-form-grid input,
+  .payment-detail-shell input,
+  .payment-selected-gateway {
+    min-height: 58px;
+    padding-inline: 18px;
+  }
+}
+
 #root {
   min-height: 100vh;
 }

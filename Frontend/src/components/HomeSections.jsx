@@ -1,7 +1,9 @@
 import React from "react";
 import { homeHeroImage } from "../lib/data";
+import { isCustomerLoggedIn } from "../lib/customer";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
+import { paymentGatewayAssets, websiteQr } from "../lib/paymentAssets";
 
 const tones = ["mist", "light", "dark", "silver"];
 
@@ -35,7 +37,7 @@ export function SearchBar() {
       <label><span>Return location</span><input defaultValue="Same location" /></label>
       <label><span>Pickup date</span><input type="date" /></label>
       <label><span>Return date</span><input type="date" /></label>
-      <button type="button" onClick={() => navigate("/car-dealer/login")}>Search</button>
+      <button type="button" onClick={() => navigate(isCustomerLoggedIn() ? "/dashboard" : "/login")}>Search</button>
     </form>
   );
 }
@@ -58,21 +60,25 @@ export function CategorySection({ categories }) {
 }
 
 export function TrendSection({ vehicles }) {
+  const customerLoggedIn = isCustomerLoggedIn();
+
   return (
     <section className="trend-section" id="trend">
       <div className="section-heading">
         <h2>Trend vehicles</h2>
-        <button type="button" onClick={() => navigate("/car-dealer/login")}>View all</button>
+        <button type="button" onClick={() => navigate(customerLoggedIn ? "/dashboard" : "/login")}>View all</button>
       </div>
       <div className="trend-grid">
         {vehicles.length ? vehicles.map((vehicle) => (
           <article className="trend-card" key={vehicle.id}>
             <h3>{vehicle.name}</h3>
-            <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
+            <button className="trend-image-button" type="button" onClick={() => navigate(`/view?vehicle=${vehicle.id}`)}>
+              <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
+            </button>
             <p>{vehicle.description || `${vehicle.brand} ${vehicle.model}`}</p>
             <div>
               <span>{money(vehicle.dailyRate)}</span>
-              <button type="button" onClick={() => navigate("/car-dealer/login")}>Book now</button>
+              <button type="button" onClick={() => navigate(`/view?vehicle=${vehicle.id}`)}>View specs</button>
             </div>
           </article>
         )) : <p className="section-empty">No dealer vehicles are live yet.</p>}
@@ -106,13 +112,16 @@ export function FeatureStrip() {
 
 export function PromoSection({ vehicle }) {
   if (!vehicle) return null;
+  const customerLoggedIn = isCustomerLoggedIn();
 
   return (
     <section className="promo-section">
       <div>
         <h2>{vehicle.name}</h2>
         <p className="promo-copy">{vehicle.description || `${vehicle.brand} ${vehicle.model}`}</p>
-        <button type="button" onClick={() => navigate("/car-dealer/login")}>Book now</button>
+        <button type="button" onClick={() => navigate(customerLoggedIn ? `/rent?vehicle=${vehicle.id}` : `/view?vehicle=${vehicle.id}`)}>
+          {customerLoggedIn ? "Rent now" : "View specs"}
+        </button>
       </div>
       <img
         src={vehicle.imageUrl}
@@ -139,6 +148,27 @@ export function Footer() {
           Subscribe to the newsletter
           <input placeholder="Email address" />
         </label>
+        <div className="footer-payment-block">
+          <h3>Payment gateways</h3>
+          <div className="footer-gateway-grid">
+            {paymentGatewayAssets.map((gateway) => (
+              <article className="footer-gateway-card" key={gateway.id}>
+                <img src={gateway.image} alt={gateway.label} loading="lazy" decoding="async" />
+                <span>{gateway.label}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+        <div className="footer-qr-block">
+          <div>
+            <h3>Scan website QR</h3>
+            <p>Open the live rental web app quickly on any phone.</p>
+            <a className="footer-link" href="https://automobile-rental.vercel.app/" target="_blank" rel="noreferrer">
+              automobile-rental.vercel.app
+            </a>
+          </div>
+          <img src={websiteQr} alt="QR code for automobile-rental.vercel.app" loading="lazy" decoding="async" />
+        </div>
       </div>
       <FooterColumn title="Explore" items={["Vehicles", "Airport transfer", "Executive cars", "Private drivers"]} />
       <FooterColumn title="Loyalty clubs" items={["Membership card", "Long rentals", "Travel pass", "Business plans"]} />

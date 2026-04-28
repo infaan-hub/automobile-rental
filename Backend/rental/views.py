@@ -1,5 +1,9 @@
 import json
+import os
 import secrets
+import urllib.error
+import urllib.parse
+import urllib.request
 from datetime import datetime, time
 
 from django.contrib.auth import authenticate
@@ -51,6 +55,54 @@ def create_token(user):
         profile.save(update_fields=["role"])
     token = AuthToken.objects.create(user=user, key=secrets.token_hex(32))
     return token
+
+
+def auth_response(user, status=200):
+    token = create_token(user)
+    return JsonResponse({"token": token.key, "user": user_profile_to_dict(user)}, status=status)
+
+
+def resolve_username(username="", email=""):
+    username = (username or "").strip()
+    email = (email or "").strip()
+    if username:
+        return username
+    if email:
+        return User.objects.filter(email__iexact=email).values_list("username", flat=True).first() or ""
+    return ""
+
+
+def build_unique_username(base_value):
+    base = "".join(character for character in (base_value or "customer").lower() if character.isalnum()) or "customer"
+    candidate = base
+    suffix = 1
+    while User.objects.filter(username=candidate).exists():
+        candidate = f"{base}{suffix}"
+        suffix += 1
+    return candidate
+
+
+def ensure_customer_account(email, first_name="", last_name=""):
+    existing = User.objects.filter(email__iexact=email.strip()).first()
+    if existing:
+        profile = get_or_create_profile(existing)
+        if existing.is_superuser or profile.role != "customer":
+            raise ValidationError({"email": "This email belongs to a non-customer account."})
+        return existing
+
+    user = User.objects.create_user(
+        username=build_unique_username(email.split("@")[0] if email else first_name or "customer"),
+        email=email.strip(),
+        password=None,
+        first_name=first_name.strip(),
+        last_name=last_name.strip(),
+    )
+    user.set_unusable_password()
+    user.save(update_fields=["password"])
+    profile = get_or_create_profile(user)
+    profile.role = "customer"
+    profile.save(update_fields=["role"])
+    return user
 
 
 def get_authenticated_user(request):
@@ -321,6 +373,151 @@ def dashboard_stats(request):
             }
         }
     )
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def customer_register(request):
+    try:
+        payload = parse_json_body(request)
+    except ValidationError as error:
+        return validation_error_response(error)
+
+    required = ["username", "email", "password", "firstName", "lastName"]
+    missing = [field for field in required if not payload.get(field)]
+    if missing:
+        return JsonResponse({"errors": {field: "This field is required." for field in missing}}, status=400)
+
+    email = payload["email"].strip()
+    username = payload["username"].strip()
+    if User.objects.filter(username=username).exists():
+        return JsonResponse({"errors": {"username": "Username already exists."}}, status=400)
+    if User.objects.filter(email__iexact=email).exists():
+        return JsonResponse({"errors": {"email": "Email already exists."}}, status=400)
+
+    user = User.objects.create_user(
+        username=username,
+        email=email,
+        password=payload["password"],
+        first_name=payload["firstName"].strip(),
+        last_name=payload["lastName"].strip(),
+    )
+    profile = get_or_create_profile(user)
+    profile.role = "customer"
+    profile.save(update_fields=["role"])
+    return auth_response(user, status=201)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def customer_login(request):
+    try:
+        payload = parse_json_body(request)
+    except ValidationError as error:
+        return validation_error_response(error)
+
+    username_input = payload.get("username")
+    username = resolve_username(username_input, payload.get("email") or username_input)
+    password = payload.get("password", "")
+    user = authenticate(username=username, password=password)
+    if not user:
+        return error_response("Invalid customer credentials.", status=401)
+
+    profile = get_or_create_profile(user)
+    if user.is_superuser or profile.role != "customer":
+        return error_response("Invalid customer credentials.", status=401)
+
+    return auth_response(user)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def customer_google_login(request):
+    try:
+        payload = parse_json_body(request)
+    except ValidationError as error:
+        return validation_error_response(error)
+
+    credential = (payload.get("credential") or "").strip()
+    if not credential:
+        return JsonResponse({"errors": {"credential": "Google credential is required."}}, status=400)
+
+    query = urllib.parse.urlencode({"id_token": credential})
+    request_url = f"https://oauth2.googleapis.com/tokeninfo?{query}"
+    try:
+        with urllib.request.urlopen(request_url, timeout=10) as response:
+            google_data = json.loads(response.read().decode("utf-8"))
+    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
+        return error_response("Unable to verify Google sign-in right now.", status=502)
+
+    if google_data.get("error_description") or google_data.get("error"):
+        return error_response("Google sign-in verification failed.", status=401)
+
+    expected_client_id = os.environ.get("GOOGLE_OAUTH_CLIENT_ID", "").strip()
+    if expected_client_id and google_data.get("aud") != expected_client_id:
+        return error_response("Google client ID does not match the configured application.", status=401)
+
+    email = (google_data.get("email") or "").strip()
+    if not email:
+        return error_response("Google account did not provide an email address.", status=400)
+
+    try:
+        user = ensure_customer_account(
+            email,
+            first_name=google_data.get("given_name") or google_data.get("name") or "Customer",
+            last_name=google_data.get("family_name") or "",
+        )
+    except ValidationError as error:
+        return validation_error_response(error)
+
+    return auth_response(user)
+
+
+@require_http_methods(["GET"])
+def customer_dashboard(request):
+    user, error = require_role(request, ["customer"])
+    if error:
+        return error
+
+    vehicles = Vehicle.objects.select_related("dealer", "car_category", "scooter_category").filter(is_available=True).order_by(
+        "-is_trending", "-created_at"
+    )
+    bookings = Booking.objects.select_related("vehicle", "customer_user").filter(customer_user=user)
+    return JsonResponse(
+        {
+            "user": user_profile_to_dict(user),
+            "vehicles": [vehicle_to_dict(vehicle) for vehicle in vehicles],
+            "bookings": [booking_to_dict(booking) for booking in bookings[:20]],
+        }
+    )
+
+
+@csrf_exempt
+@require_http_methods(["GET", "POST"])
+def customer_bookings(request):
+    user, error = require_role(request, ["customer"])
+    if error:
+        return error
+
+    if request.method == "GET":
+        bookings = Booking.objects.select_related("vehicle", "customer_user").filter(customer_user=user)
+        return JsonResponse({"bookings": [booking_to_dict(booking) for booking in bookings]})
+
+    try:
+        payload = parse_json_body(request)
+        booking_data = validate_booking_payload(
+            {
+                **payload,
+                "customerName": payload.get("customerName") or f"{user.first_name} {user.last_name}".strip() or user.username,
+                "customerEmail": payload.get("customerEmail") or user.email,
+            },
+            customer_user=user,
+        )
+    except ValidationError as error:
+        return validation_error_response(error)
+
+    booking = Booking.objects.create(**booking_data)
+    return JsonResponse({"booking": booking_to_dict(booking)}, status=201)
 
 
 @csrf_exempt

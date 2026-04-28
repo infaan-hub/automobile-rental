@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ADMIN_TOKEN_KEY, DEALER_TOKEN_KEY } from "../lib/config";
+import { ADMIN_TOKEN_KEY, CUSTOMER_TOKEN_KEY, DEALER_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
 
 const NAV_SETS = {
@@ -7,9 +7,23 @@ const NAV_SETS = {
     { label: "Home", path: "/home" },
     { label: "Trend vehicles", path: "/home#trend" },
     { label: "Contact", path: "/home#footer" },
+    { label: "Customer register", path: "/register" },
+    { label: "Customer login", path: "/login" },
     { label: "Admin register", path: "/admin/register" },
     { label: "Admin login", path: "/admin/login" },
     { label: "Dealer login", path: "/car-dealer/login" },
+  ],
+  customerAuth: [
+    { label: "Home", path: "/home" },
+    { label: "Customer register", path: "/register" },
+    { label: "Customer login", path: "/login" },
+    { label: "Admin login", path: "/admin/login" },
+    { label: "Dealer login", path: "/car-dealer/login" },
+  ],
+  customerArea: [
+    { label: "Home", path: "/home" },
+    { label: "Customer dashboard", path: "/dashboard" },
+    { label: "Customer login", path: "/login" },
   ],
   adminAuth: [
     { label: "Home", path: "/home" },
@@ -42,6 +56,14 @@ function getShellConfig(path) {
     };
   }
 
+  if (path === "/dashboard" || path === "/view" || path === "/rent" || path === "/rental-agreement" || path === "/payment") {
+    return {
+      eyebrow: "Customer access",
+      title: "Vehicle rentals",
+      navItems: NAV_SETS.customerArea,
+    };
+  }
+
   if (path === "/car-dealer/dashboard") {
     return {
       eyebrow: "Dealer workspace",
@@ -55,6 +77,14 @@ function getShellConfig(path) {
       eyebrow: "Admin access",
       title: "Secure entry",
       navItems: NAV_SETS.adminAuth,
+    };
+  }
+
+  if (path === "/login" || path === "/register") {
+    return {
+      eyebrow: "Customer access",
+      title: "Rentals and bookings",
+      navItems: NAV_SETS.customerAuth,
     };
   }
 
@@ -79,6 +109,7 @@ export default function AppShell({ path, children }) {
   const config = useMemo(() => getShellConfig(path), [path]);
   const currentLocation = `${window.location.pathname}${window.location.hash}`;
   const isDark = theme === "dark";
+  const hasCustomerToken = Boolean(window.localStorage.getItem(CUSTOMER_TOKEN_KEY));
 
   useEffect(() => {
     setSidebarOpen(false);
@@ -107,10 +138,19 @@ export default function AppShell({ path, children }) {
     if (path === "/car-dealer/dashboard") {
       window.localStorage.removeItem(DEALER_TOKEN_KEY);
       goTo("/car-dealer/login");
+      return;
+    }
+
+    if (path === "/dashboard" || path === "/view" || path === "/rent" || path === "/rental-agreement" || path === "/payment") {
+      window.localStorage.removeItem(CUSTOMER_TOKEN_KEY);
+      goTo("/login");
     }
   }
 
-  const showLogout = path === "/admin/dashboard" || path === "/car-dealer/dashboard";
+  const showLogout =
+    path === "/admin/dashboard" ||
+    path === "/car-dealer/dashboard" ||
+    (hasCustomerToken && (path === "/dashboard" || path === "/view" || path === "/rent" || path === "/rental-agreement" || path === "/payment"));
 
   return (
     <div className={`app-shell theme-${theme} ${sidebarOpen ? "sidebar-open" : ""}`}>

@@ -119,6 +119,7 @@ class Booking(models.Model):
     pickup_date = models.DateField()
     return_date = models.DateField()
     pickup_location = models.CharField(max_length=120)
+    return_location = models.CharField(max_length=120, blank=True, default="")
     notes = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     total_cost = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0.00"))
