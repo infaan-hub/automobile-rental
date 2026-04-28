@@ -633,6 +633,13 @@ button {
   line-height: 1;
 }
 
+.section-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -738,6 +745,13 @@ button {
   line-height: 1.25;
 }
 
+.trend-card p {
+  margin: 0;
+  color: #69717d;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
 .trend-card img {
   width: 100%;
   height: 150px;
@@ -829,6 +843,16 @@ button {
   z-index: 2;
   width: 385px;
   color: #fff;
+}
+
+.promo-copy {
+  position: relative;
+  z-index: 2;
+  width: min(420px, 100%);
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.82rem;
+  line-height: 1.7;
 }
 
 .promo-section button {

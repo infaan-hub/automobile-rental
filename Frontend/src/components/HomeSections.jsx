@@ -1,7 +1,9 @@
 import React from "react";
-import { categories, homeHeroImage, homePromoImage } from "../lib/data";
+import { homeHeroImage } from "../lib/data";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
+
+const tones = ["mist", "light", "dark", "silver"];
 
 export function Hero() {
   return (
@@ -18,8 +20,8 @@ export function Hero() {
           <h1>Premium car rental</h1>
         </div>
         <p className="hero-note">
-          We rent cars from executive city rides to weekend sports models. Admin controls dealers, and dealers manage
-          vehicles, categories, bookings, and rented cars.
+          Dealers publish the live fleet, vehicle categories, prices, and availability for Zanzibar rentals from city
+          drives to safari-ready 4x4s.
         </p>
       </section>
     </header>
@@ -29,7 +31,7 @@ export function Hero() {
 export function SearchBar() {
   return (
     <form className="booking-search" aria-label="Vehicle search">
-      <label><span>Pick up location</span><input defaultValue="Dar es Salaam, main branch" /></label>
+      <label><span>Pick up location</span><input defaultValue="Zanzibar, main branch" /></label>
       <label><span>Return location</span><input defaultValue="Same location" /></label>
       <label><span>Pickup date</span><input type="date" /></label>
       <label><span>Return date</span><input type="date" /></label>
@@ -38,18 +40,18 @@ export function SearchBar() {
   );
 }
 
-export function CategorySection() {
+export function CategorySection({ categories }) {
   return (
     <section className="section-wrap" id="category">
       <h2>Car Category</h2>
       <div className="category-grid">
-        {categories.map((category) => (
-          <article className={`category-card ${category.tone}`} key={category.title}>
-            <h3>{category.title}</h3>
-            <img src={category.image} alt={`${category.title} rental category`} loading="lazy" decoding="async" />
-            <button aria-label={`View ${category.title}`}>+</button>
+        {categories.length ? categories.map((category, index) => (
+          <article className={`category-card ${tones[index % tones.length]}`} key={`${category.type}-${category.id}`}>
+            <h3>{category.name}</h3>
+            <img src={category.imageUrl} alt={`${category.name} rental category`} loading="lazy" decoding="async" />
+            <button aria-label={`View ${category.name}`}>+</button>
           </article>
-        ))}
+        )) : <p className="section-empty">Dealers have not published categories yet.</p>}
       </div>
     </section>
   );
@@ -63,16 +65,17 @@ export function TrendSection({ vehicles }) {
         <button type="button" onClick={() => navigate("/car-dealer/login")}>View all</button>
       </div>
       <div className="trend-grid">
-        {vehicles.map((vehicle) => (
+        {vehicles.length ? vehicles.map((vehicle) => (
           <article className="trend-card" key={vehicle.id}>
             <h3>{vehicle.name}</h3>
             <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
+            <p>{vehicle.description || `${vehicle.brand} ${vehicle.model}`}</p>
             <div>
               <span>{money(vehicle.dailyRate)}</span>
               <button type="button" onClick={() => navigate("/car-dealer/login")}>Book now</button>
             </div>
           </article>
-        ))}
+        )) : <p className="section-empty">No dealer vehicles are live yet.</p>}
       </div>
     </section>
   );
@@ -101,22 +104,25 @@ export function FeatureStrip() {
   );
 }
 
-export function PromoSection() {
+export function PromoSection({ vehicle }) {
+  if (!vehicle) return null;
+
   return (
     <section className="promo-section">
       <div>
-        <h2>Book LC300 ZX with a premium island rate</h2>
+        <h2>{vehicle.name}</h2>
+        <p className="promo-copy">{vehicle.description || `${vehicle.brand} ${vehicle.model}`}</p>
         <button type="button" onClick={() => navigate("/car-dealer/login")}>Book now</button>
       </div>
       <img
-        src={homePromoImage}
-        alt="Toyota Land Cruiser LC300 ZX premium rental SUV"
+        src={vehicle.imageUrl}
+        alt={vehicle.name}
         loading="lazy"
         decoding="async"
       />
       <aside>
-        <strong>ZX</strong>
-        <span>Weekly hire LC300 ZX</span>
+        <strong>{money(vehicle.dailyRate)}</strong>
+        <span>{vehicle.location || vehicle.bodyTypeLabel || "Live dealer listing"}</span>
       </aside>
     </section>
   );

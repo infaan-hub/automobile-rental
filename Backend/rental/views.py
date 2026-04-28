@@ -196,6 +196,24 @@ def health_check(request):
 
 
 @require_http_methods(["GET"])
+def home_content(request):
+    car_categories = CarCategory.objects.select_related("created_by").exclude(image_url="").order_by("-created_at")[:6]
+    scooter_categories = ScooterCategory.objects.select_related("created_by").exclude(image_url="").order_by("-created_at")[:6]
+    vehicles = Vehicle.objects.select_related("dealer", "car_category", "scooter_category").filter(is_available=True).order_by(
+        "-is_trending", "-created_at"
+    )
+    featured_vehicle = vehicles.filter(image_url__gt="").first() or vehicles.first()
+    return JsonResponse(
+        {
+            "carCategories": [car_category_to_dict(category) for category in car_categories],
+            "scooterCategories": [scooter_category_to_dict(category) for category in scooter_categories],
+            "vehicles": [vehicle_to_dict(vehicle) for vehicle in vehicles[:16]],
+            "featuredVehicle": vehicle_to_dict(featured_vehicle) if featured_vehicle else None,
+        }
+    )
+
+
+@require_http_methods(["GET"])
 def vehicle_list(request):
     vehicles = Vehicle.objects.select_related("dealer", "car_category", "scooter_category").all()
     body_type = request.GET.get("bodyType")

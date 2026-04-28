@@ -1,39 +1,54 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { CategorySection, FeatureStrip, Footer, Hero, PromoSection, SearchBar, TrendSection } from "../components/HomeSections";
 import { apiRequest } from "../lib/api";
-import { fallbackVehicles } from "../lib/data";
 
 export default function HomePage() {
-  const [vehicles, setVehicles] = useState(fallbackVehicles);
+  const [content, setContent] = useState({
+    carCategories: [],
+    scooterCategories: [],
+    vehicles: [],
+    featuredVehicle: null,
+  });
 
   useEffect(() => {
-    async function loadVehicles() {
+    async function loadContent() {
       try {
-        const data = await apiRequest("/vehicles/");
-        if (data.vehicles?.length) {
-          setVehicles(data.vehicles);
-        }
+        const data = await apiRequest("/home-content/");
+        setContent({
+          carCategories: data.carCategories || [],
+          scooterCategories: data.scooterCategories || [],
+          vehicles: data.vehicles || [],
+          featuredVehicle: data.featuredVehicle || null,
+        });
       } catch {
-        setVehicles(fallbackVehicles);
+        setContent({
+          carCategories: [],
+          scooterCategories: [],
+          vehicles: [],
+          featuredVehicle: null,
+        });
       }
     }
 
-    loadVehicles();
+    loadContent();
   }, []);
 
-  const trendVehicles = useMemo(() => {
-    const cars = vehicles.length ? vehicles : fallbackVehicles;
-    return cars.slice(0, 16);
-  }, [vehicles]);
+  const homeCategories = useMemo(
+    () => [
+      ...content.carCategories.map((item) => ({ ...item, type: "car" })),
+      ...content.scooterCategories.map((item) => ({ ...item, type: "scooter" })),
+    ].slice(0, 8),
+    [content]
+  );
 
   return (
     <main className="home-page" id="home">
       <Hero />
       <SearchBar />
-      <CategorySection />
-      <TrendSection vehicles={trendVehicles} />
+      <CategorySection categories={homeCategories} />
+      <TrendSection vehicles={content.vehicles.slice(0, 12)} />
       <FeatureStrip />
-      <PromoSection />
+      <PromoSection vehicle={content.featuredVehicle} />
       <Footer />
     </main>
   );
