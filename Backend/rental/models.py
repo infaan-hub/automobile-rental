@@ -90,7 +90,7 @@ class Vehicle(models.Model):
     fuel_type = models.CharField(max_length=40, default="Petrol")
     location = models.CharField(max_length=120, default="Main Branch")
     daily_rate = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
-    image_url = models.URLField(blank=True)
+    image_url = models.TextField(blank=True)
     description = models.TextField(blank=True)
     is_available = models.BooleanField(default=True)
     is_trending = models.BooleanField(default=False)
