@@ -140,7 +140,6 @@ export function Footer() {
           <input placeholder="Email address" />
         </label>
       </div>
-      <FooterColumn title="Portals" items={["/admin/register", "/admin/login", "/car-dealer/login", "/home"]} />
       <FooterColumn title="Explore" items={["Vehicles", "Airport transfer", "Executive cars", "Private drivers"]} />
       <FooterColumn title="Loyalty clubs" items={["Membership card", "Long rentals", "Travel pass", "Business plans"]} />
     </footer>

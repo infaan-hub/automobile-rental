@@ -289,8 +289,8 @@ button {
 
 .theme-dark .theme-icon.active,
 .theme-dark .app-nav-link.active {
-  color: #0b111b;
-  background: #f59e0b;
+  color: #ffffff;
+  background: var(--blue-dark);
 }
 
 .theme-dark .app-nav-action {
@@ -394,6 +394,11 @@ button {
 .theme-dark .hero-shell,
 .theme-dark .promo-section {
   background: #08101a;
+}
+
+.theme-dark .hero-title {
+  color: #ffffff;
+  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
 }
 
 .theme-dark .hero-stage {
@@ -553,7 +558,8 @@ button {
   left: 38px;
   bottom: 72px;
   width: 410px;
-  color: #fff;
+  color: #11141a;
+  text-shadow: 0 8px 24px rgba(255, 255, 255, 0.28);
 }
 
 .hero-title h1 {
