@@ -1,5 +1,5 @@
 import React from "react";
-import { categories } from "../lib/data";
+import { categories, homeHeroImage, homePromoImage } from "../lib/data";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
 
@@ -9,8 +9,10 @@ export function Hero() {
       <section className="hero-stage">
         <img
           className="hero-car"
-          src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1600&q=90"
-          alt="White premium car in a modern showroom"
+          src={homeHeroImage}
+          alt="Toyota Land Cruiser Prado with Zanzibar-ready safari styling"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="hero-title">
           <h1>Premium car rental</h1>
@@ -44,7 +46,7 @@ export function CategorySection() {
         {categories.map((category) => (
           <article className={`category-card ${category.tone}`} key={category.title}>
             <h3>{category.title}</h3>
-            <img src={category.image} alt={`${category.title} rental category`} />
+            <img src={category.image} alt={`${category.title} rental category`} loading="lazy" decoding="async" />
             <button aria-label={`View ${category.title}`}>+</button>
           </article>
         ))}
@@ -64,7 +66,7 @@ export function TrendSection({ vehicles }) {
         {vehicles.map((vehicle) => (
           <article className="trend-card" key={vehicle.id}>
             <h3>{vehicle.name}</h3>
-            <img src={vehicle.imageUrl} alt={vehicle.name} />
+            <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
             <div>
               <span>{money(vehicle.dailyRate)}</span>
               <button type="button" onClick={() => navigate("/car-dealer/login")}>Book now</button>
@@ -103,16 +105,18 @@ export function PromoSection() {
   return (
     <section className="promo-section">
       <div>
-        <h2>Book Tesla with a big discount</h2>
+        <h2>Book LC300 ZX with a premium island rate</h2>
         <button type="button" onClick={() => navigate("/car-dealer/login")}>Book now</button>
       </div>
       <img
-        src="https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=1500&q=90"
-        alt="Black Tesla with falcon doors"
+        src={homePromoImage}
+        alt="Toyota Land Cruiser LC300 ZX premium rental SUV"
+        loading="lazy"
+        decoding="async"
       />
       <aside>
-        <strong>50%</strong>
-        <span>Weekly hire Tesla cars</span>
+        <strong>ZX</strong>
+        <span>Weekly hire LC300 ZX</span>
       </aside>
     </section>
   );

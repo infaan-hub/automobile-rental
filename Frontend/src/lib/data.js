@@ -1,3 +1,6 @@
+const commonsThumb = (fileName, width = 900) =>
+  `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(fileName)}?width=${width}`;
+
 export const fallbackVehicles = [
   {
     id: "znz-ist-214",
@@ -6,7 +9,7 @@ export const fallbackVehicles = [
     model: "Ist",
     bodyTypeLabel: "City hatchback",
     dailyRate: 32,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/2002-2005%20Toyota%20ist.jpg",
+    imageUrl: commonsThumb("2002-2005 Toyota ist.jpg", 720),
   },
   {
     id: "znz-spacio-533",
@@ -15,7 +18,7 @@ export const fallbackVehicles = [
     model: "Spacio",
     bodyTypeLabel: "Family wagon",
     dailyRate: 38,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota%20Corolla%20Spacio%2001.jpg",
+    imageUrl: commonsThumb("Toyota Corolla Spacio 01.jpg", 720),
   },
   {
     id: "znz-prado-808",
@@ -24,7 +27,7 @@ export const fallbackVehicles = [
     model: "Land Cruiser Prado",
     bodyTypeLabel: "Safari SUV",
     dailyRate: 115,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota%20Land%20Cruiser%20Prado%20%2854098221407%29.jpg",
+    imageUrl: commonsThumb("Toyota Land Cruiser Prado (54098221407).jpg", 720),
   },
   {
     id: "znz-landcruiser-901",
@@ -33,7 +36,7 @@ export const fallbackVehicles = [
     model: "Land Cruiser",
     bodyTypeLabel: "Full-size 4x4",
     dailyRate: 135,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota%20Land%20Cruiser%20200%204x4%20VXR%202020.jpg",
+    imageUrl: commonsThumb("Toyota Land Cruiser 200 4x4 VXR 2020.jpg", 720),
   },
   {
     id: "znz-alphard-447",
@@ -42,7 +45,7 @@ export const fallbackVehicles = [
     model: "Alphard",
     bodyTypeLabel: "Executive van",
     dailyRate: 98,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/2018%20Toyota%20Alphard%20V6%20%28front%29.jpg",
+    imageUrl: commonsThumb("2018 Toyota Alphard V6 (front).jpg", 720),
   },
   {
     id: "znz-vellfire-552",
@@ -51,7 +54,7 @@ export const fallbackVehicles = [
     model: "Vellfire",
     bodyTypeLabel: "Premium van",
     dailyRate: 102,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/2011-2015%20Toyota%20Vellfire.jpg",
+    imageUrl: commonsThumb("2011-2015 Toyota Vellfire.jpg", 720),
   },
   {
     id: "znz-vanguard-618",
@@ -60,7 +63,7 @@ export const fallbackVehicles = [
     model: "Vanguard",
     bodyTypeLabel: "Mid-size SUV",
     dailyRate: 72,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota%20Vanguard.JPG",
+    imageUrl: commonsThumb("Toyota Vanguard.JPG", 720),
   },
   {
     id: "znz-rav4-335",
@@ -69,7 +72,7 @@ export const fallbackVehicles = [
     model: "RAV4",
     bodyTypeLabel: "Urban SUV",
     dailyRate: 68,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota%20Rav4.jpg",
+    imageUrl: commonsThumb("Toyota Rav4.jpg", 720),
   },
   {
     id: "znz-escudo-120",
@@ -78,7 +81,7 @@ export const fallbackVehicles = [
     model: "Escudo",
     bodyTypeLabel: "Compact 4x4",
     dailyRate: 61,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/2005-2008%20Suzuki%20Escudo%205dr%201.png",
+    imageUrl: commonsThumb("2005-2008 Suzuki Escudo 5dr 1.png", 720),
   },
   {
     id: "znz-jeep-786",
@@ -87,7 +90,7 @@ export const fallbackVehicles = [
     model: "Wrangler",
     bodyTypeLabel: "Open-top 4x4",
     dailyRate: 128,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Jeep%20Wrangler%20%2849514043693%29.jpg",
+    imageUrl: commonsThumb("Jeep Wrangler (49514043693).jpg", 720),
   },
   {
     id: "scooter-today-45",
@@ -96,7 +99,7 @@ export const fallbackVehicles = [
     model: "Today",
     bodyTypeLabel: "Scooter",
     dailyRate: 14,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20Today.jpg",
+    imageUrl: commonsThumb("Honda Today.jpg", 720),
   },
   {
     id: "scooter-click-150",
@@ -105,7 +108,7 @@ export const fallbackVehicles = [
     model: "Click 150",
     bodyTypeLabel: "Scooter",
     dailyRate: 16,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20Click%20150%20version%202%20model%202019.jpg",
+    imageUrl: commonsThumb("Honda Click 150 version 2 model 2019.jpg", 720),
   },
   {
     id: "scooter-vario-150",
@@ -114,7 +117,7 @@ export const fallbackVehicles = [
     model: "Vario 150",
     bodyTypeLabel: "Scooter",
     dailyRate: 17,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/2016%20Honda%20Vario%20150%20%2812-20-2018%29%2C%20South%20Tangerang.jpg",
+    imageUrl: commonsThumb("2016 Honda Vario 150 (12-20-2018), South Tangerang.jpg", 720),
   },
   {
     id: "scooter-vario-160",
@@ -123,7 +126,7 @@ export const fallbackVehicles = [
     model: "Vario 160",
     bodyTypeLabel: "Scooter",
     dailyRate: 18,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Vario%20160%202023.png",
+    imageUrl: commonsThumb("Vario 160 2023.png", 720),
   },
   {
     id: "scooter-filano",
@@ -132,7 +135,7 @@ export const fallbackVehicles = [
     model: "Grand Filano",
     bodyTypeLabel: "Scooter",
     dailyRate: 18,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/2015%20Yamaha%20Grand%20Filano%20125%20%2820150604%29.jpg",
+    imageUrl: commonsThumb("2015 Yamaha Grand Filano 125 (20150604).jpg", 720),
   },
   {
     id: "scooter-vespa",
@@ -141,29 +144,32 @@ export const fallbackVehicles = [
     model: "Primavera",
     bodyTypeLabel: "Scooter",
     dailyRate: 22,
-    imageUrl: "https://commons.wikimedia.org/wiki/Special:FilePath/Vespa%20Primavera%2080th%202026.jpg",
+    imageUrl: commonsThumb("Vespa Primavera 80th 2026.jpg", 720),
   },
 ];
 
 export const categories = [
   {
     title: "Zanzibar City Cars",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/2002-2005%20Toyota%20ist.jpg",
+    image: commonsThumb("2002-2005 Toyota ist.jpg", 640),
     tone: "mist",
   },
   {
     title: "Family Vans",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/2018%20Toyota%20Alphard%20V6%20%28front%29.jpg",
+    image: commonsThumb("2018 Toyota Alphard V6 (front).jpg", 640),
     tone: "light",
   },
   {
     title: "Safari SUVs",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/Toyota%20Land%20Cruiser%20Prado%20%2854098221407%29.jpg",
+    image: commonsThumb("Toyota Land Cruiser Prado (54098221407).jpg", 640),
     tone: "dark",
   },
   {
     title: "Scooters",
-    image: "https://commons.wikimedia.org/wiki/Special:FilePath/2015%20Yamaha%20Grand%20Filano%20125%20%2820150604%29.jpg",
+    image: commonsThumb("2015 Yamaha Grand Filano 125 (20150604).jpg", 640),
     tone: "silver",
   },
 ];
+
+export const homeHeroImage = commonsThumb("Toyota Land Cruiser Prado (54098221407).jpg", 1200);
+export const homePromoImage = commonsThumb("Toyota Land Cruiser 200 4x4 VXR 2020.jpg", 1200);
