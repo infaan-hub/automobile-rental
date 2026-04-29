@@ -714,7 +714,15 @@ body {
 
 .footer-gateway-card span {
   font-size: 0.82rem;
-  color: rgba(230, 236, 248, 0.82);
+  color: #4f5d73;
+}
+
+.footer-gateway-strip {
+  display: block;
+  width: min(100%, 430px);
+  border: 1px solid rgba(154, 169, 192, 0.22);
+  border-radius: 14px;
+  background: #eef1f5;
 }
 
 .footer-qr-block {
@@ -726,7 +734,7 @@ body {
 
 .footer-qr-block p {
   margin: 0 0 8px;
-  color: rgba(230, 236, 248, 0.72);
+  color: #64708a;
 }
 
 .footer-qr-block img {
@@ -1277,6 +1285,16 @@ button {
   color: #d2d9e5;
 }
 
+.theme-dark .footer-gateway-card span,
+.theme-dark .footer-qr-block p {
+  color: #b8c3d5;
+}
+
+.theme-dark .footer-gateway-strip {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: #e8edf4;
+}
+
 .theme-dark .footer-subscribe input {
   border-bottom-color: rgba(148, 163, 184, 0.18);
   background: transparent;
@@ -1492,6 +1510,15 @@ button {
   background: #edf1f6;
 }
 
+.category-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(140deg, rgba(4, 8, 15, 0.72) 0%, rgba(4, 8, 15, 0.34) 38%, rgba(4, 8, 15, 0.04) 72%);
+  pointer-events: none;
+}
+
 .category-card.dark {
   color: #fff;
   background: #161b23;
@@ -1502,9 +1529,11 @@ button {
   z-index: 2;
   max-width: 130px;
   margin: 18px;
+  color: #ffffff;
   font-size: 1.35rem;
   letter-spacing: -0.04em;
   line-height: 1.04;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 
 .category-card img {
@@ -1529,6 +1558,7 @@ button {
   position: absolute;
   right: 16px;
   bottom: 16px;
+  z-index: 2;
   display: grid;
   width: 26px;
   height: 26px;

@@ -3,7 +3,7 @@ import { homeHeroImage } from "../lib/data";
 import { isCustomerLoggedIn } from "../lib/customer";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
-import { paymentGatewayAssets, websiteQr } from "../lib/paymentAssets";
+import { homePaymentGateways, websiteQr } from "../lib/paymentAssets";
 
 const tones = ["mist", "light", "dark", "silver"];
 
@@ -150,14 +150,13 @@ export function Footer() {
         </label>
         <div className="footer-payment-block">
           <h3>Payment gateways</h3>
-          <div className="footer-gateway-grid">
-            {paymentGatewayAssets.map((gateway) => (
-              <article className="footer-gateway-card" key={gateway.id}>
-                <img src={gateway.image} alt={gateway.label} loading="lazy" decoding="async" />
-                <span>{gateway.label}</span>
-              </article>
-            ))}
-          </div>
+          <img
+            className="footer-gateway-strip"
+            src={homePaymentGateways}
+            alt="PayPal, Visa, Mastercard, and American Express payment gateways"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
         <div className="footer-qr-block">
           <div>
