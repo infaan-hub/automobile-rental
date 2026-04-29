@@ -55,7 +55,7 @@ export default function VehicleViewPage() {
           <small>{vehicle.vehicleType} rental</small>
           <h1>{vehicle.name}</h1>
           <p>{vehicle.description || `${vehicle.brand} ${vehicle.model} from ${vehicle.year}`}</p>
-          <strong>{money(vehicle.dailyRate)} / day</strong>
+          <strong>{money(vehicle.dailyRate)}</strong>
           <div className="vehicle-spec-grid">
             {specItems(vehicle).map(([label, value]) => (
               <article className="vehicle-spec-card" key={label}>

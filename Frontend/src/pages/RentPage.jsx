@@ -13,6 +13,16 @@ function rentSpecs(vehicle) {
   ];
 }
 
+function rentPlans(dailyRate) {
+  const daily = Number(dailyRate || 0);
+
+  return [
+    ["Daily rent", daily, "Fixed dealer price per day"],
+    ["Weekly rent", daily * 7 * 0.9, "7 days with 10% discount"],
+    ["Monthly rent", daily * 30 * 0.7, "30 days with 30% discount"],
+  ];
+}
+
 export default function RentPage() {
   const vehicleId = new URLSearchParams(window.location.search).get("vehicle");
   const [vehicle, setVehicle] = useState(null);
@@ -41,6 +51,8 @@ export default function RentPage() {
     return <section className="panel-page"><div className="panel-card"><Notice error={error} /><p>Loading rental view...</p></div></section>;
   }
 
+  const plans = rentPlans(vehicle.dailyRate);
+
   return (
     <section className="rent-page">
       <div className="rent-phone-shell">
@@ -52,7 +64,7 @@ export default function RentPage() {
           <h1>{vehicle.name}</h1>
           <span>{vehicle.brand} {vehicle.model}</span>
         </div>
-        <div className="rent-rating-row">
+        <div className="rent-meta-row">
           <strong>{moneyAmount(vehicle.dailyRate)}</strong>
           <small>{vehicle.year} | {vehicle.location}</small>
         </div>
@@ -74,17 +86,18 @@ export default function RentPage() {
         <section className="rent-panel">
           <h2>Plan</h2>
           <div className="rent-plan-grid">
-            <article className="rent-plan-card active">
-              <small>Daily rent</small>
-              <strong>{moneyAmount(vehicle.dailyRate)}</strong>
-              <span>Dealer posted live daily rate</span>
-            </article>
-            <article className="rent-plan-card">
-              <small>Fuel</small>
-              <strong>{vehicle.fuelType}</strong>
-              <span>{vehicle.isAvailable ? "Available now" : "Not available"}</span>
-            </article>
+            {plans.map(([label, amount, note], index) => (
+              <article className={`rent-plan-card ${index === 0 ? "active" : ""}`} key={label}>
+                <small>{label}</small>
+                <strong>{moneyAmount(amount)}</strong>
+                <span>{note}</span>
+              </article>
+            ))}
           </div>
+        </section>
+        <section className="rent-panel">
+          <h2>Availability</h2>
+          <div className="rent-location-card">{vehicle.fuelType} | {vehicle.isAvailable ? "Available now" : "Not available"}</div>
         </section>
         <section className="rent-panel">
           <h2>Location</h2>

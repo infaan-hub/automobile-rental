@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Notice from "../components/Notice";
 import { apiRequest } from "../lib/api";
 import { CUSTOMER_TOKEN_KEY } from "../lib/config";
-import { money } from "../lib/formatters";
+import { money, moneyAmount } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
 
 function openView(vehicleId) {
@@ -71,7 +71,7 @@ export default function CustomerDashboardPage() {
                   <h3>{vehicle.name}</h3>
                   <p>{vehicle.description || `${vehicle.brand} ${vehicle.model} | ${vehicle.transmission} | ${vehicle.fuelType}`}</p>
                 </div>
-                <strong>{money(vehicle.dailyRate)} / day</strong>
+                <strong>{money(vehicle.dailyRate)}</strong>
               </div>
               <div className="customer-card-actions">
                 <button className="ghost-button" type="button" onClick={() => openView(vehicle.id)}>View specs</button>
@@ -95,7 +95,7 @@ export default function CustomerDashboardPage() {
                 <p>{booking.pickupDate} to {booking.returnDate}</p>
                 <small>{booking.status} | {booking.returnLocation}</small>
               </div>
-              <div className="customer-booking-price">{money(booking.totalCost)}</div>
+              <div className="customer-booking-price">{moneyAmount(booking.totalCost)}</div>
             </article>
           )) : <p className="section-empty">No bookings yet. Your rentals will appear here after checkout.</p>}
         </div>

@@ -75,7 +75,7 @@ export default function RentalAgreementPage() {
           <div>
             <small>Rental agreement</small>
             <h1>{vehicle.name}</h1>
-            <p>{money(vehicle.dailyRate)} / day</p>
+            <p>{money(vehicle.dailyRate)}</p>
           </div>
           <img src={vehicle.imageUrl} alt={vehicle.name} />
         </div>
