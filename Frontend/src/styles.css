@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url(https://db.onlinewebfonts.com/c/09fb4cb5adae5a09246cf476bd3badbf?family=Neofolia);
+@import url(https://db.onlinewebfonts.com/c/97386c1d7bdb684478ab36ec4e1129c8?family=Sk-Modernist);
 
 :root {
   --black: #08090d;
@@ -9,13 +10,19 @@
   --blue: #6a9cff;
   --blue-dark: #477df0;
   --white: #ffffff;
-  font-family: "Manrope", sans-serif;
+  font-family: "Neofolia", "Sk-Modernist", sans-serif;
   color: var(--ink);
   background: var(--white);
 }
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html {
@@ -754,9 +761,9 @@ body {
 .theme-dark .payment-card,
 .theme-dark .customer-vehicle-card,
 .theme-dark .rent-phone-shell {
-  background: rgba(15, 23, 42, 0.92);
-  border-color: rgba(113, 129, 156, 0.22);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  background: #FFF0C9;
+  border-color: rgba(36, 59, 143, 0.22);
+  box-shadow: 0 30px 70px rgba(36, 59, 143, 0.08);
 }
 
 .theme-dark .customer-dashboard-hero p,
@@ -781,7 +788,7 @@ body {
 .theme-dark .payment-selected-gateway,
 .theme-dark .rent-meta-row small,
 .theme-dark .payment-amount-table span {
-  color: #98a7c0;
+  color: #5A7BCF;
 }
 
 .theme-dark .vehicle-spec-card,
@@ -803,17 +810,17 @@ body {
 .theme-dark .payment-step strong,
 .theme-dark .billing-section,
 .theme-dark .google-placeholder-button {
-  background: rgba(15, 23, 42, 0.7);
-  border-color: rgba(113, 129, 156, 0.25);
-  color: #eef3ff;
+  background: #F5E6BF;
+  border-color: rgba(36, 59, 143, 0.2);
+  color: #243B8F;
 }
 
 .theme-dark .payment-step-strip {
-  background: linear-gradient(180deg, rgba(20, 31, 49, 0.96), rgba(13, 21, 34, 0.96));
+  background: linear-gradient(180deg, #FAEBC4, #F0E1BA);
 }
 
 .theme-dark .payment-step.active strong {
-  background: rgba(55, 217, 198, 0.14);
+  background: rgba(36, 59, 143, 0.14);
 }
 
 .theme-dark .rent-meta-row strong,
@@ -821,7 +828,7 @@ body {
 .theme-dark .billing-hero h1,
 .theme-dark .booking-info-card h2,
 .theme-dark .payment-gateway-heading h2 {
-  color: #f7fbff;
+  color: #243B8F;
 }
 
 @media (max-width: 960px) {
@@ -1081,23 +1088,23 @@ button {
 }
 
 .theme-dark {
-  color: #e7ebf3;
-  background: #0b111b;
+  color: #243B8F;
+  background: #FFF0C9;
 }
 
 .theme-dark .app-header {
-  border-bottom-color: rgba(148, 163, 184, 0.14);
-  background: rgba(10, 15, 24, 0.9);
+  border-bottom-color: rgba(36, 59, 143, 0.14);
+  background: rgba(255, 240, 201, 0.9);
 }
 
 .theme-dark .menu-toggle,
 .theme-dark .theme-toggle {
-  border-color: rgba(148, 163, 184, 0.16);
-  background: #121b28;
+  border-color: rgba(36, 59, 143, 0.16);
+  background: #F5E6BF;
 }
 
 .theme-dark .menu-toggle span {
-  background: #e7ebf3;
+  background: #243B8F;
 }
 
 .theme-dark .app-header-copy small,
@@ -1109,7 +1116,7 @@ button {
 .theme-dark .panel-header p,
 .theme-dark .footer-subscribe,
 .theme-dark .booking-search span {
-  color: #94a3b8;
+  color: #5A7BCF;
 }
 
 .theme-dark .app-header-copy strong,
@@ -1123,33 +1130,33 @@ button {
 .theme-dark .trend-card h3,
 .theme-dark .row-card strong,
 .theme-dark .panel-header h1 {
-  color: #e7ebf3;
+  color: #243B8F;
 }
 
 .theme-dark .theme-icon {
-  color: #94a3b8;
+  color: #5A7BCF;
 }
 
 .theme-dark .theme-icon.active,
 .theme-dark .app-nav-link.active {
-  color: #ffffff;
-  background: var(--blue-dark);
+  color: #FFF0C9;
+  background: #243B8F;
 }
 
 .theme-dark .app-nav-action {
-  color: #ffe4e6;
-  background: #7f1d1d;
+  color: #243B8F;
+  background: #F5E6BF;
 }
 
 .theme-dark .app-sidebar {
-  border-right-color: rgba(148, 163, 184, 0.14);
-  background: #0f1724;
-  box-shadow: 18px 0 44px rgba(2, 6, 23, 0.4);
+  border-right-color: rgba(36, 59, 143, 0.14);
+  background: #FAEBC4;
+  box-shadow: 18px 0 44px rgba(36, 59, 143, 0.1);
 }
 
 .theme-dark .app-nav-link {
-  color: #d2d9e5;
-  background: #131d2b;
+  color: #243B8F;
+  background: #F0E1BA;
 }
 
 .theme-dark .home-page,
@@ -1157,7 +1164,7 @@ button {
 .theme-dark .site-footer,
 .theme-dark .panel-page,
 .theme-dark .auth-page {
-  background: #0b111b;
+  background: #FFF0C9;
 }
 
 .theme-dark .booking-search,
@@ -1169,8 +1176,8 @@ button {
 .theme-dark .nav-search,
 .theme-dark .field-shell,
 .theme-dark .auth-card .field-shell {
-  color: #e7ebf3;
-  background: #121b28;
+  color: #243B8F;
+  background: #F5E6BF;
 }
 
 .theme-dark .booking-search,
@@ -1181,13 +1188,13 @@ button {
 .theme-dark .site-footer,
 .theme-dark .auth-card .panel-alert,
 .theme-dark .field-shell {
-  border-color: rgba(148, 163, 184, 0.14);
+  border-color: rgba(36, 59, 143, 0.14);
   box-shadow: none;
 }
 
 .theme-dark .booking-search label,
 .theme-dark .row-card {
-  border-color: rgba(148, 163, 184, 0.14);
+  border-color: rgba(36, 59, 143, 0.14);
 }
 
 .theme-dark .booking-search input,
@@ -1197,64 +1204,63 @@ button {
 .theme-dark .row-card select,
 .theme-dark .footer-subscribe input,
 .theme-dark .nav-search input {
-  color: #e7ebf3;
+  color: #243B8F;
 }
 
 .theme-dark .field-shell b,
 .theme-dark .auth-card .field-shell b {
-  color: #c9d2e3;
+  color: #5A7BCF;
 }
 
 .theme-dark .panel-card .field-shell {
-  border-color: rgba(148, 163, 184, 0.24);
-  background: #162334;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  border-color: rgba(36, 59, 143, 0.2);
+  background: #F5E6BF;
 }
 
 .theme-dark .panel-card .field > .sr-only {
-  color: #b7c3d6;
+  color: #5A7BCF;
 }
 
 .theme-dark .field input::placeholder,
 .theme-dark .field textarea::placeholder {
-  color: #8fa0b8;
+  color: #7A9BDF;
   opacity: 1;
 }
 
 .theme-dark .file-input {
-  color: #dbe4f0;
-  border-color: rgba(148, 163, 184, 0.28);
-  background: #162334;
+  color: #243B8F;
+  border-color: rgba(36, 59, 143, 0.2);
+  background: #F5E6BF;
 }
 
 .theme-dark .form-image-preview,
 .theme-dark .row-image-preview {
-  border-color: rgba(148, 163, 184, 0.18);
-  background: #162334;
+  border-color: rgba(36, 59, 143, 0.18);
+  background: #F5E6BF;
 }
 
 .theme-dark .feature-strip,
 .theme-dark .hero-shell,
 .theme-dark .promo-section {
-  background: #08101a;
+  background: #F5E6BF;
 }
 
 .theme-dark .hero-title {
-  color: #ffffff;
-  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+  color: #243B8F;
+  text-shadow: 0 12px 28px rgba(36, 59, 143, 0.15);
 }
 
 .theme-dark .hero-stage {
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 100%),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, #0f1724 0 12%, #162334 42%, #08101a 74%);
+    linear-gradient(90deg, rgba(36, 59, 143, 0.06) 0 1px, transparent 1px 100%),
+    linear-gradient(0deg, rgba(36, 59, 143, 0.05) 0 1px, transparent 1px 100%),
+    linear-gradient(100deg, #FAEBC4 0 12%, #F5E6BF 42%, #FFF0C9 74%);
   background-size: 180px 100%, 100% 210px, 100% 100%;
 }
 
 .theme-dark .section-wrap,
 .theme-dark .trend-section {
-  color: #e7ebf3;
+  color: #243B8F;
 }
 
 .theme-dark .category-card,
@@ -1262,44 +1268,44 @@ button {
 .theme-dark .ghost-button,
 .theme-dark .solid-button,
 .theme-dark .auth-pill-secondary {
-  color: #e7ebf3;
-  background: #162334;
+  color: #243B8F;
+  background: #F5E6BF;
 }
 
 .theme-dark .ghost-button.danger,
 .theme-dark .auth-pill-primary {
-  background: #3a1820;
-  color: #ffe4e6;
+  background: #243B8F;
+  color: #FFF0C9;
 }
 
 .theme-dark .panel-alert.error {
-  color: #fecdd3;
-  background: #3a1820;
+  color: #243B8F;
+  background: #F5E6BF;
 }
 
 .theme-dark .panel-alert.success {
-  color: #bbf7d0;
-  background: #123123;
+  color: #243B8F;
+  background: #F5E6BF;
 }
 
 .theme-dark .footer-link,
 .theme-dark .footer-column a,
 .theme-dark .trend-card span {
-  color: #d2d9e5;
+  color: #2A4AA0;
 }
 
 .theme-dark .footer-gateway-card span,
 .theme-dark .footer-qr-block p {
-  color: #b8c3d5;
+  color: #5A7BCF;
 }
 
 .theme-dark .footer-gateway-strip {
-  border-color: rgba(148, 163, 184, 0.18);
-  background: #e8edf4;
+  border-color: rgba(36, 59, 143, 0.18);
+  background: #F5E6BF;
 }
 
 .theme-dark .footer-subscribe input {
-  border-bottom-color: rgba(148, 163, 184, 0.18);
+  border-bottom-color: rgba(36, 59, 143, 0.18);
   background: transparent;
 }
 

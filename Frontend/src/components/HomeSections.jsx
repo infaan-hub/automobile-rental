@@ -45,7 +45,7 @@ export function SearchBar() {
 export function CategorySection({ categories }) {
   return (
     <section className="section-wrap" id="category">
-      <h2>Car Category</h2>
+      <h2>Vehicle Categories</h2>
       <div className="category-grid">
         {categories.length ? categories.map((category, index) => (
           <article className={`category-card ${tones[index % tones.length]}`} key={`${category.type}-${category.id}`}>
