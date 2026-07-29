@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Area, Field, SelectField } from "../components/FormControls";
 import Notice from "../components/Notice";
 import { Metric, PanelHeader } from "../components/PanelBits";
-import VideoBackground from "../components/VideoBackground";
 import { apiRequest } from "../lib/api";
 import { DEALER_TOKEN_KEY } from "../lib/config";
 import { money } from "../lib/formatters";
@@ -165,7 +164,6 @@ export default function DealerDashboardPage() {
 
   return (
     <section className="panel-page">
-      <VideoBackground name="dashboard" fill />
       <PanelHeader
         badge="Car dealer dashboard"
         title={`Welcome ${data.user.firstName || data.user.username}`}

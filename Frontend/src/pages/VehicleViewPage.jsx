@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Notice from "../components/Notice";
-import VideoBackground from "../components/VideoBackground";
 import { apiRequest } from "../lib/api";
 import { money } from "../lib/formatters";
 import { getCustomerToken } from "../lib/customer";
@@ -48,7 +47,6 @@ export default function VehicleViewPage() {
 
   return (
     <section className="vehicle-view-page">
-      <VideoBackground name="view" fill />
       <div className="vehicle-view-shell">
         <div className="vehicle-view-media">
           <img src={vehicle.imageUrl} alt={vehicle.name} />

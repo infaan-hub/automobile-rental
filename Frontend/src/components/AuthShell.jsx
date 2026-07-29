@@ -1,12 +1,9 @@
 import React from "react";
-import VideoBackground from "./VideoBackground";
 import { navigate } from "../lib/navigation";
 
 export default function AuthShell({ badge, title, text, altLabel, altPath, children }) {
   return (
     <section className="auth-page">
-      <VideoBackground name="auth" />
-      <div className="auth-overlay" />
       <div className="auth-stage">
         <div className="auth-intro">
           <button className="logo nav-button auth-home-link" type="button" onClick={() => navigate("/home")}>

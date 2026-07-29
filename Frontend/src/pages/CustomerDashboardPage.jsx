@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Notice from "../components/Notice";
-import VideoBackground from "../components/VideoBackground";
 import { apiRequest } from "../lib/api";
 import { CUSTOMER_TOKEN_KEY } from "../lib/config";
 import { money, moneyAmount } from "../lib/formatters";
@@ -41,7 +40,6 @@ export default function CustomerDashboardPage() {
 
   return (
     <section className="customer-dashboard-page">
-      <VideoBackground name="dashboard" fill />
       <header className="customer-dashboard-hero">
         <div>
           <small>Customer dashboard</small>
