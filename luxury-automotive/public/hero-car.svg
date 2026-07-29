@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="50%" stop-color="#16213e"/>
+      <stop offset="100%" stop-color="#0f3460"/>
+    </linearGradient>
+    <linearGradient id="windshield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4a8ad4" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#2a5fa8" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <!-- Shadow -->
+  <ellipse cx="400" cy="370" rx="280" ry="20" fill="rgba(0,0,0,0.12)"/>
+  <!-- Lower body -->
+  <path d="M120 300 L140 260 L200 220 L280 200 L520 200 L600 220 L660 260 L680 300" stroke="url(#body)" stroke-width="3" fill="url(#body)"/>
+  <!-- Hood -->
+  <path d="M120 300 L140 260 L200 220 L280 200 L400 200 L400 300 Z" fill="url(#body)"/>
+  <!-- Trunk -->
+  <path d="M520 200 L600 220 L660 260 L680 300 L520 300 Z" fill="url(#body)"/>
+  <!-- Windshield -->
+  <path d="M290 200 L400 190 L400 300 L290 300 Z" fill="url(#windshield)"/>
+  <!-- Rear window -->
+  <path d="M410 190 L510 200 L510 300 L410 300 Z" fill="url(#windshield)" opacity="0.3"/>
+  <!-- Front wheel -->
+  <circle cx="250" cy="310" r="45" fill="#111"/>
+  <circle cx="250" cy="310" r="35" fill="#222"/>
+  <circle cx="250" cy="310" r="20" fill="#333"/>
+  <circle cx="250" cy="310" r="8" fill="#555"/>
+  <!-- Rear wheel -->
+  <circle cx="550" cy="310" r="45" fill="#111"/>
+  <circle cx="550" cy="310" r="35" fill="#222"/>
+  <circle cx="550" cy="310" r="20" fill="#333"/>
+  <circle cx="550" cy="310" r="8" fill="#555"/>
+  <!-- Headlight -->
+  <ellipse cx="125" cy="275" rx="12" ry="6" fill="#f0d060" opacity="0.8"/>
+  <!-- Taillight -->
+  <ellipse cx="678" cy="275" rx="8" ry="6" fill="#ff4444" opacity="0.7"/>
+  <!-- Side mirror -->
+  <rect x="205" y="205" width="20" height="10" rx="4" fill="#222"/>
+  <!-- Detail line -->
+  <line x1="140" y1="255" x2="660" y2="255" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+</svg>
