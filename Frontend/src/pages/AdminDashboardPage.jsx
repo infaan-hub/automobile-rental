@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Field } from "../components/FormControls";
 import Notice from "../components/Notice";
+import VideoBackground from "../components/VideoBackground";
 import { Metric, PanelHeader } from "../components/PanelBits";
 import { apiRequest } from "../lib/api";
 import { ADMIN_TOKEN_KEY } from "../lib/config";
@@ -92,6 +93,7 @@ export default function AdminDashboardPage() {
 
   return (
     <section className="panel-page">
+      <VideoBackground name="dashboard" fill />
       <PanelHeader
         badge="Admin dashboard"
         title={`Welcome ${data.user.firstName || data.user.username}`}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Notice from "../components/Notice";
+import VideoBackground from "../components/VideoBackground";
 import { apiRequest } from "../lib/api";
 import { getCustomerToken, saveRentalDraft } from "../lib/customer";
 import { money, moneyAmount } from "../lib/formatters";
@@ -55,6 +56,7 @@ export default function RentPage() {
 
   return (
     <section className="rent-page">
+      <VideoBackground name="rent" fill />
       <div className="rent-phone-shell">
         <div className="rent-top-bar">
           <button type="button" aria-label="Back to vehicle specs" onClick={() => navigate(`/view?vehicle=${vehicle.id}`)}>{"\u2039"}</button>

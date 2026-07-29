@@ -1,4 +1,5 @@
 import React from "react";
+import VideoBackground from "./VideoBackground";
 import { homeHeroImage } from "../lib/data";
 import { isCustomerLoggedIn } from "../lib/customer";
 import { money } from "../lib/formatters";
@@ -10,6 +11,7 @@ const tones = ["mist", "light", "dark", "silver"];
 export function Hero() {
   return (
     <header className="hero-shell">
+      <VideoBackground name="hero" fill />
       <section className="hero-stage">
         <img
           className="hero-car"

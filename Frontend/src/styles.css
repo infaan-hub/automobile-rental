@@ -34,6 +34,23 @@ body {
   background: var(--white);
 }
 
+.video-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.video-background.video-fill {
+  position: absolute;
+}
+
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .customer-google-row {
   display: grid;
   place-items: center;
@@ -71,6 +88,7 @@ body {
 .rent-page,
 .agreement-page,
 .payment-page {
+  position: relative;
   padding: 32px clamp(18px, 4vw, 44px) 48px;
 }
 
@@ -78,6 +96,8 @@ body {
 .vehicle-view-shell,
 .agreement-card,
 .payment-card {
+  position: relative;
+  z-index: 1;
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -146,6 +166,8 @@ body {
 }
 
 .customer-vehicle-card {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: 16px;
   padding: 18px;
@@ -206,6 +228,8 @@ body {
 }
 
 .vehicle-view-shell {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 24px;
@@ -221,8 +245,15 @@ body {
 
 .vehicle-view-copy {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   align-content: start;
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.theme-dark .vehicle-view-copy {
+  background: rgba(34, 34, 34, 0.7);
 }
 
 .vehicle-view-copy > strong {
@@ -269,6 +300,8 @@ body {
 }
 
 .rent-phone-shell {
+  position: relative;
+  z-index: 1;
   width: min(100%, 920px);
   padding: 24px;
   border-radius: 28px;
@@ -1145,7 +1178,6 @@ button {
 
 .theme-dark .app-header-copy small,
 .theme-dark .app-sidebar-head small,
-.theme-dark .auth-copy span,
 .theme-dark .hero-note,
 .theme-dark .row-card p,
 .theme-dark .row-card small,
@@ -1210,8 +1242,7 @@ button {
 .theme-dark .site-footer,
 .theme-dark .app-logo,
 .theme-dark .nav-search,
-.theme-dark .field-shell,
-.theme-dark .auth-card .field-shell {
+.theme-dark .field-shell {
   color: #e0e0e0;
   background: #222222;
 }
@@ -1222,10 +1253,17 @@ button {
 .theme-dark .trend-card,
 .theme-dark .row-card,
 .theme-dark .site-footer,
-.theme-dark .auth-card .panel-alert,
 .theme-dark .field-shell {
   border-color: rgba(255, 255, 255, 0.06);
   box-shadow: none;
+}
+
+.theme-dark .auth-card {
+  background: rgba(34, 34, 34, 0.7);
+}
+
+.theme-dark .auth-card-inner {
+  background: rgba(34, 34, 34, 0.1);
 }
 
 .theme-dark .booking-search label,
@@ -1288,7 +1326,7 @@ button {
 .theme-dark .hero-stage {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, #2a2a2a 0 12%, #222222 42%, #1a1a1a 74%);
+    linear-gradient(100deg, rgba(42, 42, 42, 0.6) 0 12%, rgba(34, 34, 34, 0.6) 42%, rgba(26, 26, 26, 0.6) 74%);
   background-size: 180px 100%, 100% 100%;
 }
 
@@ -1346,6 +1384,7 @@ button {
 .home-page,
 .auth-page,
 .panel-page {
+  position: relative;
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
@@ -1425,11 +1464,12 @@ button {
 
 .hero-stage {
   position: relative;
+  z-index: 1;
   min-height: 506px;
   padding: 1px 42px;
   background:
-    linear-gradient(90deg, rgba(200, 210, 225, 0.3) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, #f0f3f8 0 12%, #dce3ed 42%, #c8d2de 74%);
+    linear-gradient(90deg, rgba(200, 210, 225, 0.15) 0 1px, transparent 1px 100%),
+    linear-gradient(100deg, rgba(240, 243, 248, 0.55) 0 12%, rgba(220, 227, 237, 0.55) 42%, rgba(200, 210, 222, 0.55) 74%);
   background-size: 180px 100%, 100% 100%;
 }
 
@@ -1623,11 +1663,18 @@ button {
   background: #f2f4f7;
 }
 
+.customer-vehicle-section,
+.customer-bookings-section {
+  position: relative;
+  z-index: 1;
+}
+
 .section-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .section-heading a {
@@ -1881,39 +1928,26 @@ button {
 
 .auth-stage {
   position: relative;
+  z-index: 2;
   display: grid;
-  place-items: start center;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
   min-height: 100vh;
-  overflow: hidden;
   padding: 34px 18px 24px;
 }
 
-.auth-backdrop,
 .auth-overlay {
   position: absolute;
   inset: 0;
-}
-
-.auth-backdrop {
-  background:
-    linear-gradient(rgba(12, 8, 7, 0.32), rgba(5, 5, 5, 0.72)),
-    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80") center/cover;
-  transform: scale(1.06);
-  filter: blur(2px);
-}
-
-.auth-overlay {
-  background:
-    radial-gradient(circle at top center, rgba(255, 120, 104, 0.18), transparent 28rem),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.6));
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
 }
 
 .auth-intro {
-  position: relative;
-  z-index: 3;
   display: grid;
   justify-items: center;
-  gap: 6px;
+  gap: 4px;
   text-align: center;
 }
 
@@ -1958,7 +1992,7 @@ button {
 }
 
 .auth-intro h1 {
-  color: #ff6f68;
+  color: #41C0F2;
 }
 
 .auth-copy span {
@@ -1985,54 +2019,28 @@ button {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.auth-floating-car {
-  position: relative;
-  z-index: 3;
-  display: block;
-  width: min(240px, 42vw);
-  max-width: 100%;
-  max-height: 180px;
-  margin-top: 16px;
-  margin-bottom: -22px;
-  object-fit: contain;
-  object-position: center;
-  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.34));
-}
-
 .auth-card {
   position: relative;
   z-index: 2;
   width: min(344px, 86vw);
   border-radius: 24px;
-  padding: 1px;
-  background: linear-gradient(180deg, rgba(65, 192, 242, 0.8), rgba(65, 192, 242, 0.2));
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
 }
 
-.auth-card-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(65, 192, 242, 0.4);
-  pointer-events: none;
-}
-
 .auth-card-inner {
-  position: relative;
   display: grid;
   gap: 12px;
-  min-height: 404px;
-  padding: 18px 16px 16px;
-  border-radius: 23px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  padding: 32px 20px 24px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .auth-copy {
   display: grid;
   gap: 6px;
-  margin-top: 46px;
   text-align: center;
 }
 
@@ -2043,6 +2051,7 @@ button {
 }
 
 .auth-copy span {
+  color: rgba(255, 255, 255, 0.74);
   font-size: 0.78rem;
   line-height: 1.5;
 }
@@ -2073,6 +2082,7 @@ button {
   padding: 9px 14px;
   font-size: 0.74rem;
   font-weight: 800;
+  cursor: pointer;
 }
 
 .auth-pill-primary {
@@ -2085,50 +2095,19 @@ button {
   background: rgba(255, 255, 255, 0.94);
 }
 
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 0;
-}
-
-.auth-divider span {
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.auth-divider p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.94);
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.auth-fingerprint {
-  display: grid;
-  justify-items: center;
-  gap: 4px;
-}
-
-.auth-fingerprint-icon {
-  color: #ff6f68;
-  font-size: 1.8rem;
-  line-height: 1;
-}
-
-.auth-fingerprint small {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.74rem;
-  font-weight: 700;
-}
-
 .panel-header {
   display: flex;
   justify-content: space-between;
   gap: 24px;
   align-items: flex-start;
   margin-bottom: 22px;
+}
+
+.panel-stats,
+.panel-grid,
+.stack-grid {
+  position: relative;
+  z-index: 1;
 }
 
 .panel-stats {
@@ -2140,6 +2119,8 @@ button {
 
 .metric-card,
 .panel-card {
+  position: relative;
+  z-index: 1;
   border: 1px solid rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(12px);
@@ -2409,6 +2390,8 @@ button {
 }
 
 .row-card {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -2526,24 +2509,12 @@ button {
     font-size: clamp(1.8rem, 5vw, 2.6rem);
   }
 
-  .auth-floating-car {
-    width: min(210px, 44vw);
-    max-height: 146px;
-    margin-top: 10px;
-    margin-bottom: -16px;
-  }
-
   .auth-card {
     width: min(328px, 74vw);
   }
 
   .auth-card-inner {
-    min-height: 390px;
-    padding: 16px 14px 14px;
-  }
-
-  .auth-copy {
-    margin-top: 40px;
+    padding: 22px 16px 18px;
   }
 }
 
@@ -2674,12 +2645,7 @@ button {
   }
 
   .auth-card-inner {
-    min-height: 372px;
-    padding: 14px 12px 12px;
-  }
-
-  .auth-copy {
-    margin-top: 26px;
+    padding: 20px 14px 16px;
   }
 
   .auth-intro {
@@ -2696,13 +2662,6 @@ button {
 
   .auth-intro > small {
     font-size: 0.62rem;
-  }
-
-  .auth-floating-car {
-    width: min(160px, 46vw);
-    max-height: 112px;
-    margin-top: 6px;
-    margin-bottom: -10px;
   }
 
   .auth-copy strong {
