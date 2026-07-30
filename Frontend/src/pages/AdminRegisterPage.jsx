@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AuthShell from "../components/AuthShell";
-import { Field } from "../components/FormControls";
-import Notice from "../components/Notice";
+import InputField from "../components/auth/InputField";
+import PrimaryButton from "../components/auth/PrimaryButton";
 import { apiRequest } from "../lib/api";
 import { ADMIN_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
@@ -9,38 +9,44 @@ import { navigate } from "../lib/navigation";
 export default function AdminRegisterPage() {
   const [form, setForm] = useState({ username: "", email: "", password: "", firstName: "", lastName: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function submit(event) {
     event.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       const data = await apiRequest("/admin/register/", { method: "POST", body: JSON.stringify(form) });
       localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
       navigate("/admin/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <AuthShell
-      badge="Admin register"
-      title="Create the admin superuser"
-      text="Use this once to create the platform admin. After that, admin manages dealers, users, bookings, and rented cars."
+      badge="Admin"
+      title="Create Admin"
+      text="Set up the platform superuser to manage your fleet."
       altLabel="Already have admin access?"
       altPath="/admin/login"
     >
       <form onSubmit={submit}>
-        <Notice error={error} />
-        <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
-        <Field label="Email" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
-        <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <div className="double-grid">
-          <Field label="First name" value={form.firstName} onChange={(value) => setForm({ ...form, firstName: value })} />
-          <Field label="Last name" value={form.lastName} onChange={(value) => setForm({ ...form, lastName: value })} />
+        {error && <div className="lux-notice">{error}</div>}
+        <div className="lux-double-grid">
+          <InputField label="First Name" icon="name" value={form.firstName} onChange={(v) => setForm({ ...form, firstName: v })} />
+          <InputField label="Last Name" icon="name" value={form.lastName} onChange={(v) => setForm({ ...form, lastName: v })} />
         </div>
-        <div className="auth-action-row">
-          <button className="auth-pill-button auth-pill-primary" type="submit">Register</button>
-          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/admin/login")}>Engine</button>
+        <InputField label="Username" icon="username" value={form.username} onChange={(v) => setForm({ ...form, username: v })} />
+        <InputField label="Email" type="email" icon="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+        <InputField label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} />
+        <div style={{ marginTop: 4 }}>
+          <PrimaryButton type="submit" loading={loading}>
+            Register
+          </PrimaryButton>
         </div>
       </form>
     </AuthShell>

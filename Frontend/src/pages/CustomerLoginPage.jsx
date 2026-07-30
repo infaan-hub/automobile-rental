@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from "react";
 import AuthShell from "../components/AuthShell";
-import { Field } from "../components/FormControls";
-import GoogleAuthButton from "../components/GoogleAuthButton";
-import Notice from "../components/Notice";
+import InputField from "../components/auth/InputField";
+import PrimaryButton from "../components/auth/PrimaryButton";
+import GoogleButton from "../components/auth/GoogleButton";
+import Divider from "../components/auth/Divider";
 import { apiRequest } from "../lib/api";
 import { CUSTOMER_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
@@ -10,15 +11,20 @@ import { navigate } from "../lib/navigation";
 export default function CustomerLoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function submit(event) {
     event.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       const data = await apiRequest("/login/", { method: "POST", body: JSON.stringify(form) });
       localStorage.setItem(CUSTOMER_TOKEN_KEY, data.token);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -37,24 +43,29 @@ export default function CustomerLoginPage() {
 
   return (
     <AuthShell
-      badge="Customer login"
-      title="Login to start renting"
-      text="Browse full specs, save rentals, complete agreements, and manage your active bookings."
-      altLabel="Need a customer account?"
+      badge="Customer"
+      title="Welcome Back"
+      text="Sign in to continue your premium journey."
+      altLabel="Don't have an account?"
       altPath="/register"
     >
       <form onSubmit={submit}>
-        <Notice error={error} />
-        <Field label="Username or email" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
-        <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <div className="auth-action-row">
-          <button className="auth-pill-button auth-pill-primary" type="submit">Login</button>
-          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/register")}>Register</button>
+        {error && <div className="lux-notice">{error}</div>}
+        <InputField label="Email Address" icon="email" value={form.username} onChange={(v) => setForm({ ...form, username: v })} />
+        <InputField label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} />
+        <div className="lux-row">
+          <label className="lux-checkbox">
+            <input type="checkbox" defaultChecked />
+            Remember me
+          </label>
+          <button className="lux-forgot-link" type="button">Forgot Password?</button>
         </div>
+        <PrimaryButton type="submit" loading={loading}>
+          Login
+        </PrimaryButton>
       </form>
-      <div className="customer-google-row">
-        <GoogleAuthButton onCredential={signInWithGoogle} onError={setError} />
-      </div>
+      <Divider />
+      <GoogleButton onCredential={signInWithGoogle} onError={setError} />
     </AuthShell>
   );
 }

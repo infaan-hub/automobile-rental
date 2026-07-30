@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AuthShell from "../components/AuthShell";
-import { Field } from "../components/FormControls";
-import Notice from "../components/Notice";
+import InputField from "../components/auth/InputField";
+import PrimaryButton from "../components/auth/PrimaryButton";
 import { apiRequest } from "../lib/api";
 import { ADMIN_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
@@ -9,33 +9,39 @@ import { navigate } from "../lib/navigation";
 export default function AdminLoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function submit(event) {
     event.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       const data = await apiRequest("/admin/login/", { method: "POST", body: JSON.stringify(form) });
       localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
       navigate("/admin/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <AuthShell
-      badge="Admin login"
-      title="Login to the admin dashboard"
-      text="Admins can add car dealers, see customers and all users, review bookings, and delete users."
+      badge="Admin"
+      title="Admin Portal"
+      text="Secure access to the platform administration dashboard."
       altLabel="Need the first admin?"
       altPath="/admin/register"
     >
       <form onSubmit={submit}>
-        <Notice error={error} />
-        <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
-        <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <div className="auth-action-row">
-          <button className="auth-pill-button auth-pill-primary" type="submit">Engine</button>
-          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/admin/register")}>Register</button>
+        {error && <div className="lux-notice">{error}</div>}
+        <InputField label="Username" icon="username" value={form.username} onChange={(v) => setForm({ ...form, username: v })} />
+        <InputField label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} />
+        <div style={{ marginTop: 4 }}>
+          <PrimaryButton type="submit" loading={loading}>
+            Login
+          </PrimaryButton>
         </div>
       </form>
     </AuthShell>

@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from "react";
 import AuthShell from "../components/AuthShell";
-import { Field } from "../components/FormControls";
-import GoogleAuthButton from "../components/GoogleAuthButton";
-import Notice from "../components/Notice";
+import InputField from "../components/auth/InputField";
+import PrimaryButton from "../components/auth/PrimaryButton";
+import GoogleButton from "../components/auth/GoogleButton";
+import Divider from "../components/auth/Divider";
 import { apiRequest } from "../lib/api";
 import { CUSTOMER_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
@@ -16,15 +17,25 @@ export default function CustomerRegisterPage() {
     password: "",
   });
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [accepted, setAccepted] = useState(false);
 
   async function submit(event) {
     event.preventDefault();
+    if (!accepted) {
+      setError("Please accept the terms and conditions.");
+      return;
+    }
+    setLoading(true);
+    setError("");
     try {
       const data = await apiRequest("/register/", { method: "POST", body: JSON.stringify(form) });
       localStorage.setItem(CUSTOMER_TOKEN_KEY, data.token);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -43,29 +54,31 @@ export default function CustomerRegisterPage() {
 
   return (
     <AuthShell
-      badge="Customer register"
-      title="Create your customer account"
-      text="Register to unlock vehicle rentals, agreements, bookings, and a private customer dashboard."
+      badge="Customer"
+      title="Create Account"
+      text="Start your luxury driving experience today."
       altLabel="Already have an account?"
       altPath="/login"
     >
       <form onSubmit={submit}>
-        <Notice error={error} />
-        <div className="double-grid">
-          <Field label="First name" value={form.firstName} onChange={(value) => setForm({ ...form, firstName: value })} />
-          <Field label="Last name" value={form.lastName} onChange={(value) => setForm({ ...form, lastName: value })} />
+        {error && <div className="lux-notice">{error}</div>}
+        <div className="lux-double-grid">
+          <InputField label="First Name" icon="name" value={form.firstName} onChange={(v) => setForm({ ...form, firstName: v })} />
+          <InputField label="Last Name" icon="name" value={form.lastName} onChange={(v) => setForm({ ...form, lastName: v })} />
         </div>
-        <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
-        <Field label="Email" type="email" value={form.email} onChange={(value) => setForm({ ...form, email: value })} />
-        <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <div className="auth-action-row">
-          <button className="auth-pill-button auth-pill-primary" type="submit">Register</button>
-          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/login")}>Login</button>
+        <InputField label="Username" icon="username" value={form.username} onChange={(v) => setForm({ ...form, username: v })} />
+        <InputField label="Email" type="email" icon="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+        <InputField label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} />
+        <div className="lux-terms">
+          <input type="checkbox" id="terms" checked={accepted} onChange={(e) => setAccepted(e.target.checked)} />
+          <label htmlFor="terms">I agree to the Terms & Conditions and Privacy Policy</label>
         </div>
+        <PrimaryButton type="submit" loading={loading}>
+          Register
+        </PrimaryButton>
       </form>
-      <div className="customer-google-row">
-        <GoogleAuthButton onCredential={signInWithGoogle} onError={setError} />
-      </div>
+      <Divider />
+      <GoogleButton onCredential={signInWithGoogle} onError={setError} />
     </AuthShell>
   );
 }

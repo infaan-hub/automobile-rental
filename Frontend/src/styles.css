@@ -2017,20 +2017,6 @@ button {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.auth-floating-car {
-  position: relative;
-  z-index: 3;
-  display: block;
-  width: min(240px, 42vw);
-  max-width: 100%;
-  max-height: 180px;
-  margin-top: 16px;
-  margin-bottom: -22px;
-  object-fit: contain;
-  object-position: center;
-  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.34));
-}
-
 .auth-card {
   position: relative;
   z-index: 2;
@@ -2115,44 +2101,6 @@ button {
 .auth-pill-secondary {
   color: #23262d;
   background: rgba(255, 255, 255, 0.94);
-}
-
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 0;
-}
-
-.auth-divider span {
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.auth-divider p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.94);
-  font-size: 0.76rem;
-  font-weight: 800;
-}
-
-.auth-fingerprint {
-  display: grid;
-  justify-items: center;
-  gap: 4px;
-}
-
-.auth-fingerprint-icon {
-  color: #ff6f68;
-  font-size: 1.8rem;
-  line-height: 1;
-}
-
-.auth-fingerprint small {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.74rem;
-  font-weight: 700;
 }
 
 .panel-header {
@@ -2556,13 +2504,6 @@ button {
     font-size: clamp(1.8rem, 5vw, 2.6rem);
   }
 
-  .auth-floating-car {
-    width: min(210px, 44vw);
-    max-height: 146px;
-    margin-top: 10px;
-    margin-bottom: -16px;
-  }
-
   .auth-card {
     width: min(328px, 74vw);
   }
@@ -2751,13 +2692,6 @@ button {
     font-size: 0.62rem;
   }
 
-  .auth-floating-car {
-    width: min(160px, 46vw);
-    max-height: 112px;
-    margin-top: 6px;
-    margin-bottom: -10px;
-  }
-
   .auth-copy strong {
     font-size: 0.82rem;
   }
@@ -2784,5 +2718,724 @@ button {
   .auth-pill-button {
     flex: 1 1 0;
     min-width: 0;
+  }
+}
+
+/* ============================================================
+   LUXURY AUTH — Premium automotive authentication experience
+   ============================================================ */
+.lux-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #F7F7F7;
+  font-family: "Inter", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .lux-auth {
+  background: #0F1115;
+}
+
+/* ---------- Background ---------- */
+.lux-bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.lux-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.lux-bg-blob--1 {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  left: -200px;
+  background: #41C0F2;
+}
+.lux-bg-blob--2 {
+  width: 500px;
+  height: 500px;
+  bottom: -150px;
+  right: -100px;
+  background: #6a9cff;
+}
+.lux-bg-blob--3 {
+  width: 300px;
+  height: 300px;
+  top: 40%;
+  left: 50%;
+  background: #41C0F2;
+}
+.theme-dark .lux-bg-blob--1 {
+  background: #41C0F2;
+  opacity: 0.12;
+}
+.theme-dark .lux-bg-blob--2 {
+  background: #6a9cff;
+  opacity: 0.10;
+}
+.theme-dark .lux-bg-blob--3 {
+  background: #41C0F2;
+  opacity: 0.08;
+}
+.lux-bg-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+}
+
+/* ---------- Split layout ---------- */
+.lux-auth-split {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Left Hero ---------- */
+.lux-auth-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.lux-hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: 0.15;
+  pointer-events: none;
+}
+.theme-dark .lux-hero-image {
+  opacity: 0.10;
+}
+.lux-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(247,247,247,0.97) 0%, rgba(247,247,247,0.7) 50%, rgba(247,247,247,0.3) 100%);
+  pointer-events: none;
+}
+.theme-dark .lux-hero-gradient {
+  background: linear-gradient(135deg, rgba(15,17,21,0.98) 0%, rgba(15,17,21,0.75) 50%, rgba(15,17,21,0.3) 100%);
+}
+.lux-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+}
+.lux-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #41C0F2;
+  background: rgba(65, 192, 242, 0.1);
+  margin-bottom: 24px;
+}
+.theme-dark .lux-hero-badge {
+  background: rgba(65, 192, 242, 0.15);
+}
+.lux-hero-title {
+  margin: 0 0 16px;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #08090d;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .lux-hero-title {
+  color: #ffffff;
+}
+.lux-hero-title span {
+  color: #41C0F2;
+}
+.lux-hero-sub {
+  margin: 0 0 36px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #666;
+}
+.theme-dark .lux-hero-sub {
+  color: #999;
+}
+
+/* ---------- Hero features ---------- */
+.lux-hero-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.lux-hero-feat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #333;
+}
+.theme-dark .lux-hero-feat {
+  background: rgba(255,255,255,0.04);
+  color: #ccc;
+}
+.lux-hero-feat svg {
+  width: 18px;
+  height: 18px;
+  color: #41C0F2;
+  flex-shrink: 0;
+}
+
+/* ---------- Floating badges ---------- */
+.lux-floating-badges {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+.lux-floating-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  font-size: 0.78rem;
+  color: #444;
+  white-space: nowrap;
+}
+.theme-dark .lux-floating-badge {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  color: #ccc;
+}
+.lux-floating-badge svg {
+  width: 16px;
+  height: 16px;
+  color: #41C0F2;
+  flex-shrink: 0;
+}
+.lux-floating-badge strong {
+  font-weight: 700;
+  color: #08090d;
+}
+.theme-dark .lux-floating-badge strong {
+  color: #fff;
+}
+
+/* ---------- Right side ---------- */
+.lux-auth-card-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  width: 520px;
+  flex-shrink: 0;
+}
+
+/* ---------- Glass card ---------- */
+.lux-glass-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 36px 36px;
+  border-radius: 32px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.04),
+    0 24px 80px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.lux-glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.06),
+    0 32px 100px rgba(0,0,0,0.08);
+}
+.theme-dark .lux-glass-card {
+  background: rgba(15,15,15,0.6);
+  border-color: rgba(255,255,255,0.06);
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.2),
+    0 24px 80px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(65,192,242,0.05);
+}
+.theme-dark .lux-glass-card:hover {
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    0 32px 100px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(65,192,242,0.08);
+}
+
+.lux-card-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.lux-card-title {
+  margin: 0 0 6px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #08090d;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .lux-card-title {
+  color: #fff;
+}
+.lux-card-sub {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #888;
+  line-height: 1.5;
+}
+.theme-dark .lux-card-sub {
+  color: #999;
+}
+
+/* ---------- Inputs ---------- */
+.lux-input-wrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+.lux-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.lux-input-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #aaa;
+  pointer-events: none;
+  transition: color 0.2s ease;
+  z-index: 2;
+}
+.lux-input:focus ~ .lux-input-icon {
+  color: #41C0F2;
+}
+.lux-input {
+  width: 100%;
+  height: 58px;
+  padding: 0 18px 0 50px;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  background: #ffffff;
+  color: #08090d;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.lux-input::placeholder {
+  color: #bbb;
+}
+.lux-input:focus {
+  border-color: #41C0F2;
+  box-shadow: 0 0 0 4px rgba(65, 192, 242, 0.12);
+  background: #fff;
+}
+.theme-dark .lux-input {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+  color: #fff;
+}
+.theme-dark .lux-input::placeholder {
+  color: #666;
+}
+.theme-dark .lux-input:focus {
+  border-color: #41C0F2;
+  box-shadow: 0 0 0 4px rgba(65, 192, 242, 0.15);
+  background: rgba(255,255,255,0.08);
+}
+.lux-input-error {
+  border-color: #ef4444 !important;
+}
+.lux-input-error:focus {
+  box-shadow: 0 0 0 4px rgba(239,68,68,0.12) !important;
+}
+
+/* ---------- Password toggle ---------- */
+.lux-pw-toggle {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.lux-pw-toggle:hover {
+  color: #666;
+  background: rgba(0,0,0,0.04);
+}
+.theme-dark .lux-pw-toggle:hover {
+  background: rgba(255,255,255,0.06);
+}
+.lux-pw-toggle svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---------- Remember / Forgot row ---------- */
+.lux-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 20px;
+}
+.lux-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #666;
+  user-select: none;
+}
+.theme-dark .lux-checkbox {
+  color: #999;
+}
+.lux-checkbox input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  accent-color: #41C0F2;
+  cursor: pointer;
+}
+.theme-dark .lux-checkbox input[type=checkbox] {
+  border-color: rgba(255,255,255,0.2);
+}
+.lux-forgot-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #41C0F2;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-family: inherit;
+}
+.lux-forgot-link:hover {
+  opacity: 0.7;
+}
+
+/* ---------- Primary Button ---------- */
+.lux-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 56px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  /* Light mode */
+  background: #08090d;
+  color: #fff;
+}
+.lux-btn-primary:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  background: #1a1a1a;
+}
+.lux-btn-primary:active {
+  transform: translateY(0) scale(0.99);
+}
+.lux-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.theme-dark .lux-btn-primary {
+  background: #ffffff;
+  color: #08090d;
+}
+.theme-dark .lux-btn-primary:hover {
+  background: #e8e8e8;
+  box-shadow: 0 8px 24px rgba(255,255,255,0.1);
+}
+
+/* ---------- Google Button ---------- */
+.lux-btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 52px;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  border-radius: 999px;
+  padding: 0 24px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  font-family: inherit;
+  background: #fff;
+  color: #444;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.lux-btn-google:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.15);
+}
+.theme-dark .lux-btn-google {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.12);
+  color: #ccc;
+}
+.theme-dark .lux-btn-google:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ---------- Divider ---------- */
+.lux-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+}
+.lux-divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(0,0,0,0.08);
+}
+.theme-dark .lux-divider-line {
+  background: rgba(255,255,255,0.08);
+}
+.lux-divider-text {
+  font-size: 0.78rem;
+  color: #aaa;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.theme-dark .lux-divider-text {
+  color: #666;
+}
+
+/* ---------- Alt link ---------- */
+.lux-alt-wrap {
+  text-align: center;
+  margin-top: 20px;
+}
+.lux-alt-text {
+  font-size: 0.84rem;
+  color: #888;
+}
+.theme-dark .lux-alt-text {
+  color: #999;
+}
+.lux-alt-link {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #41C0F2;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s;
+  margin-left: 4px;
+}
+.lux-alt-link:hover {
+  opacity: 0.7;
+}
+
+/* ---------- Logo in card ---------- */
+.lux-card-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.lux-card-logo button {
+  border: 0;
+  background: none;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  cursor: pointer;
+  color: #08090d;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+  padding: 0;
+}
+.theme-dark .lux-card-logo button {
+  color: #fff;
+}
+.lux-card-logo span {
+  color: #41C0F2;
+}
+
+/* ---------- Double grid fields ---------- */
+.lux-double-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ---------- Terms checkbox ---------- */
+.lux-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0 20px;
+}
+.lux-terms input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border-radius: 4px;
+  accent-color: #41C0F2;
+  flex-shrink: 0;
+}
+.lux-terms label {
+  font-size: 0.8rem;
+  color: #888;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.theme-dark .lux-terms label {
+  color: #999;
+}
+
+/* ---------- Error notice ---------- */
+.lux-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 14px;
+  background: rgba(239,68,68,0.08);
+  color: #ef4444;
+  border: 1px solid rgba(239,68,68,0.15);
+}
+.theme-dark .lux-notice {
+  background: rgba(239,68,68,0.12);
+}
+
+/* ---------- Logo link inside hero ---------- */
+.lux-hero-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 28px;
+}
+.lux-hero-logo button {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  cursor: pointer;
+  color: #08090d;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .lux-hero-logo button {
+  color: #fff;
+}
+.lux-hero-logo span {
+  color: #41C0F2;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .lux-auth-split {
+    flex-direction: column;
+  }
+  .lux-auth-hero {
+    padding: 60px 40px 40px;
+    min-height: auto;
+  }
+  .lux-auth-card-wrap {
+    width: 100%;
+    padding: 20px 40px 60px;
+  }
+  .lux-glass-card {
+    max-width: 440px;
+  }
+  .lux-floating-badges {
+    display: none;
+  }
+  .lux-hero-features {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .lux-auth-hero {
+    padding: 40px 20px 20px;
+  }
+  .lux-auth-card-wrap {
+    padding: 16px 20px 40px;
+  }
+  .lux-glass-card {
+    padding: 28px 20px 24px;
+    border-radius: 24px;
+  }
+  .lux-hero-features {
+    grid-template-columns: 1fr;
+  }
+  .lux-double-grid {
+    grid-template-columns: 1fr;
   }
 }
