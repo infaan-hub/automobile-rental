@@ -18,6 +18,7 @@ export function Hero() {
           fetchPriority="high"
           decoding="async"
         />
+        <div className="hero-overlay" />
         <div className="hero-title">
           <h1>Premium car rental</h1>
         </div>

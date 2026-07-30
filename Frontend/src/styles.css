@@ -1,4 +1,5 @@
-@import url(https://db.onlinewebfonts.com/c/3c37c4157a2cd0a1b92569ce78aa99a3?family=Apoc+Revelations);
+@import url(https://fonts.cdnfonts.com/css/necosmic-2);
+@import url(https://fonts.cdnfonts.com/css/sofia-pro);
 
 :root {
   --black: #08090d;
@@ -9,7 +10,8 @@
   --blue: #6a9cff;
   --blue-dark: #477df0;
   --white: #FAF5EF;
-  font-family: "Apoc Revelations", Helvetica, sans-serif;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+  font-size: 17px;
   color: var(--ink);
   background: var(--white);
 }
@@ -1146,7 +1148,6 @@ button {
 .theme-dark .app-header-copy small,
 .theme-dark .app-sidebar-head small,
 .theme-dark .auth-copy span,
-.theme-dark .hero-note,
 .theme-dark .row-card p,
 .theme-dark .row-card small,
 .theme-dark .panel-header p,
@@ -1276,20 +1277,8 @@ button {
 }
 
 .theme-dark .feature-strip,
-.theme-dark .hero-shell,
 .theme-dark .promo-section {
   background: #1a1a1a;
-}
-
-.theme-dark .hero-title {
-  color: #ffffff;
-}
-
-.theme-dark .hero-stage {
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, #2a2a2a 0 12%, #222222 42%, #1a1a1a 74%);
-  background-size: 180px 100%, 100% 100%;
 }
 
 .theme-dark .section-wrap,
@@ -1358,8 +1347,8 @@ button {
 
 .hero-shell {
   position: relative;
-  min-height: 560px;
-  background: #e8edf4;
+  min-height: 600px;
+  overflow: hidden;
 }
 
 .top-nav {
@@ -1425,30 +1414,43 @@ button {
 
 .hero-stage {
   position: relative;
-  min-height: 506px;
-  padding: 1px 42px;
-  background:
-    linear-gradient(90deg, rgba(200, 210, 225, 0.3) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, #f0f3f8 0 12%, #dce3ed 42%, #c8d2de 74%);
-  background-size: 180px 100%, 100% 100%;
+  min-height: 600px;
+  overflow: hidden;
 }
 
 .hero-car {
   position: absolute;
-  left: 17%;
-  top: 52px;
-  width: min(720px, 66vw);
-  height: 360px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 30%;
+}
+
+.hero-car::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.1) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hero-title {
   position: absolute;
-  left: 38px;
+  left: 42px;
   bottom: 72px;
-  width: 410px;
-  color: #1a1a2e;
+  width: 460px;
+  z-index: 2;
+  color: #ffffff;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
 }
 
 .hero-title h1 {
@@ -1461,13 +1463,16 @@ button {
 
 .hero-note {
   position: absolute;
-  right: 44px;
+  right: 42px;
   bottom: 72px;
-  width: 325px;
+  width: 340px;
   margin: 0;
-  color: #3a4250;
-  font-size: 0.78rem;
-  line-height: 1.8;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-shadow: 0 1px 16px rgba(0,0,0,0.25);
+  opacity: 0.92;
 }
 
 .booking-search {
@@ -2471,12 +2476,7 @@ button {
   }
 
   .hero-stage {
-    min-height: 620px;
-  }
-
-  .hero-car {
-    left: 7%;
-    width: 86vw;
+    min-height: 520px;
   }
 
   .hero-title,
@@ -2487,11 +2487,14 @@ button {
   }
 
   .hero-title {
-    bottom: 150px;
+    bottom: 120px;
+    width: 320px;
   }
 
   .hero-note {
-    bottom: 44px;
+    bottom: 32px;
+    width: 280px;
+    font-size: 0.8rem;
   }
 
   .booking-search {
@@ -2604,7 +2607,24 @@ button {
   }
 
   .hero-stage {
-    padding: 1px 20px;
+    min-height: 400px;
+  }
+
+  .hero-title {
+    left: 20px;
+    bottom: 100px;
+    width: calc(100% - 40px);
+  }
+
+  .hero-title h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
+  .hero-note {
+    left: 20px;
+    bottom: 28px;
+    width: calc(100% - 40px);
+    font-size: 0.75rem;
   }
 
   .booking-search {
