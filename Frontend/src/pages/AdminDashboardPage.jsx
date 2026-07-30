@@ -99,12 +99,12 @@ export default function AdminDashboardPage() {
       />
       <Notice error={error} message={message} />
       <div className="panel-stats">
-        <Metric label="Users" value={data.stats.totalUsers} />
-        <Metric label="Dealers" value={data.stats.dealers} />
-        <Metric label="Customers" value={data.stats.customers} />
-        <Metric label="Vehicles" value={data.stats.vehicles} />
-        <Metric label="Bookings" value={data.stats.bookings} />
-        <Metric label="Rented" value={data.stats.rentedCars} />
+        <Metric label="Users" value={data.stats.totalUsers ?? 0} />
+        <Metric label="Dealers" value={data.stats.dealers ?? 0} />
+        <Metric label="Customers" value={data.stats.customers ?? 0} />
+        <Metric label="Vehicles" value={data.stats.vehicles ?? 0} />
+        <Metric label="Bookings" value={data.stats.bookings ?? 0} />
+        <Metric label="Rented" value={data.stats.rentedCars ?? 0} />
       </div>
       <div className="panel-grid">
         <form className="panel-card form-card" onSubmit={createDealer}>
@@ -125,7 +125,7 @@ export default function AdminDashboardPage() {
         <section className="panel-card table-card">
           <div className="card-head"><h2>All users</h2><span>Admins, dealers, and customers</span></div>
           <div className="table-stack">
-            {data.users.map((user) => (
+            {data.users?.map((user) => (
               <article className="row-card" key={user.id}>
                 <div>
                   <strong>{user.username}</strong>

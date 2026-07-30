@@ -10,7 +10,7 @@
   --blue: #6a9cff;
   --blue-dark: #477df0;
   --white: #FAF5EF;
-  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+  font-family: "Sofia Pro", "Necosmic", Helvetica, sans-serif;
   font-size: 17px;
   color: var(--ink);
   background: var(--white);
@@ -28,6 +28,10 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6, .logo, .hero-title h1, .auth-intro h1, .billing-hero h1 {
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
 }
 
 body {
@@ -2476,25 +2480,25 @@ button {
   }
 
   .hero-stage {
-    min-height: 520px;
-  }
-
-  .hero-title,
-  .hero-note {
-    left: 28px;
-    right: auto;
-    width: calc(100% - 56px);
+    min-height: 560px;
   }
 
   .hero-title {
-    bottom: 120px;
-    width: 320px;
+    left: 32px;
+    width: 380px;
+    bottom: 130px;
+  }
+
+  .hero-title h1 {
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
   }
 
   .hero-note {
-    bottom: 32px;
-    width: 280px;
-    font-size: 0.8rem;
+    left: 32px;
+    bottom: 36px;
+    width: 320px;
+    font-size: 0.85rem;
+    line-height: 1.7;
   }
 
   .booking-search {
@@ -2607,24 +2611,27 @@ button {
   }
 
   .hero-stage {
-    min-height: 400px;
+    min-height: 520px;
   }
 
   .hero-title {
-    left: 20px;
-    bottom: 100px;
-    width: calc(100% - 40px);
+    left: 24px;
+    bottom: 130px;
+    width: calc(100% - 48px);
   }
 
   .hero-title h1 {
-    font-size: clamp(2rem, 10vw, 3rem);
+    font-size: clamp(2.4rem, 12vw, 3.6rem);
+    letter-spacing: -0.05em;
   }
 
   .hero-note {
-    left: 20px;
-    bottom: 28px;
-    width: calc(100% - 40px);
-    font-size: 0.75rem;
+    left: 24px;
+    bottom: 36px;
+    width: calc(100% - 48px);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    opacity: 1;
   }
 
   .booking-search {

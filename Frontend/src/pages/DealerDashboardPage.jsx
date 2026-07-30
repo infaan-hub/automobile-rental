@@ -171,10 +171,10 @@ export default function DealerDashboardPage() {
       />
       <Notice error={error} message={message} />
       <div className="panel-stats">
-        <Metric label="Vehicles" value={data.stats.vehicles} />
-        <Metric label="Trending" value={data.stats.trendingVehicles} />
-        <Metric label="Bookings" value={data.stats.bookings} />
-        <Metric label="Rented cars" value={data.stats.rentedCars} />
+        <Metric label="Vehicles" value={data.stats.vehicles ?? 0} />
+        <Metric label="Trending" value={data.stats.trendingVehicles ?? 0} />
+        <Metric label="Bookings" value={data.stats.bookings ?? 0} />
+        <Metric label="Rented cars" value={data.stats.rentedCars ?? 0} />
       </div>
       <div className="panel-grid wide">
         <form className="panel-card form-card" onSubmit={saveVehicle}>
@@ -194,8 +194,8 @@ export default function DealerDashboardPage() {
             <Field label="Daily rate" type="number" value={vehicle.dailyRate} onChange={(value) => setVehicle({ ...vehicle, dailyRate: value })} />
           </div>
           <div className="double-grid">
-            <SelectField label="Car category" value={vehicle.carCategoryId} onChange={(value) => setVehicle({ ...vehicle, carCategoryId: value })} options={[["", "Select"], ...data.carCategories.map((item) => [String(item.id), item.name])]} />
-            <SelectField label="Scooter category" value={vehicle.scooterCategoryId} onChange={(value) => setVehicle({ ...vehicle, scooterCategoryId: value })} options={[["", "Select"], ...data.scooterCategories.map((item) => [String(item.id), item.name])]} />
+            <SelectField label="Car category" value={vehicle.carCategoryId} onChange={(value) => setVehicle({ ...vehicle, carCategoryId: value })} options={[["", "Select"], ...(data.carCategories || []).map((item) => [String(item.id), item.name])]} />
+            <SelectField label="Scooter category" value={vehicle.scooterCategoryId} onChange={(value) => setVehicle({ ...vehicle, scooterCategoryId: value })} options={[["", "Select"], ...(data.scooterCategories || []).map((item) => [String(item.id), item.name])]} />
           </div>
           <Field label="Transmission" value={vehicle.transmission} onChange={(value) => setVehicle({ ...vehicle, transmission: value })} />
           <Field label="Fuel type" value={vehicle.fuelType} onChange={(value) => setVehicle({ ...vehicle, fuelType: value })} />
@@ -253,7 +253,7 @@ export default function DealerDashboardPage() {
         <section className="panel-card table-card">
           <div className="card-head"><h2>Vehicles</h2><span>Update and delete inventory</span></div>
           <div className="table-stack">
-            {data.vehicles.map((item) => (
+            {data.vehicles?.map((item) => (
               <article className="row-card" key={item.id}>
                 <div>
                   {item.imageUrl ? <img className="row-image-preview" src={item.imageUrl} alt={item.name} /> : null}
@@ -299,7 +299,7 @@ export default function DealerDashboardPage() {
         <section className="panel-card table-card">
           <div className="card-head"><h2>Car categories</h2><span>Update and delete car categories</span></div>
           <div className="table-stack">
-            {data.carCategories.map((item) => (
+            {data.carCategories?.map((item) => (
               <article className="row-card" key={`car-${item.id}`}>
                 <div>
                   {item.imageUrl ? <img className="row-image-preview" src={item.imageUrl} alt={item.name} /> : null}
@@ -319,7 +319,7 @@ export default function DealerDashboardPage() {
         <section className="panel-card table-card">
           <div className="card-head"><h2>Scooter categories</h2><span>Update and delete scooter categories</span></div>
           <div className="table-stack">
-            {data.scooterCategories.map((item) => (
+            {data.scooterCategories?.map((item) => (
               <article className="row-card" key={`scooter-${item.id}`}>
                 <div>
                   {item.imageUrl ? <img className="row-image-preview" src={item.imageUrl} alt={item.name} /> : null}
@@ -337,7 +337,7 @@ export default function DealerDashboardPage() {
         <section className="panel-card table-card">
           <div className="card-head"><h2>Bookings and rented cars</h2><span>See all bookings for your vehicles</span></div>
           <div className="table-stack">
-            {data.bookings.map((booking) => (
+            {data.bookings?.map((booking) => (
               <article className="row-card" key={booking.id}>
                 <div>
                   {booking.vehicle.imageUrl ? <img className="row-image-preview" src={booking.vehicle.imageUrl} alt={booking.vehicle.name} /> : null}

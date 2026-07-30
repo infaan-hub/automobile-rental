@@ -47,7 +47,7 @@ export default function CustomerDashboardPage() {
           <p>Browse dealer-posted vehicles, compare details, and move straight into the rental flow.</p>
         </div>
         <div className="customer-booking-badge">
-          <strong>{data.bookings.length}</strong>
+          <strong>{(data.bookings || []).length}</strong>
           <span>Bookings on your account</span>
         </div>
       </header>
@@ -60,7 +60,7 @@ export default function CustomerDashboardPage() {
           <button type="button" onClick={() => navigate("/home")}>Back home</button>
         </div>
         <div className="customer-vehicle-grid">
-          {data.vehicles.map((vehicle) => (
+          {data.vehicles?.map((vehicle) => (
             <article className="customer-vehicle-card" key={vehicle.id}>
               <button className="vehicle-image-button" type="button" onClick={() => openView(vehicle.id)}>
                 <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
@@ -87,7 +87,7 @@ export default function CustomerDashboardPage() {
           <h2>Recent bookings</h2>
         </div>
         <div className="table-stack">
-          {data.bookings.length ? data.bookings.map((booking) => (
+          {data.bookings?.length ? data.bookings.map((booking) => (
             <article className="row-card" key={booking.id}>
               <div>
                 {booking.vehicle.imageUrl ? <img className="row-image-preview" src={booking.vehicle.imageUrl} alt={booking.vehicle.name} /> : null}
