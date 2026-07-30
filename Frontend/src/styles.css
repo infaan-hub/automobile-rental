@@ -3433,7 +3433,7 @@ button {
     border-radius: 24px;
   }
   .lux-hero-features {
-    grid-template-columns: 1fr;
+    display: none;
   }
   .lux-double-grid {
     grid-template-columns: 1fr;

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Star, HeadphonesIcon, Car, Clock } from "lucide-react";
+import { Shield, Star, HeadphonesIcon, Car } from "lucide-react";
 import { navigate } from "../../lib/navigation";
 import FloatingBadge from "./FloatingBadge";
 
