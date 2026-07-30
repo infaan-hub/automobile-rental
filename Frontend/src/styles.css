@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url(https://db.onlinewebfonts.com/c/3c37c4157a2cd0a1b92569ce78aa99a3?family=Apoc+Revelations);
 
 :root {
   --black: #08090d;
@@ -8,14 +8,20 @@
   --line: #e4e7ec;
   --blue: #6a9cff;
   --blue-dark: #477df0;
-  --white: #ffffff;
-  font-family: "Manrope", sans-serif;
+  --white: #FAF5EF;
+  font-family: "Apoc Revelations", Helvetica, sans-serif;
   color: var(--ink);
   background: var(--white);
 }
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html {
@@ -72,9 +78,11 @@ body {
 .vehicle-view-shell,
 .agreement-card,
 .payment-card {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(154, 169, 192, 0.24);
-  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
 }
 
 .customer-dashboard-hero {
@@ -142,9 +150,11 @@ body {
   gap: 16px;
   padding: 18px;
   border-radius: 26px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(154, 169, 192, 0.22);
-  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
 }
 
 .customer-vehicle-card img,
@@ -231,8 +241,10 @@ body {
 .payment-breakdown div {
   padding: 14px 16px;
   border-radius: 18px;
-  background: #f5f8fd;
-  border: 1px solid rgba(154, 169, 192, 0.2);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .vehicle-spec-card span,
@@ -260,9 +272,11 @@ body {
   width: min(100%, 920px);
   padding: 24px;
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(154, 169, 192, 0.22);
-  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.18);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
 }
 
 .rent-top-bar,
@@ -352,8 +366,10 @@ body {
 .payment-grid input,
 .payment-grid select {
   border-radius: 18px;
-  border: 1px solid rgba(156, 171, 191, 0.22);
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .rent-spec-grid article,
@@ -456,7 +472,12 @@ body {
 
 .billing-card {
   max-width: 980px;
-  background: linear-gradient(180deg, #f6fbff 0%, #ffffff 100%);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 28px;
+  padding: 24px;
 }
 
 .billing-hero {
@@ -481,7 +502,10 @@ body {
   gap: 14px;
   padding: 20px;
   border-radius: 28px;
-  background: linear-gradient(180deg, rgba(232, 237, 243, 0.96), rgba(244, 246, 249, 0.96));
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .payment-step {
@@ -514,8 +538,10 @@ body {
 .billing-section {
   padding: 28px;
   border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 247, 250, 0.98));
-  border: 1px solid rgba(154, 169, 192, 0.18);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .billing-chip {
@@ -524,7 +550,9 @@ body {
   min-height: 36px;
   padding: 0 18px;
   border-radius: 999px;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #1b2c42;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -562,8 +590,10 @@ body {
   min-height: 66px;
   padding: 0 24px;
   border-radius: 28px;
-  border: 1px solid rgba(175, 187, 204, 0.42);
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   font: inherit;
   color: #1a2a3c;
 }
@@ -584,8 +614,10 @@ body {
   gap: 18px;
   padding: 18px;
   border-radius: 28px;
-  border: 1px solid rgba(175, 187, 204, 0.42);
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   text-align: left;
   cursor: pointer;
 }
@@ -633,8 +665,10 @@ body {
   border-radius: 24px;
   display: flex;
   align-items: center;
-  border: 1px solid rgba(175, 187, 204, 0.36);
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   font-size: 1.08rem;
 }
 
@@ -649,8 +683,10 @@ body {
 .payment-amount-table {
   border-radius: 28px;
   overflow: hidden;
-  border: 1px solid rgba(175, 187, 204, 0.32);
-  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .payment-amount-table div {
@@ -754,9 +790,9 @@ body {
 .theme-dark .payment-card,
 .theme-dark .customer-vehicle-card,
 .theme-dark .rent-phone-shell {
-  background: rgba(15, 23, 42, 0.92);
-  border-color: rgba(113, 129, 156, 0.22);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  background: #222222;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 
 .theme-dark .customer-dashboard-hero p,
@@ -781,7 +817,7 @@ body {
 .theme-dark .payment-selected-gateway,
 .theme-dark .rent-meta-row small,
 .theme-dark .payment-amount-table span {
-  color: #98a7c0;
+  color: #a0a0a0;
 }
 
 .theme-dark .vehicle-spec-card,
@@ -803,17 +839,17 @@ body {
 .theme-dark .payment-step strong,
 .theme-dark .billing-section,
 .theme-dark .google-placeholder-button {
-  background: rgba(15, 23, 42, 0.7);
-  border-color: rgba(113, 129, 156, 0.25);
-  color: #eef3ff;
+  background: #222222;
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #e0e0e0;
 }
 
 .theme-dark .payment-step-strip {
-  background: linear-gradient(180deg, rgba(20, 31, 49, 0.96), rgba(13, 21, 34, 0.96));
+  background: linear-gradient(180deg, #1f1f1f, #1a1a1a);
 }
 
 .theme-dark .payment-step.active strong {
-  background: rgba(55, 217, 198, 0.14);
+  background: rgba(65, 192, 242, 0.2);
 }
 
 .theme-dark .rent-meta-row strong,
@@ -821,7 +857,7 @@ body {
 .theme-dark .billing-hero h1,
 .theme-dark .booking-info-card h2,
 .theme-dark .payment-gateway-heading h2 {
-  color: #f7fbff;
+  color: #ffffff;
 }
 
 @media (max-width: 960px) {
@@ -891,7 +927,7 @@ button {
 
 .app-shell {
   min-height: 100vh;
-  background: #edf1f5;
+  background: #FAF5EF;
 }
 
 .app-header {
@@ -904,9 +940,10 @@ button {
   gap: 20px;
   min-height: 68px;
   padding: 14px 24px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .app-header-left {
@@ -935,9 +972,11 @@ button {
   width: 42px;
   height: 42px;
   padding: 10px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 12px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .menu-toggle span {
@@ -961,9 +1000,11 @@ button {
   align-items: center;
   gap: 4px;
   padding: 4px;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
-  background: #f4f7fb;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .theme-icon {
@@ -1027,8 +1068,10 @@ button {
   gap: 20px;
   width: 280px;
   padding: 20px 18px 26px;
-  border-right: 1px solid rgba(15, 23, 42, 0.08);
-  background: #fff;
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   box-shadow: 18px 0 44px rgba(15, 23, 42, 0.06);
   transform: translateX(-100%);
   transition: transform 180ms ease;
@@ -1081,34 +1124,35 @@ button {
 }
 
 .theme-dark {
-  color: #e7ebf3;
-  background: #0b111b;
+  color: #e8e8e8;
+  background: #171717;
 }
 
 .theme-dark .app-header {
-  border-bottom-color: rgba(148, 163, 184, 0.14);
-  background: rgba(10, 15, 24, 0.9);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  background: rgba(23, 23, 23, 0.95);
 }
 
 .theme-dark .menu-toggle,
 .theme-dark .theme-toggle {
-  border-color: rgba(148, 163, 184, 0.16);
-  background: #121b28;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #222222;
 }
 
 .theme-dark .menu-toggle span {
-  background: #e7ebf3;
+  background: #ffffff;
 }
 
 .theme-dark .app-header-copy small,
 .theme-dark .app-sidebar-head small,
+.theme-dark .auth-copy span,
 .theme-dark .hero-note,
 .theme-dark .row-card p,
 .theme-dark .row-card small,
 .theme-dark .panel-header p,
 .theme-dark .footer-subscribe,
 .theme-dark .booking-search span {
-  color: #94a3b8;
+  color: #a0a0a0;
 }
 
 .theme-dark .app-header-copy strong,
@@ -1122,33 +1166,33 @@ button {
 .theme-dark .trend-card h3,
 .theme-dark .row-card strong,
 .theme-dark .panel-header h1 {
-  color: #e7ebf3;
+  color: #ffffff;
 }
 
 .theme-dark .theme-icon {
-  color: #94a3b8;
+  color: #a0a0a0;
 }
 
 .theme-dark .theme-icon.active,
 .theme-dark .app-nav-link.active {
-  color: #ffffff;
-  background: var(--blue-dark);
+  color: #171717;
+  background: #41C0F2;
 }
 
 .theme-dark .app-nav-action {
-  color: #ffe4e6;
-  background: #7f1d1d;
+  color: #ffffff;
+  background: #41C0F2;
 }
 
 .theme-dark .app-sidebar {
-  border-right-color: rgba(148, 163, 184, 0.14);
-  background: #0f1724;
-  box-shadow: 18px 0 44px rgba(2, 6, 23, 0.4);
+  border-right-color: rgba(255, 255, 255, 0.06);
+  background: #1a1a1a;
+  box-shadow: 18px 0 44px rgba(0, 0, 0, 0.4);
 }
 
 .theme-dark .app-nav-link {
-  color: #d2d9e5;
-  background: #131d2b;
+  color: #e0e0e0;
+  background: #1f1f1f;
 }
 
 .theme-dark .home-page,
@@ -1156,7 +1200,7 @@ button {
 .theme-dark .site-footer,
 .theme-dark .panel-page,
 .theme-dark .auth-page {
-  background: #0b111b;
+  background: #171717;
 }
 
 .theme-dark .booking-search,
@@ -1168,8 +1212,8 @@ button {
 .theme-dark .nav-search,
 .theme-dark .field-shell,
 .theme-dark .auth-card .field-shell {
-  color: #e7ebf3;
-  background: #121b28;
+  color: #e0e0e0;
+  background: #222222;
 }
 
 .theme-dark .booking-search,
@@ -1180,13 +1224,13 @@ button {
 .theme-dark .site-footer,
 .theme-dark .auth-card .panel-alert,
 .theme-dark .field-shell {
-  border-color: rgba(148, 163, 184, 0.14);
+  border-color: rgba(255, 255, 255, 0.06);
   box-shadow: none;
 }
 
 .theme-dark .booking-search label,
 .theme-dark .row-card {
-  border-color: rgba(148, 163, 184, 0.14);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .theme-dark .booking-search input,
@@ -1196,64 +1240,61 @@ button {
 .theme-dark .row-card select,
 .theme-dark .footer-subscribe input,
 .theme-dark .nav-search input {
-  color: #e7ebf3;
+  color: #e0e0e0;
 }
 
 .theme-dark .field-shell b,
 .theme-dark .auth-card .field-shell b {
-  color: #c9d2e3;
+  color: #a0a0a0;
 }
 
 .theme-dark .panel-card .field-shell {
-  border-color: rgba(148, 163, 184, 0.24);
-  background: #162334;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #222222;
 }
 
 .theme-dark .panel-card .field > .sr-only {
-  color: #b7c3d6;
+  color: #a0a0a0;
 }
 
 .theme-dark .field input::placeholder,
 .theme-dark .field textarea::placeholder {
-  color: #8fa0b8;
+  color: #666666;
   opacity: 1;
 }
 
 .theme-dark .file-input {
-  color: #dbe4f0;
-  border-color: rgba(148, 163, 184, 0.28);
-  background: #162334;
+  color: #e0e0e0;
+  border-color: rgba(255, 255, 255, 0.08);
+  background: #222222;
 }
 
 .theme-dark .form-image-preview,
 .theme-dark .row-image-preview {
-  border-color: rgba(148, 163, 184, 0.18);
-  background: #162334;
+  border-color: rgba(255, 255, 255, 0.06);
+  background: #222222;
 }
 
 .theme-dark .feature-strip,
 .theme-dark .hero-shell,
 .theme-dark .promo-section {
-  background: #08101a;
+  background: #1a1a1a;
 }
 
 .theme-dark .hero-title {
   color: #ffffff;
-  text-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
 }
 
 .theme-dark .hero-stage {
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 100%),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, #0f1724 0 12%, #162334 42%, #08101a 74%);
-  background-size: 180px 100%, 100% 210px, 100% 100%;
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 100%),
+    linear-gradient(100deg, #2a2a2a 0 12%, #222222 42%, #1a1a1a 74%);
+  background-size: 180px 100%, 100% 100%;
 }
 
 .theme-dark .section-wrap,
 .theme-dark .trend-section {
-  color: #e7ebf3;
+  color: #e8e8e8;
 }
 
 .theme-dark .category-card,
@@ -1261,44 +1302,44 @@ button {
 .theme-dark .ghost-button,
 .theme-dark .solid-button,
 .theme-dark .auth-pill-secondary {
-  color: #e7ebf3;
-  background: #162334;
+  color: #ffffff;
+  background: #41C0F2;
 }
 
 .theme-dark .ghost-button.danger,
 .theme-dark .auth-pill-primary {
-  background: #3a1820;
-  color: #ffe4e6;
+  background: #41C0F2;
+  color: #171717;
 }
 
 .theme-dark .panel-alert.error {
-  color: #fecdd3;
-  background: #3a1820;
+  color: #ffffff;
+  background: #8b1a1a;
 }
 
 .theme-dark .panel-alert.success {
-  color: #bbf7d0;
-  background: #123123;
+  color: #ffffff;
+  background: #1a6b3c;
 }
 
 .theme-dark .footer-link,
 .theme-dark .footer-column a,
 .theme-dark .trend-card span {
-  color: #d2d9e5;
+  color: #a0a0a0;
 }
 
 .theme-dark .footer-gateway-card span,
 .theme-dark .footer-qr-block p {
-  color: #b8c3d5;
+  color: #888888;
 }
 
 .theme-dark .footer-gateway-strip {
-  border-color: rgba(148, 163, 184, 0.18);
-  background: #e8edf4;
+  border-color: rgba(255, 255, 255, 0.06);
+  background: #222222;
 }
 
 .theme-dark .footer-subscribe input {
-  border-bottom-color: rgba(148, 163, 184, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
   background: transparent;
 }
 
@@ -1318,7 +1359,7 @@ button {
 .hero-shell {
   position: relative;
   min-height: 560px;
-  background: #11141a;
+  background: #e8edf4;
 }
 
 .top-nav {
@@ -1387,10 +1428,9 @@ button {
   min-height: 506px;
   padding: 1px 42px;
   background:
-    linear-gradient(90deg, rgba(9, 11, 15, 0.18) 0 1px, transparent 1px 100%),
-    linear-gradient(0deg, rgba(255, 255, 255, 0.1) 0 1px, transparent 1px 100%),
-    linear-gradient(100deg, rgba(255, 255, 255, 0.98) 0 12%, rgba(201, 209, 219, 0.74) 41%, #11141a 71%);
-  background-size: 180px 100%, 100% 210px, 100% 100%;
+    linear-gradient(90deg, rgba(200, 210, 225, 0.3) 0 1px, transparent 1px 100%),
+    linear-gradient(100deg, #f0f3f8 0 12%, #dce3ed 42%, #c8d2de 74%);
+  background-size: 180px 100%, 100% 100%;
 }
 
 .hero-car {
@@ -1401,8 +1441,6 @@ button {
   height: 360px;
   object-fit: cover;
   object-position: center;
-  filter: drop-shadow(0 28px 38px rgba(0, 0, 0, 0.28));
-  mix-blend-mode: multiply;
 }
 
 .hero-title {
@@ -1410,8 +1448,7 @@ button {
   left: 38px;
   bottom: 72px;
   width: 410px;
-  color: #11141a;
-  text-shadow: 0 8px 24px rgba(255, 255, 255, 0.28);
+  color: #1a1a2e;
 }
 
 .hero-title h1 {
@@ -1428,7 +1465,7 @@ button {
   bottom: 72px;
   width: 325px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: #3a4250;
   font-size: 0.78rem;
   line-height: 1.8;
 }
@@ -1440,8 +1477,13 @@ button {
   grid-template-columns: repeat(4, 1fr) 132px;
   width: min(760px, calc(100% - 44px));
   margin: -34px auto 54px;
-  background: #fff;
-  box-shadow: 0 20px 60px rgba(23, 29, 39, 0.14);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
 }
 
 .booking-search label {
@@ -1449,7 +1491,7 @@ button {
   gap: 6px;
   min-height: 74px;
   padding: 15px 18px;
-  border-right: 1px solid var(--line);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .booking-search span {
@@ -1509,7 +1551,11 @@ button {
   position: relative;
   min-height: 270px;
   overflow: hidden;
-  background: #edf1f6;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
 }
 
 .category-card::before {
@@ -1606,7 +1652,11 @@ button {
   gap: 12px;
   min-height: 245px;
   padding: 18px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
 }
 
 .trend-card h3 {
@@ -1649,7 +1699,9 @@ button {
   color: #6b7280;
   font-size: 0.72rem;
   font-weight: 800;
-  background: #f0f2f5;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .feature-strip {
@@ -1766,7 +1818,10 @@ button {
   grid-template-columns: 1.4fr repeat(3, 1fr);
   gap: 34px;
   padding: 38px 34px 48px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .footer-subscribe {
@@ -1950,7 +2005,7 @@ button {
   width: min(344px, 86vw);
   border-radius: 24px;
   padding: 1px;
-  background: linear-gradient(180deg, rgba(255, 110, 104, 0.95), rgba(255, 110, 104, 0.28));
+  background: linear-gradient(180deg, rgba(65, 192, 242, 0.8), rgba(65, 192, 242, 0.2));
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
 }
 
@@ -1958,7 +2013,7 @@ button {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow: inset 0 0 0 1px rgba(255, 169, 160, 0.46);
+  box-shadow: inset 0 0 0 1px rgba(65, 192, 242, 0.4);
   pointer-events: none;
 }
 
@@ -1969,10 +2024,9 @@ button {
   min-height: 404px;
   padding: 18px 16px 16px;
   border-radius: 23px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(20, 15, 16, 0.34)),
-    rgba(41, 26, 24, 0.26);
-  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .auth-copy {
@@ -2022,9 +2076,8 @@ button {
 }
 
 .auth-pill-primary {
-  color: white;
-  background: rgba(34, 23, 23, 0.82);
-  box-shadow: inset 0 0 0 1px rgba(255, 173, 162, 0.52);
+  color: #000;
+  background: #41C0F2;
 }
 
 .auth-pill-secondary {
@@ -2087,9 +2140,12 @@ button {
 
 .metric-card,
 .panel-card {
-  border: 1px solid var(--line);
-  background: #fff;
-  box-shadow: 0 18px 48px rgba(18, 24, 37, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
+  border-radius: 18px;
 }
 
 .metric-card {
@@ -2189,14 +2245,17 @@ button {
   gap: 6px;
   min-height: 42px;
   padding: 0 14px;
-  border: 1px solid rgba(148, 163, 184, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .panel-card .field-shell {
-  background: #f8fafc;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .field-shell b {
@@ -2312,8 +2371,8 @@ button {
 }
 
 .solid-button {
-  color: #fff;
-  background: var(--blue-dark);
+  color: #000;
+  background: #41C0F2;
 }
 
 .ghost-button {
@@ -2329,16 +2388,19 @@ button {
   margin-bottom: 16px;
   padding: 14px 16px;
   font-weight: 700;
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .panel-alert.error {
   color: #b42318;
-  background: #fef3f2;
+  background: rgba(254, 243, 242, 0.7);
 }
 
 .panel-alert.success {
   color: #065f46;
-  background: #ecfdf3;
+  background: rgba(236, 253, 243, 0.7);
 }
 
 .table-stack {
@@ -2352,7 +2414,11 @@ button {
   gap: 16px;
   align-items: center;
   padding: 16px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
 }
 
 .row-card p,
@@ -2428,7 +2494,11 @@ button {
     bottom: 44px;
   }
 
-  .booking-search,
+  .booking-search {
+    margin-top: 24px;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  }
+
   .category-grid,
   .trend-grid,
   .feature-strip,
@@ -2439,10 +2509,6 @@ button {
   .double-grid,
   .triple-grid {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .booking-search {
-    margin-top: 24px;
   }
 
   .panel-header,
@@ -2541,7 +2607,26 @@ button {
     padding: 1px 20px;
   }
 
-  .booking-search,
+  .booking-search {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    overflow-x: auto;
+  }
+  .booking-search label {
+    min-height: 56px;
+    padding: 10px 12px;
+    gap: 4px;
+  }
+  .booking-search span {
+    font-size: 0.6rem;
+  }
+  .booking-search input {
+    font-size: 0.7rem;
+  }
+  .booking-search button {
+    font-size: 0.7rem;
+    padding: 0 12px;
+  }
+
   .category-grid,
   .trend-grid,
   .feature-strip,
