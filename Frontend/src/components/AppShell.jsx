@@ -104,10 +104,6 @@ export default function AppShell({ path, children }) {
           <strong>{config.title}</strong>
         </div>
         <div className="app-header-right">
-          <button className="top-theme-toggle" type="button" aria-label={isDark ? "Light mode" : "Dark mode"} onClick={toggleTheme}>
-            <span className={!isDark ? "active" : ""}>{"\u2600"}</span>
-            <span className={isDark ? "active" : ""}>{"\u263E"}</span>
-          </button>
           {showLogout && <button className="app-nav-action" type="button" onClick={logout}>Logout</button>}
         </div>
       </header>

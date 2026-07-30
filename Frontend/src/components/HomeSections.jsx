@@ -5,7 +5,7 @@ import { navigate } from "../lib/navigation";
 import { homePaymentGateways, websiteQr } from "../lib/paymentAssets";
 import SectionHeader from "./vehicles/SectionHeader";
 import VehicleGrid from "./vehicles/VehicleGrid";
-import heroLc300 from "../assets/hero-lc300.svg";
+import heroImage from "../assets/download.jpg";
 
 const tones = ["mist", "light", "dark", "silver"];
 
@@ -14,7 +14,7 @@ export function Hero() {
     <header className="hero-shell">
       <section className="hero-stage">
         <div className="hero-overlay" />
-        <img className="hero-image" src={heroLc300} alt="Toyota Land Cruiser LC300 Black" />
+        <img className="hero-image" src={heroImage} alt="Toyota Land Cruiser LC300 Black" />
         <div className="hero-title">
           <h1>Premium car rental</h1>
         </div>
