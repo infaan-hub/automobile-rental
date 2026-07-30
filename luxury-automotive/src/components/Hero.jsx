@@ -46,7 +46,7 @@ export default function Hero() {
         >
           <motion.img
             src="/hero-car.svg"
-            alt="Luxury sports car"
+            alt="Toyota Land Cruiser LC300 Black"
             className="w-full object-contain drop-shadow-2xl"
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}

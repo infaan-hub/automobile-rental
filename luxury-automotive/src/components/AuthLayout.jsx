@@ -18,7 +18,7 @@ export default function AuthLayout({ children, imageSide = 'left' }) {
             >
               <img
                 src="/hero-car.svg"
-                alt="Luxury sports car"
+                alt="Toyota Land Cruiser LC300 Black"
                 className="w-full max-w-lg object-contain drop-shadow-2xl"
               />
             </motion.div>
@@ -40,7 +40,7 @@ export default function AuthLayout({ children, imageSide = 'left' }) {
             >
               <img
                 src="/hero-car.svg"
-                alt="Luxury sports car"
+                alt="Toyota Land Cruiser LC300 Black"
                 className="w-full max-w-lg object-contain drop-shadow-2xl"
               />
             </motion.div>
