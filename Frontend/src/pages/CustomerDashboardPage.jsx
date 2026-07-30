@@ -4,14 +4,14 @@ import { apiRequest } from "../lib/api";
 import { CUSTOMER_TOKEN_KEY } from "../lib/config";
 import { money, moneyAmount } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
-
-function openView(vehicleId) {
-  navigate(`/view?vehicle=${vehicleId}`);
-}
-
-function openRent(vehicleId) {
-  navigate(`/rent?vehicle=${vehicleId}`);
-}
+import BackgroundShapes from "../components/ui/BackgroundShapes";
+import PageHeader from "../components/ui/PageHeader";
+import GlassCard from "../components/ui/GlassCard";
+import Button from "../components/ui/Button";
+import StatsCard from "../components/ui/StatsCard";
+import Loader from "../components/ui/Loader";
+import EmptyState from "../components/ui/EmptyState";
+import { Car, Eye, ArrowRight } from "lucide-react";
 
 export default function CustomerDashboardPage() {
   const token = localStorage.getItem(CUSTOMER_TOKEN_KEY) || "";
@@ -30,76 +30,87 @@ export default function CustomerDashboardPage() {
         setError(err.message);
       }
     }
-
     load();
   }, [token]);
 
   if (!data) {
-    return <section className="panel-page"><div className="panel-card"><Notice error={error} /><p>Loading customer dashboard...</p></div></section>;
+    return (
+      <div className="min-h-screen bg-bg flex items-center justify-center">
+        <Loader text="Loading dashboard..." />
+      </div>
+    );
   }
 
   return (
-    <section className="customer-dashboard-page">
-      <header className="customer-dashboard-hero">
-        <div>
-          <small>Customer dashboard</small>
-          <h1>Welcome {data.user.firstName || data.user.username}</h1>
-          <p>Browse dealer-posted vehicles, compare details, and move straight into the rental flow.</p>
-        </div>
-        <div className="customer-booking-badge">
-          <strong>{data.bookings.length}</strong>
-          <span>Bookings on your account</span>
-        </div>
-      </header>
+    <main className="min-h-screen bg-bg relative">
+      <BackgroundShapes />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+        <PageHeader badge="Customer" title={`Welcome ${data.user.firstName || data.user.username}`} text="Browse dealer-posted vehicles, compare details, and move straight into the rental flow." />
 
-      <Notice error={error} />
+        <Notice error={error} />
 
-      <section className="customer-vehicle-section">
-        <div className="section-heading">
-          <h2>Available vehicles</h2>
-          <button type="button" onClick={() => navigate("/home")}>Back home</button>
-        </div>
-        <div className="customer-vehicle-grid">
-          {data.vehicles.map((vehicle) => (
-            <article className="customer-vehicle-card" key={vehicle.id}>
-              <button className="vehicle-image-button" type="button" onClick={() => openView(vehicle.id)}>
-                <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
-              </button>
-              <div className="customer-vehicle-copy">
-                <div>
-                  <small>{vehicle.bodyTypeLabel}</small>
-                  <h3>{vehicle.name}</h3>
-                  <p>{vehicle.description || `${vehicle.brand} ${vehicle.model} | ${vehicle.transmission} | ${vehicle.fuelType}`}</p>
+        <GlassCard className="p-6 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold text-muted uppercase tracking-wider">Your Bookings</p>
+            <p className="text-3xl font-bold mt-1">{data.bookings.length}</p>
+          </div>
+          <Button variant="secondary" onClick={() => navigate("/home")}>Back Home</Button>
+        </GlassCard>
+
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-lg font-bold">Available Vehicles</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {data.vehicles.map((vehicle) => (
+              <GlassCard key={vehicle.id} className="p-5">
+                <button onClick={() => navigate(`/view?vehicle=${vehicle.id}`)} className="w-full mb-4">
+                  <img src={vehicle.imageUrl} alt={vehicle.name} className="w-full h-36 object-contain rounded-2xl bg-bg" />
+                </button>
+                <div className="mb-4">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wider">{vehicle.bodyTypeLabel}</p>
+                  <h3 className="font-bold text-base mt-1">{vehicle.name}</h3>
+                  <p className="text-xs text-muted mt-1 line-clamp-2">{vehicle.description || `${vehicle.brand} ${vehicle.model} | ${vehicle.transmission} | ${vehicle.fuelType}`}</p>
                 </div>
-                <strong>{money(vehicle.dailyRate)}</strong>
-              </div>
-              <div className="customer-card-actions">
-                <button className="ghost-button" type="button" onClick={() => openView(vehicle.id)}>View specs</button>
-                <button className="solid-button" type="button" onClick={() => openRent(vehicle.id)}>Rent now</button>
-              </div>
-            </article>
-          ))}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold">{money(vehicle.dailyRate)}</span>
+                  <div className="flex gap-2">
+                    <Button variant="ghost" onClick={() => navigate(`/view?vehicle=${vehicle.id}`)}><Eye size={16} /> View</Button>
+                    <Button onClick={() => navigate(`/rent?vehicle=${vehicle.id}`)}>Rent <ArrowRight size={16} /></Button>
+                  </div>
+                </div>
+              </GlassCard>
+            ))}
+          </div>
         </div>
-      </section>
 
-      <section className="customer-bookings-section">
-        <div className="section-heading">
-          <h2>Recent bookings</h2>
+        <div>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-lg font-bold">Recent Bookings</h2>
+          </div>
+          {data.bookings.length ? (
+            <div className="grid gap-3">
+              {data.bookings.map((booking) => (
+                <GlassCard key={booking.id} className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    {booking.vehicle.imageUrl && (
+                      <img src={booking.vehicle.imageUrl} alt="" className="w-16 h-12 rounded-xl object-cover bg-bg shrink-0" />
+                    )}
+                    <div>
+                      <p className="text-sm font-bold">#{booking.id} {booking.vehicle.name}</p>
+                      <p className="text-xs text-muted">{booking.pickupDate} to {booking.returnDate}</p>
+                      <span className="text-xs font-semibold text-primary">{booking.status} | {booking.returnLocation}</span>
+                    </div>
+                  </div>
+                  <span className="text-sm font-bold text-primary shrink-0">{moneyAmount(booking.totalCost)}</span>
+                </GlassCard>
+              ))}
+            </div>
+          ) : (
+            <EmptyState message="No bookings yet. Your rentals will appear here after checkout." />
+          )}
         </div>
-        <div className="table-stack">
-          {data.bookings.length ? data.bookings.map((booking) => (
-            <article className="row-card" key={booking.id}>
-              <div>
-                {booking.vehicle.imageUrl ? <img className="row-image-preview" src={booking.vehicle.imageUrl} alt={booking.vehicle.name} /> : null}
-                <strong>#{booking.id} {booking.vehicle.name}</strong>
-                <p>{booking.pickupDate} to {booking.returnDate}</p>
-                <small>{booking.status} | {booking.returnLocation}</small>
-              </div>
-              <div className="customer-booking-price">{moneyAmount(booking.totalCost)}</div>
-            </article>
-          )) : <p className="section-empty">No bookings yet. Your rentals will appear here after checkout.</p>}
-        </div>
-      </section>
-    </section>
+      </div>
+    </main>
   );
 }

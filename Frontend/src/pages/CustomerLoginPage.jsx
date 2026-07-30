@@ -1,28 +1,32 @@
 import React, { useCallback, useState } from "react";
-import AuthShell from "../components/AuthShell";
-import { Field } from "../components/FormControls";
-import GoogleAuthButton from "../components/GoogleAuthButton";
+import AuthLayout from "../components/AuthLayout";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 import Notice from "../components/Notice";
 import { apiRequest } from "../lib/api";
 import { CUSTOMER_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
 
 export default function CustomerLoginPage() {
-  const [form, setForm] = useState({ username: "", password: "" });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function submit(event) {
+  const handleLogin = useCallback(async (event) => {
     event.preventDefault();
     try {
-      const data = await apiRequest("/login/", { method: "POST", body: JSON.stringify(form) });
+      const data = await apiRequest("/login/", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      });
       localStorage.setItem(CUSTOMER_TOKEN_KEY, data.token);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     }
-  }
+  }, [username, password]);
 
-  const signInWithGoogle = useCallback(async (credential) => {
+  const handleGoogleCredential = useCallback(async (credential) => {
     try {
       const data = await apiRequest("/google-login/", {
         method: "POST",
@@ -36,25 +40,13 @@ export default function CustomerLoginPage() {
   }, []);
 
   return (
-    <AuthShell
-      badge="Customer login"
-      title="Login to start renting"
-      text="Browse full specs, save rentals, complete agreements, and manage your active bookings."
-      altLabel="Need a customer account?"
-      altPath="/register"
-    >
-      <form onSubmit={submit}>
-        <Notice error={error} />
-        <Field label="Username or email" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
-        <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <div className="auth-action-row">
-          <button className="auth-pill-button auth-pill-primary" type="submit">Login</button>
-          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/register")}>Register</button>
-        </div>
+    <AuthLayout badge="Customer" title="Welcome Back" text="Sign in to your account" altLabel="Don't have an account? Create one" altPath="/register">
+      <Notice error={error} />
+      <form onSubmit={handleLogin} className="grid gap-4">
+        <Input id="username" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter your username" />
+        <Input id="password" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" />
+        <Button type="submit" className="w-full">Sign In</Button>
       </form>
-      <div className="customer-google-row">
-        <GoogleAuthButton onCredential={signInWithGoogle} onError={setError} />
-      </div>
-    </AuthShell>
+    </AuthLayout>
   );
 }

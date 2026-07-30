@@ -1,22 +1,20 @@
-import React from "react";
+import GlassCard from "./ui/GlassCard";
 
 export function PanelHeader({ badge, title, text }) {
   return (
-    <header className="panel-header">
-      <div>
-        <span>{badge}</span>
-        <h1>{title}</h1>
-        <p>{text}</p>
-      </div>
-    </header>
+    <div className="mb-8">
+      {badge && <span className="text-xs font-semibold text-primary uppercase tracking-wider">{badge}</span>}
+      <h1 className="text-2xl font-bold mt-1">{title}</h1>
+      {text && <p className="text-sm text-muted mt-1 max-w-xl">{text}</p>}
+    </div>
   );
 }
 
 export function Metric({ label, value }) {
   return (
-    <article className="metric-card">
-      <span>{label}</span>
-      <strong>{value}</strong>
-    </article>
+    <GlassCard className="p-5">
+      <p className="text-xs font-semibold text-muted uppercase tracking-wide">{label}</p>
+      <p className="text-2xl font-bold mt-1">{value}</p>
+    </GlassCard>
   );
 }

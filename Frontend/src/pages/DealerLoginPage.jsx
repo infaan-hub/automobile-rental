@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-import AuthShell from "../components/AuthShell";
-import { Field } from "../components/FormControls";
+import AuthLayout from "../components/AuthLayout";
+import Input from "../components/ui/Input";
+import Button from "../components/ui/Button";
 import Notice from "../components/Notice";
 import { apiRequest } from "../lib/api";
 import { DEALER_TOKEN_KEY } from "../lib/config";
 import { navigate } from "../lib/navigation";
 
 export default function DealerLoginPage() {
-  const [form, setForm] = useState({ username: "", password: "" });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  async function submit(event) {
+  async function handleLogin(event) {
     event.preventDefault();
     try {
-      const data = await apiRequest("/car-dealer/login/", { method: "POST", body: JSON.stringify(form) });
+      const data = await apiRequest("/car-dealer/login/", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      });
       localStorage.setItem(DEALER_TOKEN_KEY, data.token);
       navigate("/car-dealer/dashboard");
     } catch (err) {
@@ -22,22 +27,13 @@ export default function DealerLoginPage() {
   }
 
   return (
-    <AuthShell
-      badge="Car dealer login"
-      title="Login to the dealer dashboard"
-      text="Dealer access follows the schedule time set by admin. Dealers can add vehicles, categories, trend vehicles, bookings, and rented cars."
-      altLabel="Back to home"
-      altPath="/home"
-    >
-      <form onSubmit={submit}>
-        <Notice error={error} />
-        <Field label="Username" value={form.username} onChange={(value) => setForm({ ...form, username: value })} />
-        <Field label="Password" type="password" value={form.password} onChange={(value) => setForm({ ...form, password: value })} />
-        <div className="auth-action-row">
-          <button className="auth-pill-button auth-pill-primary" type="submit">Engine</button>
-          <button className="auth-pill-button auth-pill-secondary" type="button" onClick={() => navigate("/home")}>Home</button>
-        </div>
+    <AuthLayout badge="Dealer" title="Dealer Login" text="Scheduled access portal" altLabel="Back to home" altPath="/home">
+      <Notice error={error} />
+      <form onSubmit={handleLogin} className="grid gap-4">
+        <Input id="username" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Dealer username" />
+        <Input id="password" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" />
+        <Button type="submit" className="w-full">Sign In</Button>
       </form>
-    </AuthShell>
+    </AuthLayout>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import AppShell from "./components/AppShell";
-import "./styles.css";
+import "./index.css";
 import { getPath, navigate } from "./lib/navigation";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import AdminLoginPage from "./pages/AdminLoginPage";

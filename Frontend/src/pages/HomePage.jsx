@@ -29,7 +29,6 @@ export default function HomePage() {
         });
       }
     }
-
     loadContent();
   }, []);
 
@@ -42,11 +41,10 @@ export default function HomePage() {
   );
 
   return (
-    <main className="home-page" id="home">
+    <main className="min-h-screen bg-bg">
       <Hero />
-      <SearchBar />
-      <TrendSection vehicles={content.vehicles.slice(0, 12)} />
       <CategorySection categories={homeCategories} />
+      <TrendSection vehicles={content.vehicles.slice(0, 12)} />
       <FeatureStrip />
       <PromoSection vehicle={content.featuredVehicle} />
       <Footer />
