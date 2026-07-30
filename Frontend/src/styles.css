@@ -3425,6 +3425,12 @@ button {
   .lux-auth-hero {
     padding: 40px 20px 20px;
   }
+  .lux-hero-title {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+  .lux-hero-sub {
+    font-size: 0.88rem;
+  }
   .lux-auth-card-wrap {
     padding: 16px 20px 40px;
   }
@@ -3437,5 +3443,576 @@ button {
   }
   .lux-double-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   VEHICLE CARDS & DASHBOARD — Premium automotive marketplace
+   ============================================================ */
+
+/* ---------- Section header ---------- */
+.v-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+.v-section-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #08090d;
+  line-height: 1.1;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .v-section-title {
+  color: #fff;
+}
+.v-section-sub {
+  margin: 6px 0 0;
+  font-size: 0.92rem;
+  color: #888;
+}
+.theme-dark .v-section-sub {
+  color: #999;
+}
+.v-section-action {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  background: #08090d;
+  color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.v-section-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.theme-dark .v-section-action {
+  background: #fff;
+  color: #08090d;
+}
+
+/* ---------- Grid ---------- */
+.v-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 1024px) {
+  .v-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .v-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Vehicle Card ---------- */
+.v-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 28px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.v-card:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  border-color: rgba(255,255,255,0.7);
+}
+.theme-dark .v-card {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.theme-dark .v-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25), 0 0 0 1px rgba(65,192,242,0.06);
+}
+
+/* ---------- Card image ---------- */
+.v-card-image-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+.v-card-image-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.v-card-image-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.v-card:hover .v-card-image-btn img {
+  transform: scale(1.05);
+}
+
+/* ---------- Badge on image ---------- */
+.v-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+  pointer-events: none;
+}
+.v-badge.badge--luxury { background: rgba(0,0,0,0.6); color: #ffd700; }
+.v-badge.badge--electric { background: rgba(65,192,242,0.25); color: #41C0F2; }
+.v-badge.badge--sports { background: rgba(255,70,70,0.2); color: #ff6b6b; }
+.v-badge.badge--suv { background: rgba(0,0,0,0.5); color: #fff; }
+.v-badge.badge--premium { background: rgba(0,0,0,0.5); color: #fff; }
+
+/* ---------- Card body ---------- */
+.v-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 18px 20px;
+  gap: 8px;
+  flex: 1;
+}
+.v-card-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #08090d;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .v-card-name {
+  color: #fff;
+}
+.v-card-desc {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #888;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.theme-dark .v-card-desc {
+  color: #999;
+}
+
+/* ---------- Price ---------- */
+.v-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+.v-card-price strong {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #08090d;
+  letter-spacing: -0.02em;
+}
+.theme-dark .v-card-price strong {
+  color: #fff;
+}
+.v-card-price span {
+  font-size: 0.75rem;
+  color: #aaa;
+  font-weight: 500;
+}
+.theme-dark .v-card-price span {
+  color: #888;
+}
+
+/* ---------- Specs row (dashboard) ---------- */
+.v-card-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 0 4px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.theme-dark .v-card-specs {
+  border-top-color: rgba(255,255,255,0.06);
+}
+.v-card-specs span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: #888;
+  font-weight: 500;
+}
+.theme-dark .v-card-specs span {
+  color: #999;
+}
+.v-card-specs svg {
+  color: #41C0F2;
+}
+
+/* ---------- Card actions ---------- */
+.v-card-actions {
+  margin-top: 12px;
+}
+.v-card-actions--pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 640px) {
+  .v-card-actions--pair {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Buttons ---------- */
+.v-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  border: 0;
+}
+.v-btn:active {
+  transform: scale(0.97);
+}
+.v-btn--primary {
+  background: #08090d;
+  color: #fff;
+}
+.v-btn--primary:hover {
+  background: #1a1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.theme-dark .v-btn--primary {
+  background: #fff;
+  color: #08090d;
+}
+.theme-dark .v-btn--primary:hover {
+  background: #e8e8e8;
+}
+.v-btn--outline {
+  background: transparent;
+  color: #666;
+  border: 1.5px solid rgba(0,0,0,0.12);
+}
+.v-btn--outline:hover {
+  border-color: rgba(0,0,0,0.25);
+  color: #08090d;
+  transform: translateY(-1px);
+}
+.theme-dark .v-btn--outline {
+  color: #bbb;
+  border-color: rgba(255,255,255,0.15);
+}
+.theme-dark .v-btn--outline:hover {
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+
+/* ---------- Empty state ---------- */
+.v-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+.v-empty-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.04);
+  color: #ccc;
+  margin-bottom: 16px;
+}
+.theme-dark .v-empty-icon {
+  background: rgba(255,255,255,0.04);
+  color: #555;
+}
+.v-empty-text {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #999;
+}
+.theme-dark .v-empty-text {
+  color: #888;
+}
+
+/* ============================================================
+   CUSTOMER DASHBOARD
+   ============================================================ */
+.dash-page {
+  padding: 32px clamp(18px, 4vw, 44px) 48px;
+}
+
+/* ---------- Dashboard hero ---------- */
+.dash-hero {
+  position: relative;
+  border-radius: 28px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: end;
+  margin-bottom: 28px;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.theme-dark .dash-hero {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.dash-hero-copy small {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #41C0F2;
+  font-weight: 700;
+  font-size: 0.72rem;
+  margin-bottom: 6px;
+}
+.dash-hero-copy h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #08090d;
+  font-family: "Necosmic", "Sofia Pro", Helvetica, sans-serif;
+}
+.theme-dark .dash-hero-copy h1 {
+  color: #fff;
+}
+.dash-hero-copy p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: #888;
+}
+.theme-dark .dash-hero-copy p {
+  color: #999;
+}
+.dash-hero-badge {
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.03);
+}
+.theme-dark .dash-hero-badge {
+  background: rgba(255,255,255,0.04);
+}
+.dash-hero-badge strong {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #41C0F2;
+  line-height: 1;
+}
+.dash-hero-badge span {
+  display: block;
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* ---------- Search ---------- */
+.dash-hero-search {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 50px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.6);
+  border: 1.5px solid rgba(0,0,0,0.06);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.dash-hero-search:focus-within {
+  border-color: #41C0F2;
+  box-shadow: 0 0 0 4px rgba(65,192,242,0.1);
+}
+.theme-dark .dash-hero-search {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+}
+.theme-dark .dash-hero-search:focus-within {
+  border-color: #41C0F2;
+  box-shadow: 0 0 0 4px rgba(65,192,242,0.12);
+}
+.dash-hero-search svg {
+  color: #bbb;
+  flex-shrink: 0;
+}
+.dash-hero-search input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: transparent;
+  color: #08090d;
+}
+.dash-hero-search input::placeholder {
+  color: #bbb;
+}
+.theme-dark .dash-hero-search input {
+  color: #fff;
+}
+.theme-dark .dash-hero-search input::placeholder {
+  color: #666;
+}
+
+/* ---------- Filters ---------- */
+.dash-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+.dash-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dash-filter-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #aaa;
+}
+.theme-dark .dash-filter-label {
+  color: #666;
+}
+.dash-filter-chips {
+  display: flex;
+  gap: 4px;
+}
+.dash-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dash-chip:hover {
+  border-color: rgba(0,0,0,0.15);
+  color: #444;
+}
+.theme-dark .dash-chip {
+  border-color: rgba(255,255,255,0.08);
+  color: #888;
+}
+.theme-dark .dash-chip:hover {
+  border-color: rgba(255,255,255,0.15);
+  color: #ccc;
+}
+.dash-chip--on {
+  background: #08090d;
+  border-color: #08090d;
+  color: #fff;
+}
+.dash-chip--on:hover {
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #fff;
+}
+.theme-dark .dash-chip--on {
+  background: #41C0F2;
+  border-color: #41C0F2;
+  color: #08090d;
+}
+.theme-dark .dash-chip--on:hover {
+  background: #5ac9f5;
+  border-color: #5ac9f5;
+  color: #08090d;
+}
+
+/* ---------- Dashboard section ------- */
+.dash-section + .dash-section {
+  margin-top: 40px;
+}
+
+/* ---------- Dashboard bookings section ---------- */
+.dash-bookings {
+  margin-top: 40px;
+}
+.dash-bookings .row-card {
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.theme-dark .dash-bookings .row-card {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* ---------- Responsive dash adjustments ---------- */
+@media (max-width: 768px) {
+  .dash-hero {
+    grid-template-columns: 1fr;
+  }
+  .dash-hero-badge {
+    justify-self: start;
   }
 }

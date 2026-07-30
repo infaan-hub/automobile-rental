@@ -4,6 +4,8 @@ import { isCustomerLoggedIn } from "../lib/customer";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
 import { homePaymentGateways, websiteQr } from "../lib/paymentAssets";
+import SectionHeader from "./vehicles/SectionHeader";
+import VehicleGrid from "./vehicles/VehicleGrid";
 
 const tones = ["mist", "light", "dark", "silver"];
 
@@ -65,25 +67,18 @@ export function TrendSection({ vehicles }) {
 
   return (
     <section className="trend-section" id="trend">
-      <div className="section-heading">
-        <h2>Trend vehicles</h2>
-        <button type="button" onClick={() => navigate(customerLoggedIn ? "/dashboard" : "/login")}>View all</button>
-      </div>
-      <div className="trend-grid">
-        {vehicles.length ? vehicles.map((vehicle) => (
-          <article className="trend-card" key={vehicle.id}>
-            <h3>{vehicle.name}</h3>
-            <button className="trend-image-button" type="button" onClick={() => navigate(`/view?vehicle=${vehicle.id}`)}>
-              <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
-            </button>
-            <p>{vehicle.description || `${vehicle.brand} ${vehicle.model}`}</p>
-            <div>
-              <span>{money(vehicle.dailyRate)}</span>
-              <button type="button" onClick={() => navigate(`/view?vehicle=${vehicle.id}`)}>View specs</button>
-            </div>
-          </article>
-        )) : <p className="section-empty">No dealer vehicles are live yet.</p>}
-      </div>
+      <SectionHeader
+        title="Trending Vehicles"
+        subtitle="Find the perfect luxury vehicle for your next journey."
+        action={() => navigate(customerLoggedIn ? "/dashboard" : "/login")}
+        actionLabel="View All"
+      />
+      <VehicleGrid
+        vehicles={vehicles}
+        variant="home"
+        onView={(id) => navigate(`/view?vehicle=${id}`)}
+        emptyMessage="No dealer vehicles are live yet."
+      />
     </section>
   );
 }

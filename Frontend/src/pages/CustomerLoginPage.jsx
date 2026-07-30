@@ -51,7 +51,7 @@ export default function CustomerLoginPage() {
     >
       <form onSubmit={submit}>
         {error && <div className="lux-notice">{error}</div>}
-        <InputField label="Email Address" icon="email" value={form.username} onChange={(v) => setForm({ ...form, username: v })} />
+        <InputField label="Username or Email" icon="email" value={form.username} onChange={(v) => setForm({ ...form, username: v })} />
         <InputField label="Password" type="password" value={form.password} onChange={(v) => setForm({ ...form, password: v })} />
         <div className="lux-row">
           <label className="lux-checkbox">
