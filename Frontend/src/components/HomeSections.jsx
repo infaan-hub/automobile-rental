@@ -1,11 +1,11 @@
 import React from "react";
-import { Car } from "lucide-react";
 import { isCustomerLoggedIn } from "../lib/customer";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
 import { homePaymentGateways, websiteQr } from "../lib/paymentAssets";
 import SectionHeader from "./vehicles/SectionHeader";
 import VehicleGrid from "./vehicles/VehicleGrid";
+import heroLc300 from "../assets/hero-lc300.svg";
 
 const tones = ["mist", "light", "dark", "silver"];
 
@@ -13,10 +13,8 @@ export function Hero() {
   return (
     <header className="hero-shell">
       <section className="hero-stage">
-        <div className="hero-icon-wrap">
-          <Car size={100} />
-        </div>
         <div className="hero-overlay" />
+        <img className="hero-image" src={heroLc300} alt="Toyota Land Cruiser LC300 Black" />
         <div className="hero-title">
           <h1>Premium car rental</h1>
         </div>

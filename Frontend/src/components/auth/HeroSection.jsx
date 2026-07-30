@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Shield, Star, HeadphonesIcon, Car } from "lucide-react";
 import { navigate } from "../../lib/navigation";
 import FloatingBadge from "./FloatingBadge";
+import heroLc300 from "../../assets/hero-lc300.svg";
 
 const features = [
   { icon: Star, text: "Premium Vehicles" },
@@ -14,9 +15,7 @@ const features = [
 export default function HeroSection({ badge = "Premium car rental" }) {
   return (
     <div className="lux-auth-hero">
-      <div className="lux-hero-icon">
-        <Car size={80} />
-      </div>
+      <img className="lux-hero-image" src={heroLc300} alt="Toyota Land Cruiser LC300 Black" />
       <div className="lux-hero-gradient" />
       <div className="lux-hero-content">
         <motion.div
