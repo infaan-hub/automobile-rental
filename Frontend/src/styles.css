@@ -1202,6 +1202,7 @@ button {
 
 .theme-dark .home-page,
 .theme-dark .trend-section,
+.theme-dark .section-wrap,
 .theme-dark .site-footer,
 .theme-dark .panel-page,
 .theme-dark .auth-page {
@@ -1209,7 +1210,6 @@ button {
 }
 
 .theme-dark .booking-search,
-.theme-dark .trend-card,
 .theme-dark .metric-card,
 .theme-dark .panel-card,
 .theme-dark .site-footer,
@@ -1288,6 +1288,12 @@ button {
 .theme-dark .section-wrap,
 .theme-dark .trend-section {
   color: #e8e8e8;
+}
+
+.theme-dark .trend-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .theme-dark .category-card,
@@ -1629,7 +1635,11 @@ button {
 
 .trend-section {
   padding-top: 58px;
-  background: #f2f4f7;
+  background: #D3D3D3;
+}
+
+.section-wrap {
+  background: #D3D3D3;
 }
 
 .section-heading {
@@ -1661,10 +1671,10 @@ button {
   gap: 12px;
   min-height: 245px;
   padding: 18px;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 18px;
 }
 
@@ -1684,8 +1694,8 @@ button {
 .trend-card img {
   width: 100%;
   height: 150px;
-  object-fit: contain;
-  filter: drop-shadow(0 18px 20px rgba(15, 20, 30, 0.18));
+  object-fit: cover;
+  border-radius: 14px;
 }
 
 .trend-card div {
@@ -2480,13 +2490,13 @@ button {
   }
 
   .hero-stage {
-    min-height: 560px;
+    min-height: 600px;
   }
 
   .hero-title {
     left: 32px;
     width: 380px;
-    bottom: 130px;
+    bottom: 150px;
   }
 
   .hero-title h1 {
@@ -2611,12 +2621,12 @@ button {
   }
 
   .hero-stage {
-    min-height: 520px;
+    min-height: 580px;
   }
 
   .hero-title {
     left: 24px;
-    bottom: 130px;
+    bottom: 150px;
     width: calc(100% - 48px);
   }
 
@@ -2627,7 +2637,7 @@ button {
 
   .hero-note {
     left: 24px;
-    bottom: 36px;
+    bottom: 40px;
     width: calc(100% - 48px);
     font-size: 0.85rem;
     line-height: 1.6;
