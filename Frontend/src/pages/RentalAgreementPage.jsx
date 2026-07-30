@@ -24,20 +24,11 @@ export default function RentalAgreementPage() {
   });
 
   useEffect(() => {
-    if (!getCustomerToken()) {
-      navigate("/login");
-      return;
-    }
-
+    if (!getCustomerToken()) { navigate("/login"); return; }
     async function load() {
-      try {
-        const data = await apiRequest(`/vehicles/${vehicleId}/`);
-        setVehicle(data.vehicle);
-      } catch (err) {
-        setError(err.message);
-      }
+      try { const data = await apiRequest(`/vehicles/${vehicleId}/`); setVehicle(data.vehicle); }
+      catch (err) { setError(err.message); }
     }
-
     if (vehicleId) load();
     else setError("Vehicle was not selected.");
   }, [vehicleId]);
@@ -49,17 +40,10 @@ export default function RentalAgreementPage() {
       setError("Fill customer phone, pickup date, return date, and return location.");
       return;
     }
-
     saveRentalDraft({
-      ...draft,
-      vehicleId: Number(vehicleId),
-      customerPhone: form.customerPhone.trim(),
-      pickupLocation: MAIN_BRANCH,
-      returnLocation,
-      sameLocation: form.sameLocation,
-      pickupDate: form.pickupDate,
-      returnDate: form.returnDate,
-      notes: form.notes.trim(),
+      ...draft, vehicleId: Number(vehicleId), customerPhone: form.customerPhone.trim(),
+      pickupLocation: MAIN_BRANCH, returnLocation, sameLocation: form.sameLocation,
+      pickupDate: form.pickupDate, returnDate: form.returnDate, notes: form.notes.trim(),
     });
     navigate(`/payment?vehicle=${vehicleId}`);
   }
@@ -69,9 +53,9 @@ export default function RentalAgreementPage() {
   }
 
   return (
-    <section className="agreement-page">
-      <form className="agreement-card" onSubmit={submit}>
-        <div className="agreement-head">
+    <section className="agree-page">
+      <form className="agree-card" onSubmit={submit}>
+        <div className="agree-head">
           <div>
             <small>Rental agreement</small>
             <h1>{vehicle.name}</h1>
@@ -80,25 +64,16 @@ export default function RentalAgreementPage() {
           <img src={vehicle.imageUrl} alt={vehicle.name} />
         </div>
         <Notice error={error} />
-        <label className="agreement-label">
+        <label className="agree-label">
           <span>Pick up location</span>
-          <div className="agreement-static-field">{MAIN_BRANCH}</div>
+          <div className="agree-static-field">{MAIN_BRANCH}</div>
         </label>
-        <label className="agreement-label">
+        <label className="agree-label">
           <span>Return location</span>
-          <input
-            value={form.sameLocation ? MAIN_BRANCH : form.returnLocation}
-            onChange={(event) => setForm({ ...form, returnLocation: event.target.value })}
-            disabled={form.sameLocation}
-            placeholder="Fill return location"
-          />
+          <input value={form.sameLocation ? MAIN_BRANCH : form.returnLocation} onChange={(event) => setForm({ ...form, returnLocation: event.target.value })} disabled={form.sameLocation} placeholder="Fill return location" />
         </label>
-        <label className="agreement-check">
-          <input
-            type="checkbox"
-            checked={form.sameLocation}
-            onChange={(event) => setForm({ ...form, sameLocation: event.target.checked })}
-          />
+        <label className="agree-check">
+          <input type="checkbox" checked={form.sameLocation} onChange={(event) => setForm({ ...form, sameLocation: event.target.checked })} />
           <span>Same location</span>
         </label>
         <div className="double-grid">
@@ -106,11 +81,11 @@ export default function RentalAgreementPage() {
           <Field label="Return date" type="date" value={form.returnDate} onChange={(value) => setForm({ ...form, returnDate: value })} />
         </div>
         <Field label="Customer phone" value={form.customerPhone} onChange={(value) => setForm({ ...form, customerPhone: value })} />
-        <label className="agreement-label">
+        <label className="agree-label">
           <span>Notes</span>
           <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Flight number, hotel, or special pickup note" />
         </label>
-        <button className="solid-button agreement-submit" type="submit">Rent button</button>
+        <button className="solid-button" type="submit" style={{ width: "100%", marginTop: 8 }}>Rent button</button>
       </form>
     </section>
   );

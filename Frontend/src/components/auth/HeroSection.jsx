@@ -14,12 +14,9 @@ const features = [
 export default function HeroSection({ badge = "Premium car rental" }) {
   return (
     <div className="lux-auth-hero">
-      <img
-        className="lux-hero-image"
-        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=80"
-        alt="Luxury sports car"
-        loading="eager"
-      />
+      <div className="lux-hero-icon">
+        <Car size={80} />
+      </div>
       <div className="lux-hero-gradient" />
       <div className="lux-hero-content">
         <motion.div

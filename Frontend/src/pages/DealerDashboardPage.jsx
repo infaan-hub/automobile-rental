@@ -9,36 +9,18 @@ import { navigate } from "../lib/navigation";
 
 const MAX_IMAGE_SIZE = 1024 * 1024;
 
-function emptyCategory() {
-  return { name: "", description: "", imageUrl: "" };
-}
+function emptyCategory() { return { name: "", description: "", imageUrl: "" }; }
 
 function emptyVehicle() {
   return {
-    name: "",
-    brand: "",
-    model: "",
-    year: "2026",
-    vehicleType: "car",
-    bodyType: "sedan",
-    seats: "5",
-    transmission: "Automatic",
-    fuelType: "Petrol",
-    location: "Main Branch",
-    dailyRate: "50",
-    imageUrl: "",
-    description: "",
-    carCategoryId: "",
-    scooterCategoryId: "",
-    isAvailable: true,
-    isTrending: false,
+    name: "", brand: "", model: "", year: "2026", vehicleType: "car", bodyType: "sedan",
+    seats: "5", transmission: "Automatic", fuelType: "Petrol", location: "Main Branch",
+    dailyRate: "50", imageUrl: "", description: "", carCategoryId: "", scooterCategoryId: "",
+    isAvailable: true, isTrending: false,
   };
 }
 
-function PreviewImage({ src, alt }) {
-  if (!src) return null;
-  return <img className="form-image-preview" src={src} alt={alt} />;
-}
+function PreviewImage({ src, alt }) { return src ? <img className="form-image-preview" src={src} alt={alt} /> : null; }
 
 export default function DealerDashboardPage() {
   const token = localStorage.getItem(DEALER_TOKEN_KEY) || "";
@@ -54,21 +36,13 @@ export default function DealerDashboardPage() {
 
   async function load() {
     if (!token) return navigate("/car-dealer/login");
-    try {
-      setData(await apiRequest("/car-dealer/dashboard/", {}, token));
-    } catch (err) {
-      setError(err.message);
-    }
+    try { setData(await apiRequest("/car-dealer/dashboard/", {}, token)); }
+    catch (err) { setError(err.message); }
   }
 
-  useEffect(() => {
-    load();
-  }, []);
+  useEffect(() => { load(); }, []);
 
-  function clearNotice() {
-    setError("");
-    setMessage("");
-  }
+  function clearNotice() { setError(""); setMessage(""); }
 
   function fileToDataUrl(file) {
     return new Promise((resolve, reject) => {
@@ -81,81 +55,42 @@ export default function DealerDashboardPage() {
 
   async function handleImagePick(file, update) {
     clearNotice();
-    if (!file) {
-      update("");
-      return;
-    }
-    if (file.size > MAX_IMAGE_SIZE) {
-      setError("Image must be smaller than 1 MB.");
-      return;
-    }
-    try {
-      update(await fileToDataUrl(file));
-    } catch (err) {
-      setError(err.message);
-    }
+    if (!file) { update(""); return; }
+    if (file.size > MAX_IMAGE_SIZE) { setError("Image must be smaller than 1 MB."); return; }
+    try { update(await fileToDataUrl(file)); }
+    catch (err) { setError(err.message); }
   }
 
   async function saveCategory(basePath, form, reset, editingId = null, label = "Category") {
     try {
-      await apiRequest(
-        editingId ? `${basePath}${editingId}/` : basePath,
-        { method: editingId ? "PATCH" : "POST", body: JSON.stringify(form) },
-        token
-      );
-      reset();
-      setMessage(editingId ? `${label} updated.` : `${label} saved.`);
-      load();
-    } catch (err) {
-      setError(err.message);
-    }
+      await apiRequest(editingId ? `${basePath}${editingId}/` : basePath, { method: editingId ? "PATCH" : "POST", body: JSON.stringify(form) }, token);
+      reset(); setMessage(editingId ? `${label} updated.` : `${label} saved.`); load();
+    } catch (err) { setError(err.message); }
   }
 
   async function deleteCategory(basePath, id, label) {
-    try {
-      await apiRequest(`${basePath}${id}/`, { method: "DELETE" }, token);
-      setMessage(`${label} deleted.`);
-      load();
-    } catch (err) {
-      setError(err.message);
-    }
+    try { await apiRequest(`${basePath}${id}/`, { method: "DELETE" }, token); setMessage(`${label} deleted.`); load(); }
+    catch (err) { setError(err.message); }
   }
 
   async function saveVehicle(event) {
     event.preventDefault();
     try {
-      await apiRequest(
-        editingVehicleId ? `/car-dealer/vehicles/${editingVehicleId}/` : "/car-dealer/vehicles/",
-        { method: editingVehicleId ? "PATCH" : "POST", body: JSON.stringify(vehicle) },
-        token
-      );
+      await apiRequest(editingVehicleId ? `/car-dealer/vehicles/${editingVehicleId}/` : "/car-dealer/vehicles/",
+        { method: editingVehicleId ? "PATCH" : "POST", body: JSON.stringify(vehicle) }, token);
       setMessage(editingVehicleId ? "Vehicle updated." : "Vehicle added.");
-      setEditingVehicleId(null);
-      setVehicle(emptyVehicle());
-      load();
-    } catch (err) {
-      setError(err.message);
-    }
+      setEditingVehicleId(null); setVehicle(emptyVehicle()); load();
+    } catch (err) { setError(err.message); }
   }
 
   async function deleteVehicle(id) {
-    try {
-      await apiRequest(`/car-dealer/vehicles/${id}/`, { method: "DELETE" }, token);
-      setMessage("Vehicle deleted.");
-      load();
-    } catch (err) {
-      setError(err.message);
-    }
+    try { await apiRequest(`/car-dealer/vehicles/${id}/`, { method: "DELETE" }, token); setMessage("Vehicle deleted."); load(); }
+    catch (err) { setError(err.message); }
   }
 
   async function changeBookingStatus(id, status) {
-    try {
-      await apiRequest(`/bookings/${id}/`, { method: "PATCH", body: JSON.stringify({ status }) }, token);
-      setMessage("Booking updated.");
-      load();
-    } catch (err) {
-      setError(err.message);
-    }
+    try { await apiRequest(`/bookings/${id}/`, { method: "PATCH", body: JSON.stringify({ status }) }, token); setMessage("Booking updated."); load(); }
+    catch (err) { setError(err.message); }
   }
 
   if (!data) {
@@ -164,20 +99,16 @@ export default function DealerDashboardPage() {
 
   return (
     <section className="panel-page">
-      <PanelHeader
-        badge="Car dealer dashboard"
-        title={`Welcome ${data.user.firstName || data.user.username}`}
-        text="Add vehicle inventory, create car and scooter categories, mark trend vehicles, and manage bookings."
-      />
+      <PanelHeader badge="Car dealer dashboard" title={`Welcome ${data.user.firstName || data.user.username}`} text="Add vehicle inventory, create car and scooter categories, mark trend vehicles, and manage bookings." />
       <Notice error={error} message={message} />
       <div className="panel-stats">
         <Metric label="Vehicles" value={data.stats.vehicles ?? 0} />
         <Metric label="Trending" value={data.stats.trendingVehicles ?? 0} />
         <Metric label="Bookings" value={data.stats.bookings ?? 0} />
-        <Metric label="Rented cars" value={data.stats.rentedCars ?? 0} />
+        <Metric label="Rented" value={data.stats.rentedCars ?? 0} />
       </div>
       <div className="panel-grid wide">
-        <form className="panel-card form-card" onSubmit={saveVehicle}>
+        <form className="panel-card" onSubmit={saveVehicle}>
           <div className="card-head"><h2>{editingVehicleId ? "Update vehicle" : "Add vehicle"}</h2><span>Manage cars, scooters, and trend vehicles</span></div>
           <div className="triple-grid">
             <Field label="Name" value={vehicle.name} onChange={(value) => setVehicle({ ...vehicle, name: value })} />
@@ -211,13 +142,13 @@ export default function DealerDashboardPage() {
             <label><input type="checkbox" checked={vehicle.isAvailable} onChange={(event) => setVehicle({ ...vehicle, isAvailable: event.target.checked })} />Available</label>
             <label><input type="checkbox" checked={vehicle.isTrending} onChange={(event) => setVehicle({ ...vehicle, isTrending: event.target.checked })} />Trend vehicle</label>
           </div>
-          <div className="row-actions">
+          <div className="row-actions" style={{ marginTop: 4 }}>
             <button className="solid-button" type="submit">{editingVehicleId ? "Save vehicle" : "Add vehicle"}</button>
             {editingVehicleId ? <button className="ghost-button" type="button" onClick={() => { setEditingVehicleId(null); setVehicle(emptyVehicle()); }}>Cancel</button> : null}
           </div>
         </form>
         <div className="stack-grid">
-          <form className="panel-card form-card compact-form" onSubmit={(event) => { event.preventDefault(); saveCategory("/car-dealer/car-categories/", carCategory, () => { setCarCategory(emptyCategory()); setEditingCarCategoryId(null); }, editingCarCategoryId, "Car category"); }}>
+          <form className="panel-card" onSubmit={(event) => { event.preventDefault(); saveCategory("/car-dealer/car-categories/", carCategory, () => { setCarCategory(emptyCategory()); setEditingCarCategoryId(null); }, editingCarCategoryId, "Car category"); }}>
             <div className="card-head"><h2>Car category</h2><span>{editingCarCategoryId ? "Update car category" : "Create categories for cars"}</span></div>
             <Field label="Name" value={carCategory.name} onChange={(value) => setCarCategory({ ...carCategory, name: value })} />
             <Field label="Image URL" value={carCategory.imageUrl} onChange={(value) => setCarCategory({ ...carCategory, imageUrl: value })} />
@@ -227,12 +158,12 @@ export default function DealerDashboardPage() {
             </label>
             <PreviewImage src={carCategory.imageUrl} alt="Car category preview" />
             <Area label="Description" value={carCategory.description} onChange={(value) => setCarCategory({ ...carCategory, description: value })} />
-            <div className="row-actions">
+            <div className="row-actions" style={{ marginTop: 4 }}>
               <button className="solid-button" type="submit">{editingCarCategoryId ? "Save car category" : "Add car category"}</button>
               {editingCarCategoryId ? <button className="ghost-button" type="button" onClick={() => { setCarCategory(emptyCategory()); setEditingCarCategoryId(null); }}>Cancel</button> : null}
             </div>
           </form>
-          <form className="panel-card form-card compact-form" onSubmit={(event) => { event.preventDefault(); saveCategory("/car-dealer/scooter-categories/", scooterCategory, () => { setScooterCategory(emptyCategory()); setEditingScooterCategoryId(null); }, editingScooterCategoryId, "Scooter category"); }}>
+          <form className="panel-card" onSubmit={(event) => { event.preventDefault(); saveCategory("/car-dealer/scooter-categories/", scooterCategory, () => { setScooterCategory(emptyCategory()); setEditingScooterCategoryId(null); }, editingScooterCategoryId, "Scooter category"); }}>
             <div className="card-head"><h2>Scooter category</h2><span>{editingScooterCategoryId ? "Update scooter category" : "Create categories for scooters"}</span></div>
             <Field label="Name" value={scooterCategory.name} onChange={(value) => setScooterCategory({ ...scooterCategory, name: value })} />
             <Field label="Image URL" value={scooterCategory.imageUrl} onChange={(value) => setScooterCategory({ ...scooterCategory, imageUrl: value })} />
@@ -242,7 +173,7 @@ export default function DealerDashboardPage() {
             </label>
             <PreviewImage src={scooterCategory.imageUrl} alt="Scooter category preview" />
             <Area label="Description" value={scooterCategory.description} onChange={(value) => setScooterCategory({ ...scooterCategory, description: value })} />
-            <div className="row-actions">
+            <div className="row-actions" style={{ marginTop: 4 }}>
               <button className="solid-button" type="submit">{editingScooterCategoryId ? "Save scooter category" : "Add scooter category"}</button>
               {editingScooterCategoryId ? <button className="ghost-button" type="button" onClick={() => { setScooterCategory(emptyCategory()); setEditingScooterCategoryId(null); }}>Cancel</button> : null}
             </div>
@@ -250,7 +181,7 @@ export default function DealerDashboardPage() {
         </div>
       </div>
       <div className="panel-grid">
-        <section className="panel-card table-card">
+        <section className="panel-card">
           <div className="card-head"><h2>Vehicles</h2><span>Update and delete inventory</span></div>
           <div className="table-stack">
             {data.vehicles?.map((item) => (
@@ -262,41 +193,25 @@ export default function DealerDashboardPage() {
                   <small>{item.isTrending ? "Trend vehicle" : "Standard"} | {item.isAvailable ? "Available" : "Unavailable"}</small>
                 </div>
                 <div className="row-actions">
-                  <button
-                    className="ghost-button"
-                    type="button"
-                    onClick={() => {
-                      setEditingVehicleId(item.id);
-                      setVehicle({
-                        name: item.name,
-                        brand: item.brand,
-                        model: item.model,
-                        year: String(item.year),
-                        vehicleType: item.vehicleType,
-                        bodyType: item.bodyType,
-                        seats: String(item.seats),
-                        transmission: item.transmission,
-                        fuelType: item.fuelType,
-                        location: item.location,
-                        dailyRate: String(item.dailyRate),
-                        imageUrl: item.imageUrl || "",
-                        description: item.description,
-                        carCategoryId: item.carCategory?.id ? String(item.carCategory.id) : "",
-                        scooterCategoryId: item.scooterCategory?.id ? String(item.scooterCategory.id) : "",
-                        isAvailable: item.isAvailable,
-                        isTrending: item.isTrending,
-                      });
-                    }}
-                  >
-                    Edit
-                  </button>
+                  <button className="ghost-button" type="button" onClick={() => {
+                    setEditingVehicleId(item.id);
+                    setVehicle({
+                      name: item.name, brand: item.brand, model: item.model, year: String(item.year),
+                      vehicleType: item.vehicleType, bodyType: item.bodyType, seats: String(item.seats),
+                      transmission: item.transmission, fuelType: item.fuelType, location: item.location,
+                      dailyRate: String(item.dailyRate), imageUrl: item.imageUrl || "", description: item.description,
+                      carCategoryId: item.carCategory?.id ? String(item.carCategory.id) : "",
+                      scooterCategoryId: item.scooterCategory?.id ? String(item.scooterCategory.id) : "",
+                      isAvailable: item.isAvailable, isTrending: item.isTrending,
+                    });
+                  }}>Edit</button>
                   <button className="ghost-button danger" type="button" onClick={() => deleteVehicle(item.id)}>Delete</button>
                 </div>
               </article>
             ))}
           </div>
         </section>
-        <section className="panel-card table-card">
+        <section className="panel-card">
           <div className="card-head"><h2>Car categories</h2><span>Update and delete car categories</span></div>
           <div className="table-stack">
             {data.carCategories?.map((item) => (
@@ -316,7 +231,7 @@ export default function DealerDashboardPage() {
         </section>
       </div>
       <div className="panel-grid">
-        <section className="panel-card table-card">
+        <section className="panel-card">
           <div className="card-head"><h2>Scooter categories</h2><span>Update and delete scooter categories</span></div>
           <div className="table-stack">
             {data.scooterCategories?.map((item) => (
@@ -334,15 +249,15 @@ export default function DealerDashboardPage() {
             ))}
           </div>
         </section>
-        <section className="panel-card table-card">
-          <div className="card-head"><h2>Bookings and rented cars</h2><span>See all bookings for your vehicles</span></div>
+        <section className="panel-card">
+          <div className="card-head"><h2>Bookings & rented cars</h2><span>See all bookings for your vehicles</span></div>
           <div className="table-stack">
             {data.bookings?.map((booking) => (
               <article className="row-card" key={booking.id}>
                 <div>
-                  {booking.vehicle.imageUrl ? <img className="row-image-preview" src={booking.vehicle.imageUrl} alt={booking.vehicle.name} /> : null}
+                  {booking.vehicle?.imageUrl ? <img className="row-image-preview" src={booking.vehicle.imageUrl} alt={booking.vehicle.name} /> : null}
                   <strong>#{booking.id} {booking.customerName}</strong>
-                  <p>{booking.vehicle.name} | {booking.pickupDate} to {booking.returnDate}</p>
+                  <p>{booking.vehicle?.name} | {booking.pickupDate} to {booking.returnDate}</p>
                   <small>{booking.customerEmail}</small>
                 </div>
                 <select value={booking.status} onChange={(event) => changeBookingStatus(booking.id, event.target.value)}>

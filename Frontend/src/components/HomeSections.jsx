@@ -1,5 +1,5 @@
 import React from "react";
-import { homeHeroImage } from "../lib/data";
+import { Car } from "lucide-react";
 import { isCustomerLoggedIn } from "../lib/customer";
 import { money } from "../lib/formatters";
 import { navigate } from "../lib/navigation";
@@ -13,20 +13,15 @@ export function Hero() {
   return (
     <header className="hero-shell">
       <section className="hero-stage">
-        <img
-          className="hero-car"
-          src={homeHeroImage}
-          alt="Toyota Land Cruiser Prado with Zanzibar-ready safari styling"
-          fetchPriority="high"
-          decoding="async"
-        />
+        <div className="hero-icon-wrap">
+          <Car size={100} />
+        </div>
         <div className="hero-overlay" />
         <div className="hero-title">
           <h1>Premium car rental</h1>
         </div>
         <p className="hero-note">
-          Dealers publish the live fleet, vehicle categories, prices, and availability for Zanzibar rentals from city
-          drives to safari-ready 4x4s.
+          Dealers publish the live fleet, vehicle categories, prices, and availability for Zanzibar rentals from city drives to safari-ready 4x4s.
         </p>
       </section>
     </header>
@@ -48,7 +43,7 @@ export function SearchBar() {
 export function CategorySection({ categories }) {
   return (
     <section className="section-wrap" id="category">
-      <h2>Vehicle Categories</h2>
+      <SectionHeader title="Vehicle Categories" />
       <div className="category-grid">
         {categories.length ? categories.map((category, index) => (
           <article className={`category-card ${tones[index % tones.length]}`} key={`${category.type}-${category.id}`}>
@@ -64,21 +59,10 @@ export function CategorySection({ categories }) {
 
 export function TrendSection({ vehicles }) {
   const customerLoggedIn = isCustomerLoggedIn();
-
   return (
     <section className="trend-section" id="trend">
-      <SectionHeader
-        title="Trending Vehicles"
-        subtitle="Find the perfect luxury vehicle for your next journey."
-        action={() => navigate(customerLoggedIn ? "/dashboard" : "/login")}
-        actionLabel="View All"
-      />
-      <VehicleGrid
-        vehicles={vehicles}
-        variant="home"
-        onView={(id) => navigate(`/view?vehicle=${id}`)}
-        emptyMessage="No dealer vehicles are live yet."
-      />
+      <SectionHeader title="Trending Vehicles" subtitle="Find the perfect luxury vehicle for your next journey." action={() => navigate(customerLoggedIn ? "/dashboard" : "/login")} actionLabel="View All" />
+      <VehicleGrid vehicles={vehicles} variant="home" onView={(id) => navigate(`/view?vehicle=${id}`)} emptyMessage="No dealer vehicles are live yet." />
     </section>
   );
 }
@@ -90,7 +74,6 @@ export function FeatureStrip() {
     ["Trusted quality", "Clean, inspected vehicles"],
     ["Secure payment", "Protected rental checkout"],
   ];
-
   return (
     <section className="feature-strip">
       {items.map(([title, copy]) => (
@@ -109,7 +92,6 @@ export function FeatureStrip() {
 export function PromoSection({ vehicle }) {
   if (!vehicle) return null;
   const customerLoggedIn = isCustomerLoggedIn();
-
   return (
     <section className="promo-section">
       <div>
@@ -119,12 +101,7 @@ export function PromoSection({ vehicle }) {
           {customerLoggedIn ? "Rent now" : "View specs"}
         </button>
       </div>
-      <img
-        src={vehicle.imageUrl}
-        alt={vehicle.name}
-        loading="lazy"
-        decoding="async"
-      />
+      <img src={vehicle.imageUrl} alt={vehicle.name} loading="lazy" decoding="async" />
       <aside>
         <strong>{money(vehicle.dailyRate)}</strong>
         <span>{vehicle.location || vehicle.bodyTypeLabel || "Live dealer listing"}</span>
@@ -137,30 +114,20 @@ export function Footer() {
   return (
     <footer className="site-footer" id="footer">
       <div>
-        <button className="logo nav-button" type="button" onClick={() => navigate("/home")}>
-          <span>r</span>rw
-        </button>
+        <button className="logo nav-button" type="button" onClick={() => navigate("/home")}><span>r</span>rw</button>
         <label className="footer-subscribe">
           Subscribe to the newsletter
           <input placeholder="Email address" />
         </label>
         <div className="footer-payment-block">
           <h3>Payment gateways</h3>
-          <img
-            className="footer-gateway-strip"
-            src={homePaymentGateways}
-            alt="PayPal, Visa, Mastercard, and American Express payment gateways"
-            loading="lazy"
-            decoding="async"
-          />
+          <img className="footer-gateway-strip" src={homePaymentGateways} alt="PayPal, Visa, Mastercard, and American Express payment gateways" loading="lazy" decoding="async" />
         </div>
         <div className="footer-qr-block">
           <div>
             <h3>Scan website QR</h3>
             <p>Open the live rental web app quickly on any phone.</p>
-            <a className="footer-link" href="https://automobile-rental.vercel.app/" target="_blank" rel="noreferrer">
-              automobile-rental.vercel.app
-            </a>
+            <a className="footer-link" href="https://automobile-rental.vercel.app/" target="_blank" rel="noreferrer">automobile-rental.vercel.app</a>
           </div>
           <img src={websiteQr} alt="QR code for automobile-rental.vercel.app" loading="lazy" decoding="async" />
         </div>
@@ -175,9 +142,7 @@ function FooterColumn({ title, items }) {
     <div className="footer-column">
       <h3>{title}</h3>
       {items.map((item) => (
-        <button className="footer-link" type="button" onClick={() => navigate(item.startsWith("/") ? item : "/home")} key={item}>
-          {item}
-        </button>
+        <button className="footer-link" type="button" onClick={() => navigate(item.startsWith("/") ? item : "/home")} key={item}>{item}</button>
       ))}
     </div>
   );

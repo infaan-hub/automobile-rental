@@ -7,14 +7,9 @@ import { navigate } from "../lib/navigation";
 
 function specItems(vehicle) {
   return [
-    ["Brand", vehicle.brand],
-    ["Model", vehicle.model],
-    ["Year", vehicle.year],
-    ["Seats", vehicle.seats],
-    ["Transmission", vehicle.transmission],
-    ["Fuel", vehicle.fuelType],
-    ["Body", vehicle.bodyTypeLabel],
-    ["Location", vehicle.location],
+    ["Brand", vehicle.brand], ["Model", vehicle.model], ["Year", vehicle.year],
+    ["Seats", vehicle.seats], ["Transmission", vehicle.transmission], ["Fuel", vehicle.fuelType],
+    ["Body", vehicle.bodyTypeLabel], ["Location", vehicle.location],
   ];
 }
 
@@ -26,18 +21,10 @@ export default function VehicleViewPage() {
 
   useEffect(() => {
     async function load() {
-      if (!vehicleId) {
-        setError("Vehicle was not selected.");
-        return;
-      }
-      try {
-        const data = await apiRequest(`/vehicles/${vehicleId}/`);
-        setVehicle(data.vehicle);
-      } catch (err) {
-        setError(err.message);
-      }
+      if (!vehicleId) { setError("Vehicle was not selected."); return; }
+      try { const data = await apiRequest(`/vehicles/${vehicleId}/`); setVehicle(data.vehicle); }
+      catch (err) { setError(err.message); }
     }
-
     load();
   }, [vehicleId]);
 
@@ -46,25 +33,25 @@ export default function VehicleViewPage() {
   }
 
   return (
-    <section className="vehicle-view-page">
-      <div className="vehicle-view-shell">
-        <div className="vehicle-view-media">
+    <section className="vv-page">
+      <div className="vv-shell">
+        <div className="vv-media">
           <img src={vehicle.imageUrl} alt={vehicle.name} />
         </div>
-        <div className="vehicle-view-copy">
+        <div className="vv-copy">
           <small>{vehicle.vehicleType} rental</small>
           <h1>{vehicle.name}</h1>
           <p>{vehicle.description || `${vehicle.brand} ${vehicle.model} from ${vehicle.year}`}</p>
           <strong>{money(vehicle.dailyRate)}</strong>
-          <div className="vehicle-spec-grid">
+          <div className="vv-specs">
             {specItems(vehicle).map(([label, value]) => (
-              <article className="vehicle-spec-card" key={label}>
+              <div className="vv-spec-item" key={label}>
                 <span>{label}</span>
                 <strong>{value}</strong>
-              </article>
+              </div>
             ))}
           </div>
-          <div className="vehicle-view-actions">
+          <div className="vv-actions">
             <button className="ghost-button" type="button" onClick={() => navigate("/home")}>Back</button>
             {loggedIn ? (
               <button className="solid-button" type="button" onClick={() => navigate(`/rent?vehicle=${vehicle.id}`)}>Rent now</button>
