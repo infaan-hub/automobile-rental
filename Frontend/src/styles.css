@@ -1305,6 +1305,10 @@ button {
   background: #41C0F2;
 }
 
+.theme-dark .trend-image-button {
+  background: none;
+}
+
 .theme-dark .ghost-button.danger,
 .theme-dark .auth-pill-primary {
   background: #41C0F2;
@@ -1325,6 +1329,11 @@ button {
 .theme-dark .footer-column a,
 .theme-dark .trend-card span {
   color: #a0a0a0;
+}
+
+.theme-dark .trend-card p,
+.theme-dark .section-empty {
+  color: #c0c0c0;
 }
 
 .theme-dark .footer-gateway-card span,
@@ -1492,9 +1501,7 @@ button {
   grid-template-columns: repeat(4, 1fr) 132px;
   width: min(760px, calc(100% - 44px));
   margin: -34px auto 54px;
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #D3D3D3;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
@@ -1696,6 +1703,12 @@ button {
   height: 150px;
   object-fit: cover;
   border-radius: 14px;
+}
+
+.trend-image-button {
+  all: unset;
+  display: block;
+  cursor: pointer;
 }
 
 .trend-card div {
@@ -2645,6 +2658,8 @@ button {
   }
 
   .booking-search {
+    margin-top: -60px;
+    margin-bottom: 16px;
     grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
     overflow-x: auto;
   }
@@ -2679,6 +2694,7 @@ button {
   .section-wrap,
   .trend-section {
     padding-inline: 20px;
+    padding-top: 24px;
   }
 
   .promo-section {

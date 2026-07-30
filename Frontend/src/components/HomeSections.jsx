@@ -171,7 +171,6 @@ export function Footer() {
         </div>
       </div>
       <FooterColumn title="Explore" items={["Vehicles", "Airport transfer", "Executive cars", "Private drivers"]} />
-      <FooterColumn title="Loyalty clubs" items={["Membership card", "Long rentals", "Travel pass", "Business plans"]} />
     </footer>
   );
 }
